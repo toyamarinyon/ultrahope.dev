@@ -11,7 +11,7 @@ type Route =
 function formatDate(date: string) {
   return new Intl.DateTimeFormat("ja-JP", {
     year: "numeric",
-    month: "long",
+    month: "short",
     day: "numeric",
   }).format(new Date(date));
 }
@@ -58,11 +58,17 @@ function useRoute() {
   return route;
 }
 
-function AppLink(props: { href: string; className?: string; children: ReactNode }) {
+function AppLink(props: {
+  href: string;
+  className?: string;
+  children: ReactNode;
+  ariaCurrent?: "page";
+}) {
   return (
     <a
       href={props.href}
       className={props.className}
+      aria-current={props.ariaCurrent}
       onClick={(event) => {
         if (
           event.defaultPrevented ||
@@ -84,101 +90,155 @@ function AppLink(props: { href: string; className?: string; children: ReactNode 
   );
 }
 
-function Header() {
+function Sidebar(props: { route: Route }) {
+  const activeSlug = props.route.kind === "post" ? props.route.slug : null;
+
   return (
-    <header className="site-header">
-      <AppLink href="/" className="brand">
-        <span className="brand-mark">Ultrahope Journal</span>
-        <span className="brand-name">Quiet glow for builders.</span>
-      </AppLink>
-      <nav className="header-nav" aria-label="Primary">
-        <AppLink href="/" className="nav-link">
-          Home
+    <aside className="workspace-sidebar">
+      <section className="sidebar-brand-block">
+        <p className="sidebar-kicker">Ultrahope Journal</p>
+        <AppLink
+          href="/"
+          className="sidebar-brand"
+          ariaCurrent={props.route.kind === "home" ? "page" : undefined}
+        >
+          Quiet glow for builders.
         </AppLink>
-        <a href="https://ultrahope.dev" className="nav-link" target="_blank" rel="noreferrer">
+        <p className="sidebar-copy">
+          今の暖かいダークトーンは維持しつつ、読む体験を IDE のような二層構造に整理しました。
+        </p>
+      </section>
+
+      <nav className="sidebar-nav" aria-label="Main">
+        <AppLink
+          href="/"
+          className={`sidebar-nav-link ${props.route.kind === "home" ? "is-active" : ""}`}
+          ariaCurrent={props.route.kind === "home" ? "page" : undefined}
+        >
+          Overview
+        </AppLink>
+        <a
+          href="https://ultrahope.dev"
+          className="sidebar-nav-link"
+          target="_blank"
+          rel="noreferrer"
+        >
           Ultrahope
         </a>
-        <AppLink href="/posts/quiet-glow" className="nav-pill">
-          Read the journal
-        </AppLink>
       </nav>
-    </header>
-  );
-}
 
-function Footer() {
-  return (
-    <footer className="site-footer">
-      <p className="footer-copy">静かな余白と、読み心地の良い文章でつくるプロダクトノート。</p>
-      <div className="footer-links">
-        <AppLink href="/">Journal</AppLink>
+      <section className="sidebar-section">
+        <div className="sidebar-section-head">
+          <p>Journal entries</p>
+          <span>{posts.length}</span>
+        </div>
+
+        <div className="sidebar-thread-list">
+          {posts.map((post) => (
+            <AppLink
+              key={post.slug}
+              href={`/posts/${post.slug}`}
+              className={`thread-link ${activeSlug === post.slug ? "is-active" : ""}`}
+              ariaCurrent={activeSlug === post.slug ? "page" : undefined}
+            >
+              <div className="thread-link-meta">
+                <span>Entry</span>
+                <span>{formatDate(post.date)}</span>
+              </div>
+              <strong>{post.title}</strong>
+              <p>{post.excerpt}</p>
+            </AppLink>
+          ))}
+        </div>
+      </section>
+
+      <footer className="sidebar-footer">
+        <p>静かな余白と、読み心地の良い文章でつくるプロダクトノート。</p>
         <a href="https://github.com/toyamarinyon/ultrahope" target="_blank" rel="noreferrer">
           GitHub
         </a>
+      </footer>
+    </aside>
+  );
+}
+
+function WorkspaceTopbar(props: { route: Route }) {
+  const title =
+    props.route.kind === "home"
+      ? "Overview"
+      : props.route.kind === "post"
+        ? (getPost(props.route.slug)?.title ?? "Journal entry")
+        : "Not found";
+
+  const subtitle =
+    props.route.kind === "home"
+      ? "Sidebar + main content"
+      : props.route.kind === "post"
+        ? "Journal entry"
+        : "Unavailable route";
+
+  return (
+    <header className="workspace-topbar">
+      <div>
+        <p className="topbar-kicker">{subtitle}</p>
+        <h1>{title}</h1>
       </div>
-    </footer>
+      <div className="topbar-actions" aria-label="Context">
+        <span className="topbar-chip">Warm dark</span>
+        <span className="topbar-chip">Editorial UI</span>
+        <span className="topbar-chip">React + Vite+</span>
+      </div>
+    </header>
   );
 }
 
 function HomePage() {
   return (
-    <main className="home-main">
-      <section className="hero">
-        <div className="hero-grid">
-          <div>
-            <p className="eyebrow">Not radiance - a quiet glow.</p>
-            <h1>Journal for calm, opinionated software work.</h1>
-            <p className="hero-copy">
-              <code>../ultrahope/packages/web</code>{" "}
-              の暖かいダークトーンと抑制した空気感を引き継ぎつつ、こちらではブログとして読ませる余白と長文向けのリズムを前面に出しました。
-            </p>
-          </div>
-          <aside className="hero-note">
-            <strong>Editorial Note</strong>
-            <p>クラシックなセリフ体、ウォームなキャンバス、少しだけ光るアクセント。</p>
-            <p>派手に見せるより、長く眺めて気持ちいいページを目指しています。</p>
-          </aside>
-        </div>
-
-        <dl className="hero-panel">
-          <div>
-            <dt>Tone</dt>
-            <dd>Warm dark, quiet contrast, generous spacing.</dd>
-          </div>
-          <div>
-            <dt>Reading</dt>
-            <dd>一覧から詳細まで、視線が流れるような記事導線。</dd>
-          </div>
-          <div>
-            <dt>Format</dt>
-            <dd>シンプルなクライアントサイド遷移で、静的サイトとして扱いやすい構成。</dd>
-          </div>
-        </dl>
-      </section>
-
-      <section className="feature-grid" aria-label="Highlights">
-        <article className="feature-card">
-          <h2>Quiet hierarchy</h2>
-          <p>見出しだけが強く、本文は静かに支える。情報の階層を色よりタイポで作ります。</p>
-        </article>
-        <article className="feature-card">
-          <h2>Editorial rhythm</h2>
-          <p>カード一覧は軽く、詳細ページは紙面のように。読む場所ごとにテンポを切り替えます。</p>
-        </article>
-        <article className="feature-card">
-          <h2>Warm canvas</h2>
-          <p>
-            黒ではなく、少し茶色い夜の色。<code>Ultrahope</code>{" "}
-            側のトーンをブログ向けに少し柔らかくしました。
+    <main className="workspace-main">
+      <section className="hero-panel hero-panel-home">
+        <div className="hero-copy-block">
+          <p className="eyebrow">Not radiance, a quiet glow.</p>
+          <h2>ブログを、静かな IDE みたいに読む。</h2>
+          <p className="hero-copy">
+            左側には記事一覧と短い要約、右側には導入や本文。既存の暖かい空気感は残したまま、視線の置き場所がすぐ分かるレイアウトへ寄せています。
           </p>
+        </div>
+        <div className="hero-note">
+          <strong>Layout note</strong>
+          <p>サイドバーは記事インデックス。</p>
+          <p>メインカラムは導入、本文、関連記事のための静かなキャンバスです。</p>
+        </div>
+      </section>
+
+      <section className="insight-grid" aria-label="Highlights">
+        <article className="insight-card">
+          <span>Tone</span>
+          <h3>Warm canvas</h3>
+          <p>黒ではなく、少し茶色い夜の色。今のテイストをそのまま外枠へ広げています。</p>
+        </article>
+        <article className="insight-card">
+          <span>Structure</span>
+          <h3>Sidebar first</h3>
+          <p>一覧と本文を同じ画面に共存させ、読む前の比較と読んでいる最中の没入を両立します。</p>
+        </article>
+        <article className="insight-card">
+          <span>Rhythm</span>
+          <h3>Editorial motion</h3>
+          <p>カードは軽く、本文は重く。記事に入るほど密度が上がるように情報量を設計しています。</p>
         </article>
       </section>
 
-      <section aria-labelledby="latest-posts">
+      <section className="content-section">
         <div className="section-head">
-          <h2 id="latest-posts">Latest posts</h2>
-          <p>今ある記事データをそのまま使って、一覧と詳細を一続きの体験として見せます。</p>
+          <div>
+            <p className="section-label">Latest posts</p>
+            <h2>メインコンテンツでは、今読むべき記事を大きく見せる。</h2>
+          </div>
+          <p>
+            一覧は左に常設したので、右側では要約と導入を少し贅沢に使えます。ホームでは記事カードを大きめに並べ、入り口を明確にしました。
+          </p>
         </div>
+
         <div className="post-grid">
           {posts.map((post) => (
             <AppLink key={post.slug} href={`/posts/${post.slug}`} className="post-card">
@@ -186,9 +246,9 @@ function HomePage() {
                 <span>Journal entry</span>
                 <span>{formatDate(post.date)}</span>
               </div>
-              <h2>{post.title}</h2>
+              <h3>{post.title}</h3>
               <p>{post.excerpt}</p>
-              <div className="post-card-footer">Read article</div>
+              <div className="post-card-footer">Open article</div>
             </AppLink>
           ))}
         </div>
@@ -207,15 +267,11 @@ function PostPage(props: { slug: string }) {
   const relatedPosts = posts.filter((entry) => entry.slug !== post.slug).slice(0, 2);
 
   return (
-    <main className="post-main">
-      <AppLink href="/" className="back-link">
-        ← Back to journal
-      </AppLink>
-
+    <main className="workspace-main">
       <section className="post-hero">
         <div>
           <p className="eyebrow">Journal entry</p>
-          <h1>{post.title}</h1>
+          <h2>{post.title}</h2>
           <p className="post-intro">{post.excerpt}</p>
         </div>
         <dl className="post-meta">
@@ -231,7 +287,12 @@ function PostPage(props: { slug: string }) {
       </section>
 
       <aside className="more-posts">
-        <h2>Continue reading</h2>
+        <div className="section-head section-head-compact">
+          <div>
+            <p className="section-label">Continue reading</p>
+            <h2>同じ温度感で、次の記事へ。</h2>
+          </div>
+        </div>
         <div className="more-posts-grid">
           {relatedPosts.map((entry) => (
             <AppLink key={entry.slug} href={`/posts/${entry.slug}`} className="more-post-link">
@@ -247,19 +308,17 @@ function PostPage(props: { slug: string }) {
 
 function NotFoundPage(props: { slug: string }) {
   return (
-    <main className="post-main">
-      <section className="post-hero">
-        <div>
-          <p className="eyebrow">Not found</p>
-          <h1>そのページはまだ静かに準備中です。</h1>
-          <p className="post-intro">
-            <code>/{props.slug}</code>{" "}
-            に対応する記事は見つかりませんでした。ジャーナル一覧から別の記事へ移動できます。
-          </p>
-          <AppLink href="/" className="back-link">
-            ← Return home
-          </AppLink>
-        </div>
+    <main className="workspace-main">
+      <section className="empty-state">
+        <p className="eyebrow">Not found</p>
+        <h2>そのページはまだ静かに準備中です。</h2>
+        <p>
+          <code>/{props.slug}</code>{" "}
+          に対応する記事は見つかりませんでした。左の一覧から別の記事へ移動できます。
+        </p>
+        <AppLink href="/" className="inline-action">
+          Overview に戻る
+        </AppLink>
       </section>
     </main>
   );
@@ -284,12 +343,16 @@ function WebsiteApp() {
   }, [route]);
 
   return (
-    <div className="page-shell">
-      <Header />
-      {route.kind === "home" && <HomePage />}
-      {route.kind === "post" && <PostPage slug={route.slug} />}
-      {route.kind === "not-found" && <NotFoundPage slug={route.slug} />}
-      <Footer />
+    <div className="app-frame">
+      <div className="page-shell">
+        <Sidebar route={route} />
+        <section className="workspace-shell">
+          <WorkspaceTopbar route={route} />
+          {route.kind === "home" && <HomePage />}
+          {route.kind === "post" && <PostPage slug={route.slug} />}
+          {route.kind === "not-found" && <NotFoundPage slug={route.slug} />}
+        </section>
+      </div>
     </div>
   );
 }

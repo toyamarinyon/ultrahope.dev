@@ -2,6 +2,7 @@ export interface Post {
   slug: string;
   title: string;
   date: string;
+  category: string;
   excerpt: string;
   content: string;
 }
@@ -11,6 +12,7 @@ export const posts: Post[] = [
     slug: "quiet-glow",
     title: "静かな輝き — デザインの哲学",
     date: "2025-07-14",
+    category: "Design",
     excerpt:
       "派手さではなく、静かな温もり。デザインにおいて「引き算」が生み出す豊かさについて考える。",
     content: `
@@ -37,6 +39,7 @@ export const posts: Post[] = [
     slug: "vite-plus-workflow",
     title: "Vite+ で整えた開発環境",
     date: "2025-07-10",
+    category: "Workflow",
     excerpt:
       "pnpm、Vite、Vitest、Oxlint を一つの CLI にまとめた Vite+ の使い心地と、モノレポへの導入について。",
     content: `
@@ -66,6 +69,7 @@ vp check      # fmt + lint + 型チェックをまとめて実行</code></pre>
     slug: "commit-message-craft",
     title: "コミットメッセージという小さな文章",
     date: "2025-07-03",
+    category: "Writing",
     excerpt:
       "一日に何十回も書くコミットメッセージ。その質が積み重なって、プロジェクトの歴史になる。",
     content: `

@@ -9,6 +9,7 @@
     "preview": "vp preview"
   },
   "dependencies": {
+    "agentation": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

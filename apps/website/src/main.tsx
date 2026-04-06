@@ -1,10 +1,13 @@
+import { Agentation } from "agentation";
 import { StrictMode, type ReactNode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { getPost, posts } from "./posts";
 import "./style.css";
+import { UltrahopeLogo } from "./ultrahope-logo";
 
 type Route =
   | { kind: "home" }
+  | { kind: "about" }
   | { kind: "post"; slug: string }
   | { kind: "not-found"; slug: string };
 
@@ -22,6 +25,10 @@ function parseRoute(pathname: string): Route {
 
   if (parts.length === 0) {
     return { kind: "home" };
+  }
+
+  if (parts[0] === "about" && parts.length === 1) {
+    return { kind: "about" };
   }
 
   if (parts[0] === "posts" && parts[1]) {
@@ -92,65 +99,74 @@ function AppLink(props: {
 
 function Sidebar(props: { route: Route }) {
   const activeSlug = props.route.kind === "post" ? props.route.slug : null;
+  const recentPosts = posts.slice(0, 2);
+  const categorizedPosts = posts.slice(2).reduce<Record<string, typeof posts>>((groups, post) => {
+    groups[post.category] ??= [];
+    groups[post.category].push(post);
+    return groups;
+  }, {});
 
   return (
     <aside className="workspace-sidebar">
       <section className="sidebar-brand-block">
-        <p className="sidebar-kicker">Ultrahope Journal</p>
         <AppLink
           href="/"
           className="sidebar-brand"
           ariaCurrent={props.route.kind === "home" ? "page" : undefined}
         >
-          Quiet glow for builders.
+          <UltrahopeLogo className="sidebar-brand-logo" />
         </AppLink>
-        <p className="sidebar-copy">
-          今の暖かいダークトーンは維持しつつ、読む体験を IDE のような二層構造に整理しました。
-        </p>
       </section>
 
-      <nav className="sidebar-nav" aria-label="Main">
+      <section className="sidebar-section">
         <AppLink
-          href="/"
-          className={`sidebar-nav-link ${props.route.kind === "home" ? "is-active" : ""}`}
-          ariaCurrent={props.route.kind === "home" ? "page" : undefined}
+          href="/about"
+          className={`sidebar-primary-link ${props.route.kind === "about" ? "is-active" : ""}`}
+          ariaCurrent={props.route.kind === "about" ? "page" : undefined}
         >
-          Overview
+          About
         </AppLink>
-        <a
-          href="https://ultrahope.dev"
-          className="sidebar-nav-link"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Ultrahope
-        </a>
-      </nav>
+      </section>
 
       <section className="sidebar-section">
-        <div className="sidebar-section-head">
-          <p>Journal entries</p>
-          <span>{posts.length}</span>
+        <div className="sidebar-section-head sidebar-section-head-stack">
+          <p>Recent</p>
         </div>
 
         <div className="sidebar-thread-list">
-          {posts.map((post) => (
+          {recentPosts.map((post) => (
             <AppLink
               key={post.slug}
               href={`/posts/${post.slug}`}
-              className={`thread-link ${activeSlug === post.slug ? "is-active" : ""}`}
+              className={`sidebar-primary-link ${activeSlug === post.slug ? "is-active" : ""}`}
               ariaCurrent={activeSlug === post.slug ? "page" : undefined}
             >
-              <div className="thread-link-meta">
-                <span>Entry</span>
-                <span>{formatDate(post.date)}</span>
-              </div>
               <strong>{post.title}</strong>
-              <p>{post.excerpt}</p>
             </AppLink>
           ))}
         </div>
       </section>
+
+      {Object.entries(categorizedPosts).map(([category, entries]) => (
+        <section key={category} className="sidebar-section">
+          <div className="sidebar-section-head sidebar-section-head-stack">
+            <p>{category}</p>
+          </div>
+
+          <div className="sidebar-thread-list sidebar-thread-list-compact">
+            {entries.map((post) => (
+              <AppLink
+                key={post.slug}
+                href={`/posts/${post.slug}`}
+                className={`sidebar-primary-link ${activeSlug === post.slug ? "is-active" : ""}`}
+                ariaCurrent={activeSlug === post.slug ? "page" : undefined}
+              >
+                <strong>{post.title}</strong>
+              </AppLink>
+            ))}
+          </div>
+        </section>
+      ))}
 
       <footer className="sidebar-footer">
         <p>静かな余白と、読み心地の良い文章でつくるプロダクトノート。</p>
@@ -166,16 +182,20 @@ function WorkspaceTopbar(props: { route: Route }) {
   const title =
     props.route.kind === "home"
       ? "Overview"
-      : props.route.kind === "post"
-        ? (getPost(props.route.slug)?.title ?? "Journal entry")
-        : "Not found";
+      : props.route.kind === "about"
+        ? "About"
+        : props.route.kind === "post"
+          ? (getPost(props.route.slug)?.title ?? "Journal entry")
+          : "Not found";
 
   const subtitle =
     props.route.kind === "home"
       ? "Sidebar + main content"
-      : props.route.kind === "post"
-        ? "Journal entry"
-        : "Unavailable route";
+      : props.route.kind === "about"
+        ? "Journal note"
+        : props.route.kind === "post"
+          ? "Journal entry"
+          : "Unavailable route";
 
   return (
     <header className="workspace-topbar">
@@ -257,6 +277,50 @@ function HomePage() {
   );
 }
 
+function AboutPage() {
+  return (
+    <main className="workspace-main">
+      <section className="post-hero">
+        <div>
+          <p className="eyebrow">About</p>
+          <h2>静かな余白と、読むためのインターフェース。</h2>
+          <p className="post-intro">
+            Ultrahope Journal は、暖かいダークトーンを保ちながら、記事一覧と本文をひとつの視界に
+            共存させるための実験です。IDE のような二層構造を借りながら、ブログをもっと落ち着いて
+            読める形に整えています。
+          </p>
+        </div>
+        <dl className="post-meta">
+          <dt>Focus</dt>
+          <dd>Reading experience</dd>
+          <dt>Base</dt>
+          <dd>Warm dark editorial UI</dd>
+        </dl>
+      </section>
+
+      <section className="article-shell">
+        <article className="article">
+          <p>
+            派手な装飾よりも、情報の置き方と余白で気持ちよさをつくる。その考え方をベースに、
+            ホームでは比較しやすく、記事ページでは没入しやすいレイアウトを目指しています。
+          </p>
+          <p>
+            左のサイドバーは、いまどこを読んでいるかを見失わないための地図です。Recent と Category
+            を分けることで、更新順とテーマの両方から記事へ入れるようにしています。
+          </p>
+          <p>
+            Ultrahope 本体については{" "}
+            <a href="https://ultrahope.dev" target="_blank" rel="noreferrer">
+              ultrahope.dev
+            </a>{" "}
+            へ。
+          </p>
+        </article>
+      </section>
+    </main>
+  );
+}
+
 function PostPage(props: { slug: string }) {
   const post = getPost(props.slug);
 
@@ -333,6 +397,11 @@ function WebsiteApp() {
       return;
     }
 
+    if (route.kind === "about") {
+      document.title = "About | Ultrahope Journal";
+      return;
+    }
+
     if (route.kind === "post") {
       const post = getPost(route.slug);
       document.title = post ? `${post.title} | Ultrahope Journal` : "Journal | Ultrahope";
@@ -349,6 +418,7 @@ function WebsiteApp() {
         <section className="workspace-shell">
           <WorkspaceTopbar route={route} />
           {route.kind === "home" && <HomePage />}
+          {route.kind === "about" && <AboutPage />}
           {route.kind === "post" && <PostPage slug={route.slug} />}
           {route.kind === "not-found" && <NotFoundPage slug={route.slug} />}
         </section>
@@ -365,6 +435,9 @@ if (!container) {
 
 createRoot(container).render(
   <StrictMode>
-    <WebsiteApp />
+    <>
+      <WebsiteApp />
+      {import.meta.env.DEV && <Agentation />}
+    </>
   </StrictMode>,
 );

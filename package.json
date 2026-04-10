@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "basehub dev & next dev",
+    "prebuild": "basehub",
     "build": "next build",
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write"
   },
   "dependencies": {
+    "basehub": "9.5.3",
     "next": "16.2.2",
     "react": "19.2.4",
     "react-dom": "19.2.4"

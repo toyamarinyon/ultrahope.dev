@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "../node_modules/streamdown/dist/*.js";
 
 :root {
   --canvas: #171410;
@@ -21,7 +22,12 @@
   color: var(--text);
   background:
     radial-gradient(circle at top, rgba(104, 85, 58, 0.18), transparent 38%),
-    linear-gradient(180deg, #1b1712 0%, var(--canvas) 40%, var(--canvas-deep) 100%);
+    linear-gradient(
+      180deg,
+      #1b1712 0%,
+      var(--canvas) 40%,
+      var(--canvas-deep) 100%
+    );
   color-scheme: dark;
   font: 15px / 1.7 var(--sans);
   letter-spacing: 0.01em;
@@ -58,8 +64,16 @@ body::before {
       transparent 78%,
       rgba(255, 255, 255, 0.02) 100%
     ),
-    radial-gradient(circle at 20% 20%, rgba(240, 215, 173, 0.06), transparent 22%),
-    radial-gradient(circle at 80% 0%, rgba(240, 215, 173, 0.04), transparent 24%);
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(240, 215, 173, 0.06),
+      transparent 22%
+    ),
+    radial-gradient(
+      circle at 80% 0%,
+      rgba(240, 215, 173, 0.04),
+      transparent 24%
+    );
   opacity: 0.9;
 }
 
@@ -112,7 +126,8 @@ pre {
   padding: 0 16px 20px;
   border-right: 1px solid var(--line);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 16%), rgba(23, 20, 16, 0.82);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 16%),
+    rgba(23, 20, 16, 0.82);
 }
 
 .sidebar-brand-block {
@@ -264,8 +279,11 @@ pre {
   flex-direction: column;
   min-width: 0;
   background:
-    radial-gradient(circle at top right, rgba(240, 215, 173, 0.04), transparent 28%),
-    rgba(17, 14, 11, 0.5);
+    radial-gradient(
+      circle at top right,
+      rgba(240, 215, 173, 0.04),
+      transparent 28%
+    ), rgba(17, 14, 11, 0.5);
 }
 
 .workspace-topbar {

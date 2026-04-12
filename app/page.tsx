@@ -31,7 +31,11 @@ export default function Home() {
 
         <div className="post-grid">
           {featuredPosts.map((post) => (
-            <Link key={post.slug} href={`/posts/${post.slug}`} className="post-card">
+            <Link
+              key={post.slug}
+              href={`/posts/${post.slug}`}
+              className="post-card"
+            >
               <div className="post-card-meta">
                 <span>Journal entry</span>
                 <span>{formatDate(post.date)}</span>

@@ -12,8 +12,10 @@ export default function AboutPage() {
           <p className="eyebrow">About</p>
           <h2>静かな余白と、読むためのインターフェース。</h2>
           <p className="post-intro">
-            Ultrahope Journal は、暖かいダークトーンを保ちながら、記事一覧と本文をひとつの視界に
-            共存させるための実験です。IDE のような二層構造を借りながら、ブログをもっと落ち着いて
+            Ultrahope Journal
+            は、暖かいダークトーンを保ちながら、記事一覧と本文をひとつの視界に
+            共存させるための実験です。IDE
+            のような二層構造を借りながら、ブログをもっと落ち着いて
             読める形に整えています。
           </p>
         </div>
@@ -32,7 +34,8 @@ export default function AboutPage() {
             ホームでは比較しやすく、記事ページでは没入しやすいレイアウトを目指しています。
           </p>
           <p>
-            左のサイドバーは、いまどこを読んでいるかを見失わないための地図です。Recent と Category
+            左のサイドバーは、いまどこを読んでいるかを見失わないための地図です。Recent
+            と Category
             を分けることで、更新順とテーマの両方から記事へ入れるようにしています。
           </p>
           <p>

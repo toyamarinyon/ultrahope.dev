@@ -13,7 +13,14 @@ function polarPoint(radius: number, angleDeg: number, cx = 12, cy = 12) {
   };
 }
 
-function starPoints(arms: number, outer: number, inner: number, rotate: number, cx = 12, cy = 12) {
+function starPoints(
+  arms: number,
+  outer: number,
+  inner: number,
+  rotate: number,
+  cx = 12,
+  cy = 12,
+) {
   const step = 360 / (arms * 2);
   const points: string[] = [];
 
@@ -35,8 +42,15 @@ export function UltrahopeLogo(props: { className?: string }) {
   const step = 360 / STAR_RAY_COUNT;
 
   return (
-    <svg className={props.className} viewBox="0 0 24 24" role="img" aria-label="Ultrahope">
-      <g transform={`translate(12 12) scale(${SYMBOL_SCALE}) translate(-12 -12)`}>
+    <svg
+      className={props.className}
+      viewBox="0 0 24 24"
+      role="img"
+      aria-label="Ultrahope"
+    >
+      <g
+        transform={`translate(12 12) scale(${SYMBOL_SCALE}) translate(-12 -12)`}
+      >
         {Array.from({ length: STAR_RAY_COUNT }).map((_, index) => {
           const start = polarPoint(innerRay, STAR_ROTATE + index * step);
           const end = polarPoint(

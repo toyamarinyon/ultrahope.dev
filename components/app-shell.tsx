@@ -6,7 +6,11 @@ import type { ReactNode } from "react";
 import { posts } from "@/lib/content";
 import { UltrahopeLogo } from "./ultrahope-logo";
 
-function SidebarLink(props: { href: string; active: boolean; children: ReactNode }) {
+function SidebarLink(props: {
+  href: string;
+  active: boolean;
+  children: ReactNode;
+}) {
   return (
     <Link
       href={props.href}
@@ -20,13 +24,20 @@ function SidebarLink(props: { href: string; active: boolean; children: ReactNode
 
 export function AppShell(props: { children: ReactNode }) {
   const pathname = usePathname();
-  const activePostSlug = pathname?.startsWith("/posts/") ? pathname.split("/")[2] : null;
+  const activePostSlug = pathname?.startsWith("/posts/")
+    ? pathname.split("/")[2]
+    : null;
+  const activeWiringSlug = pathname?.startsWith("/wiring/")
+    ? pathname.split("/")[2]
+    : null;
   const recentPosts = posts.slice(0, 2);
-  const categorizedPosts = posts.slice(2).reduce<Record<string, typeof posts>>((groups, post) => {
-    groups[post.category] ??= [];
-    groups[post.category].push(post);
-    return groups;
-  }, {});
+  const categorizedPosts = posts
+    .slice(2)
+    .reduce<Record<string, typeof posts>>((groups, post) => {
+      groups[post.category] ??= [];
+      groups[post.category].push(post);
+      return groups;
+    }, {});
 
   return (
     <div className="app-frame">
@@ -46,6 +57,21 @@ export function AppShell(props: { children: ReactNode }) {
             <SidebarLink href="/about" active={pathname === "/about"}>
               About
             </SidebarLink>
+          </section>
+
+          <section className="sidebar-section">
+            <div className="sidebar-section-head sidebar-section-head-stack">
+              <p>Wiring</p>
+            </div>
+
+            <div className="sidebar-thread-list">
+              <SidebarLink
+                href="/wiring/hermes-agent-mise"
+                active={activeWiringSlug === "hermes-agent-mise"}
+              >
+                <strong>Hermes Agent + mise + venv</strong>
+              </SidebarLink>
+            </div>
           </section>
 
           <section className="sidebar-section">
@@ -88,7 +114,11 @@ export function AppShell(props: { children: ReactNode }) {
 
           <footer className="sidebar-footer">
             <p>静かな余白と、読み心地の良い文章でつくるプロダクトノート。</p>
-            <a href="https://github.com/toyamarinyon/ultrahope" target="_blank" rel="noreferrer">
+            <a
+              href="https://github.com/toyamarinyon/ultrahope"
+              target="_blank"
+              rel="noreferrer"
+            >
               GitHub
             </a>
           </footer>

@@ -1,3 +1,9 @@
+---
+title: Hermes Agent は気になる。でも大げさに入れたくないときの mise + venv
+description: Hermes Agent を mise + venv で軽く試したときの考え方と手順メモ。
+publishedAt: "2026-04-12"
+---
+
 # Hermes Agent は気になる。でも大げさに入れたくないときの mise + venv
 
 Hermes Agent を見かけることが増えて、少し気になっていました。  

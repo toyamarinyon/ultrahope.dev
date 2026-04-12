@@ -27,7 +27,7 @@ export function AppShell(props: { children: ReactNode }) {
   const activePostSlug = pathname?.startsWith("/posts/")
     ? pathname.split("/")[2]
     : null;
-  const activeWiringSlug = pathname?.startsWith("/wiring/")
+  const activeWritingSlug = pathname?.startsWith("/writing/")
     ? pathname.split("/")[2]
     : null;
   const recentPosts = posts.slice(0, 2);
@@ -61,13 +61,13 @@ export function AppShell(props: { children: ReactNode }) {
 
           <section className="sidebar-section">
             <div className="sidebar-section-head sidebar-section-head-stack">
-              <p>Wiring</p>
+              <p>Writing</p>
             </div>
 
             <div className="sidebar-thread-list">
               <SidebarLink
-                href="/wiring/hermes-agent-mise"
-                active={activeWiringSlug === "hermes-agent-mise"}
+                href="/writing/hermes-agent-mise"
+                active={activeWritingSlug === "hermes-agent-mise"}
               >
                 <strong>Hermes Agent + mise + venv</strong>
               </SidebarLink>

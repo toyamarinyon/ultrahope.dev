@@ -18,7 +18,7 @@ function isValidUtcCalendarDate(value: string) {
   return parsed.toISOString().slice(0, 10) === value;
 }
 
-const WiringFrontmatterSchema = z
+const WritingFrontmatterSchema = z
   .object({
     title: z.string().trim().min(1, "title is required"),
     description: z.string().trim().min(1).optional(),
@@ -33,18 +33,18 @@ const WiringFrontmatterSchema = z
   })
   .strict();
 
-export type WiringFrontmatter = z.infer<typeof WiringFrontmatterSchema>;
-export type WiringLocale = "ja" | "en";
+export type WritingFrontmatter = z.infer<typeof WritingFrontmatterSchema>;
+export type WritingLocale = "ja" | "en";
 
-export interface WiringArticle extends WiringFrontmatter {
+export interface WritingArticle extends WritingFrontmatter {
   slug: string;
-  locale: WiringLocale;
+  locale: WritingLocale;
   content: string;
 }
 
 interface ParseFilenameResult {
   slug: string;
-  locale: WiringLocale;
+  locale: WritingLocale;
 }
 
 function ensureValidSlug(slug: string, fileName: string) {
@@ -71,7 +71,7 @@ function parseFilename(fileName: string): ParseFilenameResult {
   throw new Error(`Unsupported writing filename "${fileName}".`);
 }
 
-const loadAllWiringArticles = cache((): WiringArticle[] => {
+const loadAllWritingArticles = cache((): WritingArticle[] => {
   const files = readdirSync(WRITING_DIR)
     .filter((entry) => entry.endsWith(MARKDOWN_SUFFIX))
     .sort((a, b) => a.localeCompare(b));
@@ -81,7 +81,7 @@ const loadAllWiringArticles = cache((): WiringArticle[] => {
     const filePath = path.join(WRITING_DIR, fileName);
     const source = readFileSync(filePath, "utf8");
     const { content, data } = matter(source);
-    const frontmatterResult = WiringFrontmatterSchema.safeParse(data);
+    const frontmatterResult = WritingFrontmatterSchema.safeParse(data);
 
     if (!frontmatterResult.success) {
       const issues = frontmatterResult.error.issues
@@ -99,33 +99,33 @@ const loadAllWiringArticles = cache((): WiringArticle[] => {
   });
 });
 
-export function parseWiringLocale(
+export function parseWritingLocale(
   input: string | string[] | undefined,
-): WiringLocale {
+): WritingLocale {
   if (Array.isArray(input)) {
     return input.includes("en") ? "en" : "ja";
   }
   return input === "en" ? "en" : "ja";
 }
 
-export function getWiringSlugs() {
-  const articles = loadAllWiringArticles().filter((article) => !article.draft);
+export function getWritingSlugs() {
+  const articles = loadAllWritingArticles().filter((article) => !article.draft);
   const uniqueSlugs = new Set(articles.map((article) => article.slug));
   return [...uniqueSlugs].sort((a, b) => a.localeCompare(b));
 }
 
-export function hasWiringLocale(slug: string, locale: WiringLocale) {
-  return loadAllWiringArticles().some(
+export function hasWritingLocale(slug: string, locale: WritingLocale) {
+  return loadAllWritingArticles().some(
     (article) =>
       article.slug === slug && article.locale === locale && !article.draft,
   );
 }
 
-export function getWiringArticle(
+export function getWritingArticle(
   slug: string,
-  locale: WiringLocale,
-): WiringArticle | undefined {
-  const matches = loadAllWiringArticles().filter(
+  locale: WritingLocale,
+): WritingArticle | undefined {
+  const matches = loadAllWritingArticles().filter(
     (article) => article.slug === slug && !article.draft,
   );
   if (matches.length === 0) {
@@ -139,7 +139,7 @@ export function getWiringArticle(
   );
 }
 
-export function formatWiringDate(date: string, locale: WiringLocale) {
+export function formatWritingDate(date: string, locale: WritingLocale) {
   return new Intl.DateTimeFormat(locale === "en" ? "en-US" : "ja-JP", {
     year: "numeric",
     month: "short",

@@ -3,15 +3,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 import {
-  formatWiringDate,
-  getWiringArticle,
-  getWiringSlugs,
-  hasWiringLocale,
-  parseWiringLocale,
-  type WiringLocale,
-} from "@/lib/wiring";
+  formatWritingDate,
+  getWritingArticle,
+  getWritingSlugs,
+  hasWritingLocale,
+  parseWritingLocale,
+  type WritingLocale,
+} from "@/lib/writing";
 
-type WiringPageProps = {
+type WritingPageProps = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ lang?: string | string[] }>;
 };
@@ -30,21 +30,21 @@ function stripLeadingDuplicateH1(markdown: string, title: string) {
   return markdown.slice(match[1].length).replace(/^\s*\n+/, "");
 }
 
-function wiringHref(slug: string, locale: WiringLocale) {
-  return locale === "en" ? `/wiring/${slug}?lang=en` : `/wiring/${slug}`;
+function writingHref(slug: string, locale: WritingLocale) {
+  return locale === "en" ? `/writing/${slug}?lang=en` : `/writing/${slug}`;
 }
 
 export function generateStaticParams() {
-  return getWiringSlugs().map((slug) => ({ slug }));
+  return getWritingSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
   params,
   searchParams,
-}: WiringPageProps): Promise<Metadata> {
+}: WritingPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const locale = parseWiringLocale((await searchParams).lang);
-  const article = getWiringArticle(slug, locale);
+  const locale = parseWritingLocale((await searchParams).lang);
+  const article = getWritingArticle(slug, locale);
 
   if (!article) {
     notFound();
@@ -56,20 +56,20 @@ export async function generateMetadata({
   };
 }
 
-export default async function WiringArticlePage({
+export default async function WritingArticlePage({
   params,
   searchParams,
-}: WiringPageProps) {
+}: WritingPageProps) {
   const { slug } = await params;
-  const requestedLocale = parseWiringLocale((await searchParams).lang);
-  const article = getWiringArticle(slug, requestedLocale);
+  const requestedLocale = parseWritingLocale((await searchParams).lang);
+  const article = getWritingArticle(slug, requestedLocale);
 
   if (!article) {
     notFound();
   }
 
-  const hasEnglish = hasWiringLocale(slug, "en");
-  const hasJapanese = hasWiringLocale(slug, "ja");
+  const hasEnglish = hasWritingLocale(slug, "en");
+  const hasJapanese = hasWritingLocale(slug, "ja");
   const currentLocale = article.locale;
   const bodyMarkdown = stripLeadingDuplicateH1(article.content, article.title);
 
@@ -77,7 +77,7 @@ export default async function WiringArticlePage({
     <main className="workspace-main">
       <section className="post-hero">
         <div>
-          <p className="eyebrow">Wiring</p>
+          <p className="eyebrow">Writing</p>
           <h2>{article.title}</h2>
           {article.description ? (
             <p className="post-intro">{article.description}</p>
@@ -87,15 +87,15 @@ export default async function WiringArticlePage({
           <dt>Language</dt>
           <dd>{currentLocale === "en" ? "English" : "日本語"}</dd>
           <dt>Published</dt>
-          <dd>{formatWiringDate(article.publishedAt, currentLocale)}</dd>
+          <dd>{formatWritingDate(article.publishedAt, currentLocale)}</dd>
         </dl>
       </section>
 
       <section className="article-shell">
-        <div className="wiring-language-switch">
+        <div className="writing-language-switch">
           {hasJapanese ? (
             <Link
-              href={wiringHref(slug, "ja")}
+              href={writingHref(slug, "ja")}
               className={`topbar-chip ${currentLocale === "ja" ? "is-active" : ""}`}
             >
               日本語
@@ -103,7 +103,7 @@ export default async function WiringArticlePage({
           ) : null}
           {hasEnglish ? (
             <Link
-              href={wiringHref(slug, "en")}
+              href={writingHref(slug, "en")}
               className={`topbar-chip ${currentLocale === "en" ? "is-active" : ""}`}
             >
               English

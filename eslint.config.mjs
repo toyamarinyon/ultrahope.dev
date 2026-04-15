@@ -1,5 +1,5 @@
-import { defineConfig, globalIgnores } from "eslint/config";
 import css from "@eslint/css";
+import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 import standardsEslintPlugin from "./standards/eslint/index.mjs";
@@ -32,36 +32,22 @@ const eslintConfig = defineConfig([
 						"article",
 						"article-figure-placeholder",
 						"article-shell",
-						"content-section",
-						"content-section-tight",
 						"empty-state",
 						"eyebrow",
-						"hero-copy",
-						"hero-copy-block",
 						"hero-note",
-						"hero-panel",
-						"hero-panel-home",
 						"idea-index-card",
 						"idea-index-grid",
 						"inline-action",
 						"insight-card",
 						"insight-grid",
 						"is-active",
-						"latest-post-link",
 						"more-post-link",
 						"more-posts",
 						"more-posts-grid",
 						"page-shell",
-						"post-card",
-						"post-card-footer",
-						"post-card-meta",
-						"post-grid",
 						"post-hero",
 						"post-intro",
 						"post-meta",
-						"section-head",
-						"section-head-compact",
-						"section-label",
 						"sidebar-brand",
 						"sidebar-brand-block",
 						"sidebar-brand-logo",

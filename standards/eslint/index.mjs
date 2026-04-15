@@ -1,5 +1,5 @@
-import noInlineStyleProp from "./rules/no-inline-style-prop.mjs";
 import noDisallowedGlobalClassSelectors from "./rules/no-disallowed-global-class-selectors.mjs";
+import noInlineStyleProp from "./rules/no-inline-style-prop.mjs";
 
 const standardsEslintPlugin = {
 	meta: {

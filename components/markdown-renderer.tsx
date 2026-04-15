@@ -2,6 +2,9 @@
 
 import { Streamdown } from "streamdown";
 
-export function MarkdownRenderer(props: { markdown: string }) {
-	return <Streamdown>{props.markdown}</Streamdown>;
+export function MarkdownRenderer(props: {
+	markdown: string;
+	className?: string;
+}) {
+	return <Streamdown className={props.className}>{props.markdown}</Streamdown>;
 }

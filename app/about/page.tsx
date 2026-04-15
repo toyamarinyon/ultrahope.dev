@@ -28,22 +28,24 @@ export default function AboutPage() {
 
 			<ArticleShell>
 				<article className="article">
-					<p>
-						派手な装飾よりも、情報の置き方と余白で気持ちよさをつくる。その考え方をベースに、
-						ホームでは比較しやすく、記事ページでは没入しやすいレイアウトを目指しています。
-					</p>
-					<p>
-						左のサイドバーは、いまどこを読んでいるかを見失わないための地図です。Recent
-						と Category
-						を分けることで、更新順とテーマの両方から記事へ入れるようにしています。
-					</p>
-					<p>
-						Ultrahope 本体については{" "}
-						<a href="https://ultrahope.dev" target="_blank" rel="noreferrer">
-							ultrahope.dev
-						</a>{" "}
-						へ。
-					</p>
+					<div className="space-y-5 text-[var(--text-soft)]">
+						<p>
+							派手な装飾よりも、情報の置き方と余白で気持ちよさをつくる。その考え方をベースに、
+							ホームでは比較しやすく、記事ページでは没入しやすいレイアウトを目指しています。
+						</p>
+						<p>
+							左のサイドバーは、いまどこを読んでいるかを見失わないための地図です。Recent
+							と Category
+							を分けることで、更新順とテーマの両方から記事へ入れるようにしています。
+						</p>
+						<p>
+							Ultrahope 本体については{" "}
+							<a href="https://ultrahope.dev" target="_blank" rel="noreferrer">
+								ultrahope.dev
+							</a>{" "}
+							へ。
+						</p>
+					</div>
 				</article>
 			</ArticleShell>
 		</main>

@@ -27,18 +27,7 @@ const eslintConfig = defineConfig([
 			"standards/no-disallowed-global-class-selectors": [
 				"error",
 				{
-					allowedClassSelectors: [
-						"article",
-						"article-figure-placeholder",
-						"idea-index-card",
-						"idea-index-grid",
-						"variant-bullet-list",
-						"variant-note-card",
-						"variant-section-card",
-						"variant-section-list",
-						"variant-summary-grid",
-						"workspace-main",
-					],
+					allowedClassSelectors: ["article", "workspace-main"],
 				},
 			],
 		},

@@ -106,9 +106,7 @@ export default async function WritingArticlePage({
 					) : null}
 				</div>
 
-				<article className="article">
-					<MarkdownRenderer markdown={bodyMarkdown} />
-				</article>
+				<MarkdownRenderer markdown={bodyMarkdown} className="article" />
 			</ArticleShell>
 		</main>
 	);

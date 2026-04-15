@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArticleShell, PostHero } from "@/components/editorial";
+import { ArticleShell, PillLink, PostHero } from "@/components/editorial";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 import {
 	formatWritingDate,
@@ -93,21 +93,15 @@ export default async function WritingArticlePage({
 			/>
 
 			<ArticleShell>
-				<div className="writing-language-switch">
+				<div className="mb-[22px] flex gap-2.5">
 					{hasJapanese ? (
-						<Link
-							href={writingHref(slug, "ja")}
-							className={`topbar-chip ${currentLocale === "ja" ? "is-active" : ""}`}
-						>
-							日本語
+						<Link href={writingHref(slug, "ja")}>
+							<PillLink active={currentLocale === "ja"}>日本語</PillLink>
 						</Link>
 					) : null}
 					{hasEnglish ? (
-						<Link
-							href={writingHref(slug, "en")}
-							className={`topbar-chip ${currentLocale === "en" ? "is-active" : ""}`}
-						>
-							English
+						<Link href={writingHref(slug, "en")}>
+							<PillLink active={currentLocale === "en"}>English</PillLink>
 						</Link>
 					) : null}
 				</div>

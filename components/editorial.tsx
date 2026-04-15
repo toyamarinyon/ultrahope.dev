@@ -62,4 +62,18 @@ function ArticleShell(props: { children: ReactNode }) {
 	);
 }
 
-export { ArticleShell, PostHero };
+function PillLink(props: {
+	children: ReactNode;
+	active?: boolean;
+	className?: string;
+}) {
+	return (
+		<span
+			className={`inline-flex min-h-7 items-center rounded-full border border-[rgba(240,215,173,0.12)] px-2.5 text-[0.84rem] text-[var(--accent)] ${props.active ? "border-[rgba(240,215,173,0.36)] bg-[rgba(240,215,173,0.08)] text-[var(--accent-strong)]" : ""} ${props.className ?? ""}`}
+		>
+			{props.children}
+		</span>
+	);
+}
+
+export { ArticleShell, PillLink, PostHero };

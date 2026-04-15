@@ -103,49 +103,6 @@ pre {
 	background: rgba(240, 215, 173, 0.18);
 }
 
-.sidebar-kicker,
-.topbar-kicker,
-.insight-card span,
-.thread-link-meta span:first-child {
-	margin: 0;
-	color: var(--text-faint);
-	font-size: 0.76rem;
-	letter-spacing: 0.22em;
-	text-transform: uppercase;
-}
-
-.thread-link-meta span:last-child,
-.more-post-link span,
-.empty-state p,
-.sidebar-footer,
-.sidebar-footer a {
-	color: var(--text-faint);
-}
-
-.thread-link-meta {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 12px;
-}
-
-.thread-link strong {
-	display: block;
-	margin-top: 10px;
-	font-size: 0.95rem;
-	line-height: 1.35;
-}
-
-.thread-link p {
-	margin: 8px 0 0;
-	color: var(--text-soft);
-	font-size: 0.88rem;
-	line-height: 1.5;
-}
-
-.empty-state h2,
-.insight-card h3,
-.more-posts h2,
 .article h2 {
 	margin: 0;
 	font-family: var(--serif);
@@ -154,101 +111,13 @@ pre {
 	color: var(--text);
 }
 
-.topbar-actions {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: flex-end;
-	gap: 10px;
-}
-
-.topbar-chip,
-.inline-action {
-	display: inline-flex;
-	align-items: center;
-	min-height: 28px;
-	padding: 0 10px;
-	border: 1px solid rgba(240, 215, 173, 0.12);
-	border-radius: 999px;
-	background: transparent;
-	color: var(--accent);
-	font-size: 0.84rem;
-}
-
-.topbar-chip.is-active,
-.inline-action.is-active {
-	border-color: rgba(240, 215, 173, 0.36);
-	background: rgba(240, 215, 173, 0.08);
-	color: var(--accent-strong);
-}
-
 .workspace-main {
 	padding: 28px 30px 34px;
 }
 
-.empty-state h2 {
-	font-size: clamp(2rem, 4vw, 3.1rem);
-	line-height: 0.98;
-	color: var(--accent-strong);
-}
-
 .article p,
-.article li,
-.insight-card p {
+.article li {
 	color: var(--text-soft);
-}
-
-.hero-note {
-	align-self: stretch;
-	padding: 10px 0 0 20px;
-	border-left: 1px solid rgba(232, 228, 220, 0.08);
-}
-
-.hero-note strong {
-	display: block;
-	margin-bottom: 12px;
-	color: var(--accent);
-	font-size: 0.76rem;
-	letter-spacing: 0.2em;
-	text-transform: uppercase;
-}
-
-.hero-note p {
-	margin: 0;
-}
-
-.hero-note p + p {
-	margin-top: 14px;
-}
-
-.insight-grid,
-.more-posts-grid {
-	display: grid;
-	gap: 16px;
-}
-
-.insight-grid {
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-	margin-bottom: 24px;
-	border-bottom: 1px solid var(--line);
-}
-
-.insight-card {
-	padding: 0 18px 24px 0;
-	border-right: 1px solid rgba(232, 228, 220, 0.08);
-}
-
-.insight-card:last-child {
-	border-right: 0;
-	padding-right: 0;
-}
-
-.insight-card h3 {
-	margin-top: 12px;
-	font-size: 1.22rem;
-}
-
-.insight-card p {
-	margin: 12px 0 0;
 }
 
 .idea-index-grid,
@@ -331,12 +200,6 @@ pre {
 	margin-top: 0.45rem;
 }
 
-.writing-language-switch {
-	display: flex;
-	gap: 10px;
-	margin-bottom: 22px;
-}
-
 .article {
 	max-width: 760px;
 }
@@ -412,62 +275,7 @@ pre {
 	font-size: 0.92em;
 }
 
-.more-posts {
-	margin-top: 24px;
-	padding: 24px 0 0;
-	border-top: 1px solid var(--line);
-}
-
-.more-posts-grid {
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.more-post-link {
-	display: block;
-	padding: 14px 0 0;
-	border-top: 1px solid rgba(232, 228, 220, 0.08);
-	transition:
-		border-color 180ms ease,
-		background-color 180ms ease,
-		transform 180ms ease;
-}
-
-.more-post-link:hover,
-.more-post-link:focus-visible {
-	border-color: rgba(240, 215, 173, 0.24);
-	background: transparent;
-	transform: none;
-}
-
-.more-post-link strong {
-	display: block;
-	font-family: var(--serif);
-	font-weight: 400;
-	font-size: 1.05rem;
-}
-
-.more-post-link span {
-	display: block;
-	margin-top: 8px;
-}
-
-.empty-state {
-	padding: 36px;
-	border-top: 1px solid var(--line);
-}
-
-.empty-state p {
-	max-width: 56ch;
-	margin-bottom: 0;
-}
-
-.inline-action {
-	margin-top: 24px;
-}
-
 @media (max-width: 1180px) {
-	.insight-grid,
-	.more-posts-grid,
 	.idea-index-grid,
 	.variant-summary-grid,
 	.variant-section-list {
@@ -490,18 +298,7 @@ pre {
 		padding-inline: 16px;
 	}
 
-	.empty-state h2 {
-		font-size: clamp(1.7rem, 10vw, 2.3rem);
-	}
-
 	.article h2 {
 		font-size: 1.3rem;
-	}
-
-	.more-posts,
-	.empty-state,
-	.insight-card,
-	.thread-link {
-		border-radius: 0;
 	}
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArticleShell, PostHero } from "@/components/editorial";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 import {
 	formatWritingDate,
@@ -75,23 +76,23 @@ export default async function WritingArticlePage({
 
 	return (
 		<main className="workspace-main">
-			<section className="post-hero">
-				<div>
-					<p className="eyebrow">Writing</p>
-					<h2>{article.title}</h2>
-					{article.description ? (
-						<p className="post-intro">{article.description}</p>
-					) : null}
-				</div>
-				<dl className="post-meta">
-					<dt>Language</dt>
-					<dd>{currentLocale === "en" ? "English" : "日本語"}</dd>
-					<dt>Published</dt>
-					<dd>{formatWritingDate(article.publishedAt, currentLocale)}</dd>
-				</dl>
-			</section>
+			<PostHero
+				eyebrow="Writing"
+				title={article.title}
+				intro={article.description}
+				meta={[
+					{
+						label: "Language",
+						value: currentLocale === "en" ? "English" : "日本語",
+					},
+					{
+						label: "Published",
+						value: formatWritingDate(article.publishedAt, currentLocale),
+					},
+				]}
+			/>
 
-			<section className="article-shell">
+			<ArticleShell>
 				<div className="writing-language-switch">
 					{hasJapanese ? (
 						<Link
@@ -114,7 +115,7 @@ export default async function WritingArticlePage({
 				<article className="article">
 					<MarkdownRenderer markdown={bodyMarkdown} />
 				</article>
-			</section>
+			</ArticleShell>
 		</main>
 	);
 }

@@ -105,10 +105,8 @@ pre {
 
 .sidebar-kicker,
 .topbar-kicker,
-.eyebrow,
 .insight-card span,
-.thread-link-meta span:first-child,
-.post-meta dt {
+.thread-link-meta span:first-child {
 	margin: 0;
 	color: var(--text-faint);
 	font-size: 0.76rem;
@@ -118,7 +116,6 @@ pre {
 
 .thread-link-meta span:last-child,
 .more-post-link span,
-.post-meta dd,
 .empty-state p,
 .sidebar-footer,
 .sidebar-footer a {
@@ -146,7 +143,6 @@ pre {
 	line-height: 1.5;
 }
 
-.post-hero h2,
 .empty-state h2,
 .insight-card h3,
 .more-posts h2,
@@ -189,28 +185,16 @@ pre {
 	padding: 28px 30px 34px;
 }
 
-.eyebrow {
-	margin-bottom: 18px;
-}
-
-.post-hero h2,
 .empty-state h2 {
 	font-size: clamp(2rem, 4vw, 3.1rem);
 	line-height: 0.98;
 	color: var(--accent-strong);
 }
 
-.post-intro,
 .article p,
 .article li,
 .insight-card p {
 	color: var(--text-soft);
-}
-
-.post-intro {
-	max-width: 58ch;
-	margin: 20px 0 0;
-	font-size: 0.95rem;
 }
 
 .hero-note {
@@ -345,33 +329,6 @@ pre {
 
 .variant-bullet-list li + li {
 	margin-top: 0.45rem;
-}
-
-.post-hero {
-	display: grid;
-	grid-template-columns: minmax(0, 1fr) 220px;
-	gap: 18px;
-	margin-bottom: 22px;
-	padding-bottom: 22px;
-	border-bottom: 1px solid var(--line);
-}
-
-.post-meta {
-	padding: 0 0 0 18px;
-	border-left: 1px solid rgba(232, 228, 220, 0.08);
-}
-
-.post-meta dd {
-	margin: 10px 0 18px;
-}
-
-.post-meta dd:last-child {
-	margin-bottom: 0;
-}
-
-.article-shell {
-	padding: clamp(24px, 4vw, 42px);
-	background: transparent;
 }
 
 .writing-language-switch {
@@ -509,7 +466,6 @@ pre {
 }
 
 @media (max-width: 1180px) {
-	.post-hero,
 	.insight-grid,
 	.more-posts-grid,
 	.idea-index-grid,
@@ -534,7 +490,6 @@ pre {
 		padding-inline: 16px;
 	}
 
-	.post-hero h2,
 	.empty-state h2 {
 		font-size: clamp(1.7rem, 10vw, 2.3rem);
 	}
@@ -543,7 +498,6 @@ pre {
 		font-size: 1.3rem;
 	}
 
-	.article-shell,
 	.more-posts,
 	.empty-state,
 	.insight-card,

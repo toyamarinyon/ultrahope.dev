@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ArticleShell, PostHero } from "@/components/editorial";
 
 export const metadata: Metadata = {
 	title: "About",
@@ -7,27 +8,25 @@ export const metadata: Metadata = {
 export default function AboutPage() {
 	return (
 		<main className="workspace-main">
-			<section className="post-hero">
-				<div>
-					<p className="eyebrow">About</p>
-					<h2>静かな余白と、読むためのインターフェース。</h2>
-					<p className="post-intro">
+			<PostHero
+				eyebrow="About"
+				title="静かな余白と、読むためのインターフェース。"
+				intro={
+					<>
 						Ultrahope Journal
 						は、暖かいダークトーンを保ちながら、記事一覧と本文をひとつの視界に
 						共存させるための実験です。IDE
 						のような二層構造を借りながら、ブログをもっと落ち着いて
 						読める形に整えています。
-					</p>
-				</div>
-				<dl className="post-meta">
-					<dt>Focus</dt>
-					<dd>Reading experience</dd>
-					<dt>Base</dt>
-					<dd>Warm dark editorial UI</dd>
-				</dl>
-			</section>
+					</>
+				}
+				meta={[
+					{ label: "Focus", value: "Reading experience" },
+					{ label: "Base", value: "Warm dark editorial UI" },
+				]}
+			/>
 
-			<section className="article-shell">
+			<ArticleShell>
 				<article className="article">
 					<p>
 						派手な装飾よりも、情報の置き方と余白で気持ちよさをつくる。その考え方をベースに、
@@ -46,7 +45,7 @@ export default function AboutPage() {
 						へ。
 					</p>
 				</article>
-			</section>
+			</ArticleShell>
 		</main>
 	);
 }

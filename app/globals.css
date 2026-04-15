@@ -103,45 +103,9 @@ pre {
 	background: rgba(240, 215, 173, 0.18);
 }
 
-.app-frame {
-	min-height: 100vh;
-}
-
-.page-shell {
-	position: relative;
-	display: grid;
-	grid-template-columns: minmax(248px, 300px) minmax(0, 1fr);
-	width: 100%;
-	min-height: 100vh;
-	margin: 0 auto;
-	overflow: hidden;
-	background: rgba(13, 10, 8, 0.18);
-}
-
-.workspace-sidebar {
-	display: flex;
-	flex-direction: column;
-	gap: 26px;
-	min-height: 100%;
-	padding: 0 16px 20px;
-	border-right: 1px solid var(--line);
-	background:
-		linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 16%),
-		rgba(23, 20, 16, 0.82);
-}
-
-.sidebar-brand-block {
-	display: flex;
-	align-items: center;
-	height: 58px;
-	margin: 0 -16px;
-	padding: 0 16px;
-}
-
 .sidebar-kicker,
 .topbar-kicker,
 .eyebrow,
-.sidebar-section-head p,
 .insight-card span,
 .thread-link-meta span:first-child,
 .post-meta dt {
@@ -152,37 +116,6 @@ pre {
 	text-transform: uppercase;
 }
 
-.sidebar-brand {
-	display: inline-flex;
-	align-items: center;
-	color: var(--accent-strong);
-}
-
-.sidebar-brand-logo {
-	width: 28px;
-	height: 28px;
-	flex: none;
-}
-
-.sidebar-section {
-	min-height: 0;
-}
-
-.sidebar-section-head {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 12px;
-	padding-inline: 4px;
-	margin-bottom: 8px;
-}
-
-.sidebar-section-head-stack {
-	justify-content: flex-start;
-	margin-bottom: 10px;
-}
-
-.sidebar-section-head span,
 .thread-link-meta span:last-child,
 .more-post-link span,
 .post-meta dd,
@@ -190,47 +123,6 @@ pre {
 .sidebar-footer,
 .sidebar-footer a {
 	color: var(--text-faint);
-}
-
-.sidebar-primary-link {
-	display: inline-flex;
-	align-items: center;
-	width: 100%;
-	min-height: 32px;
-	padding-inline: 4px;
-	border-radius: 10px;
-	color: var(--text-soft);
-	font-size: 0.92rem;
-	transition:
-		background-color 180ms ease,
-		color 180ms ease;
-}
-
-.sidebar-primary-link strong {
-	font-size: inherit;
-	font-weight: 400;
-	line-height: 1.45;
-}
-
-.sidebar-primary-link:hover,
-.sidebar-primary-link:focus-visible,
-.sidebar-primary-link.is-active {
-	background: rgba(255, 255, 255, 0.02);
-	color: var(--accent-strong);
-}
-
-.sidebar-primary-link.is-active {
-	background: rgba(240, 215, 173, 0.04);
-}
-
-.sidebar-thread-list {
-	display: grid;
-	gap: 2px;
-	padding-right: 2px;
-}
-
-.sidebar-thread-list-compact {
-	gap: 2px;
 }
 
 .thread-link-meta {
@@ -254,43 +146,6 @@ pre {
 	line-height: 1.5;
 }
 
-.sidebar-footer {
-	margin-top: auto;
-	padding: 4px 6px 0;
-	font-size: 0.84rem;
-}
-
-.sidebar-footer p {
-	margin: 0 0 8px;
-}
-
-.sidebar-footer a:hover,
-.sidebar-footer a:focus-visible {
-	color: var(--text);
-}
-
-.workspace-shell {
-	display: flex;
-	flex-direction: column;
-	min-width: 0;
-	background:
-		radial-gradient(
-			circle at top right,
-			rgba(240, 215, 173, 0.04),
-			transparent 28%
-		), rgba(17, 14, 11, 0.5);
-}
-
-.workspace-topbar {
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-	gap: 20px;
-	height: 58px;
-	padding: 0 30px;
-}
-
-.workspace-topbar h1,
 .post-hero h2,
 .empty-state h2,
 .insight-card h3,
@@ -328,22 +183,6 @@ pre {
 	border-color: rgba(240, 215, 173, 0.36);
 	background: rgba(240, 215, 173, 0.08);
 	color: var(--accent-strong);
-}
-
-.workspace-topbar-brand {
-	display: inline-flex;
-	align-items: center;
-	min-height: 32px;
-	color: var(--accent-strong);
-	text-decoration: none;
-}
-
-.workspace-topbar-brand-text {
-	font-family: var(--font-satoshi), "Avenir Next", "Segoe UI", sans-serif;
-	font-size: 1.25rem;
-	line-height: 1;
-	font-weight: 500;
-	letter-spacing: -0.04em;
 }
 
 .workspace-main {
@@ -670,10 +509,6 @@ pre {
 }
 
 @media (max-width: 1180px) {
-	.page-shell {
-		grid-template-columns: 272px minmax(0, 1fr);
-	}
-
 	.post-hero,
 	.insight-grid,
 	.more-posts-grid,
@@ -685,20 +520,6 @@ pre {
 }
 
 @media (max-width: 920px) {
-	.page-shell {
-		grid-template-columns: 1fr;
-	}
-
-	.workspace-sidebar {
-		border-right: 0;
-		border-bottom: 1px solid var(--line);
-	}
-
-	.sidebar-thread-list {
-		max-height: none;
-	}
-
-	.workspace-topbar,
 	.workspace-main {
 		padding-inline: 20px;
 	}
@@ -709,18 +530,8 @@ pre {
 		font-size: 16px;
 	}
 
-	.workspace-topbar,
-	.workspace-main,
-	.workspace-sidebar {
+	.workspace-main {
 		padding-inline: 16px;
-	}
-
-	.workspace-topbar {
-		flex-direction: column;
-	}
-
-	.topbar-actions {
-		justify-content: flex-start;
 	}
 
 	.post-hero h2,
@@ -728,7 +539,6 @@ pre {
 		font-size: clamp(1.7rem, 10vw, 2.3rem);
 	}
 
-	.sidebar-brand,
 	.article h2 {
 		font-size: 1.3rem;
 	}
@@ -737,8 +547,7 @@ pre {
 	.more-posts,
 	.empty-state,
 	.insight-card,
-	.thread-link,
-	.sidebar-brand-block {
+	.thread-link {
 		border-radius: 0;
 	}
 }

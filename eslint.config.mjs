@@ -14,6 +14,7 @@ const eslintConfig = defineConfig([
 		},
 		rules: {
 			"standards/no-inline-style-prop": "error",
+			"standards/prefer-tailwind-canonical-classes": "warn",
 		},
 	},
 	{

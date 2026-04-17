@@ -1,3 +1,4 @@
+import exhaustiveTailwindThemeTokens from "./rules/exhaustive-tailwind-theme-tokens.mjs";
 import noDisallowedGlobalClassSelectors from "./rules/no-disallowed-global-class-selectors.mjs";
 import noInlineStyleProp from "./rules/no-inline-style-prop.mjs";
 import preferTailwindCanonicalClasses from "./rules/prefer-tailwind-canonical-classes.mjs";
@@ -7,6 +8,7 @@ const standardsEslintPlugin = {
 		name: "ultrahope-standards",
 	},
 	rules: {
+		"exhaustive-tailwind-theme-tokens": exhaustiveTailwindThemeTokens,
 		"no-disallowed-global-class-selectors": noDisallowedGlobalClassSelectors,
 		"no-inline-style-prop": noInlineStyleProp,
 		"prefer-tailwind-canonical-classes": preferTailwindCanonicalClasses,

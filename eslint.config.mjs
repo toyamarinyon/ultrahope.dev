@@ -25,6 +25,7 @@ const eslintConfig = defineConfig([
 		},
 		language: "css/css",
 		rules: {
+			"standards/exhaustive-tailwind-theme-tokens": "error",
 			"standards/no-disallowed-global-class-selectors": [
 				"error",
 				{

@@ -1,66 +1,51 @@
 @import "tailwindcss";
 @source "../node_modules/streamdown/dist/*.js";
 
-@theme inline {
-	--canvas: #171410;
-	--canvas-deep: #100d09;
-	--surface: rgba(37, 33, 26, 0.82);
-	--surface-strong: rgba(28, 24, 19, 0.94);
-	--surface-soft: rgba(255, 255, 255, 0.025);
-	--line: rgba(232, 228, 220, 0.12);
-	--line-strong: rgba(232, 228, 220, 0.18);
-	--text: #e8e3d8;
-	--text-soft: #b0a79c;
-	--text-faint: #7f776d;
-	--accent: #f0d7ad;
-	--accent-strong: #f7e7c9;
-	--shadow: 0 32px 80px rgba(0, 0, 0, 0.32);
-	--sans: var(--font-satoshi), "Avenir Next", "Segoe UI", sans-serif;
-	--serif: "Iowan Old Style", "Times New Roman", serif;
-	--mono: "SFMono-Regular", "JetBrains Mono", "Menlo", monospace;
-	--background: 30 18% 8%;
-	--foreground: 36 28% 88%;
-	--card: 32 18% 12%;
-	--card-foreground: 36 28% 88%;
-	--popover: 32 18% 12%;
-	--popover-foreground: 36 28% 88%;
-	--primary: 37 66% 81%;
-	--primary-foreground: 30 18% 8%;
-	--secondary: 32 14% 18%;
-	--secondary-foreground: 36 28% 88%;
-	--muted: 30 14% 14%;
-	--muted-foreground: 33 14% 64%;
-	--accent-foreground: 36 28% 88%;
-	--destructive: 0 60% 50%;
-	--destructive-foreground: 36 28% 88%;
-	--border: 35 12% 24%;
-	--input: 35 12% 24%;
-	--ring: 37 66% 81%;
-	--radius: 0.5rem;
-	--color-line: var(--line);
-	--color-line-strong: var(--line-strong);
-	--color-text-base: var(--text);
-	--color-text-soft: var(--text-soft);
-	--color-text-faint: var(--text-faint);
-	--color-accent: var(--accent);
-	--color-accent-strong: var(--accent-strong);
-	--font-sans: var(--sans);
-	--font-serif: var(--serif);
-	--font-mono: var(--mono);
+@theme {
+	--color-canvas: #171410;
+	--color-canvas-deep: #100d09;
+	--color-surface: rgba(37, 33, 26, 0.82);
+	--color-surface-strong: rgba(28, 24, 19, 0.94);
+	--color-surface-soft: rgba(255, 255, 255, 0.025);
+	--color-line: rgba(232, 228, 220, 0.12);
+	--color-line-strong: rgba(232, 228, 220, 0.18);
+	--color-text-base: #e8e3d8;
+	--color-text-soft: #b0a79c;
+	--color-text-faint: #7f776d;
+	--color-accent: #f0d7ad;
+	--color-accent-strong: #f7e7c9;
+	--color-destructive: #cc3333;
+	--color-destructive-foreground: #e8e3d8;
+	--font-sans: var(--font-satoshi), "Avenir Next", "Segoe UI", sans-serif;
+	--font-serif: "Iowan Old Style", "Times New Roman", serif;
+	--font-mono: "SFMono-Regular", "JetBrains Mono", "Menlo", monospace;
+	--radius-md: 0.5rem;
+	--shadow-editorial: 0 32px 80px rgba(0, 0, 0, 0.32);
 }
 
 html {
-	color: var(--text);
-	background:
-		radial-gradient(circle at top, rgba(104, 85, 58, 0.18), transparent 38%),
-		linear-gradient(
-			180deg,
-			#1b1712 0%,
-			var(--canvas) 40%,
-			var(--canvas-deep) 100%
-		);
+	--background: var(--color-canvas);
+	--foreground: var(--color-text-base);
+	--card: var(--color-surface);
+	--card-foreground: var(--color-text-base);
+	--popover: var(--color-surface);
+	--popover-foreground: var(--color-text-base);
+	--primary: var(--color-accent);
+	--primary-foreground: var(--color-canvas);
+	--secondary: var(--color-surface-strong);
+	--secondary-foreground: var(--color-text-base);
+	--muted: var(--color-surface-strong);
+	--muted-foreground: var(--color-text-soft);
+	--accent-foreground: var(--color-text-base);
+	--destructive: var(--color-destructive);
+	--destructive-foreground: var(--color-destructive-foreground);
+	--border: var(--color-line);
+	--input: var(--color-line);
+	--ring: var(--color-accent);
+	--radius: var(--radius-md);
 	color-scheme: dark;
-	font: 15px / 1.7 var(--sans);
+	color: var(--color-text-base);
+	font: 15px / 1.7 var(--font-sans);
 	letter-spacing: 0.01em;
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -77,32 +62,6 @@ html {
 body {
 	margin: 0;
 	min-height: 100vh;
-}
-
-body::before {
-	content: "";
-	position: fixed;
-	inset: 0;
-	pointer-events: none;
-	background:
-		linear-gradient(
-			90deg,
-			rgba(255, 255, 255, 0.02) 0,
-			transparent 22%,
-			transparent 78%,
-			rgba(255, 255, 255, 0.02) 100%
-		),
-		radial-gradient(
-			circle at 20% 20%,
-			rgba(240, 215, 173, 0.06),
-			transparent 22%
-		),
-		radial-gradient(
-			circle at 80% 0%,
-			rgba(240, 215, 173, 0.04),
-			transparent 24%
-		);
-	opacity: 0.9;
 }
 
 a {
@@ -124,7 +83,7 @@ img {
 
 code,
 pre {
-	font-family: var(--mono);
+	font-family: var(--font-mono);
 }
 
 ::selection {

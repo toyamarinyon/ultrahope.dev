@@ -25,7 +25,38 @@ const eslintConfig = defineConfig([
 		},
 		language: "css/css",
 		rules: {
-			"standards/exhaustive-tailwind-theme-tokens": "error",
+			"standards/exhaustive-tailwind-theme-tokens": [
+				"error",
+				{
+					allowCustomProperties: [
+						"--background",
+						"--foreground",
+						"--card",
+						"--card-foreground",
+						"--popover",
+						"--popover-foreground",
+						"--primary",
+						"--primary-foreground",
+						"--secondary",
+						"--secondary-foreground",
+						"--muted",
+						"--muted-foreground",
+						"--accent-foreground",
+						"--destructive",
+						"--destructive-foreground",
+						"--border",
+						"--input",
+						"--ring",
+						"--radius",
+					],
+					allowedThemePrefixes: [
+						"--color-",
+						"--font-",
+						"--radius-",
+						"--shadow-",
+					],
+				},
+			],
 			"standards/no-disallowed-global-class-selectors": [
 				"error",
 				{

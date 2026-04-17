@@ -41,6 +41,10 @@ function isInsideRanges(index, ranges) {
 	return ranges.some(([start, end]) => index >= start && index < end);
 }
 
+function matchesAllowedPrefixes(propertyName, prefixes) {
+	return prefixes.some((prefix) => propertyName.startsWith(prefix));
+}
+
 export default defineRule({
 	meta: {
 		type: "problem",
@@ -59,6 +63,13 @@ export default defineRule({
 						},
 						uniqueItems: true,
 					},
+					allowedThemePrefixes: {
+						type: "array",
+						items: {
+							type: "string",
+						},
+						uniqueItems: true,
+					},
 				},
 				additionalProperties: false,
 			},
@@ -66,6 +77,8 @@ export default defineRule({
 		messages: {
 			exhaustiveTailwindThemeTokens:
 				"The token '{{propertyName}}' must be declared inside an @theme block. Do not define design tokens outside Tailwind's theme source of truth.",
+			nonTailwindThemeNamespace:
+				"The token '{{propertyName}}' must use a supported Tailwind theme namespace inside @theme.",
 		},
 	},
 	create(context) {
@@ -74,6 +87,12 @@ export default defineRule({
 		const allowCustomProperties = new Set(
 			context.options[0]?.allowCustomProperties ?? [],
 		);
+		const allowedThemePrefixes = context.options[0]?.allowedThemePrefixes ?? [
+			"--color-",
+			"--font-",
+			"--radius-",
+			"--shadow-",
+		];
 
 		return {
 			StyleSheet() {
@@ -81,14 +100,32 @@ export default defineRule({
 				const propertyPattern = /--[a-z0-9-_]+\s*:/g;
 
 				for (const match of sourceText.matchAll(propertyPattern)) {
-					if (
-						match.index == null ||
-						isInsideRanges(match.index, themeBlockRanges)
-					) {
+					if (match.index == null) {
 						continue;
 					}
 
 					const propertyName = match[0].slice(0, -1).trim();
+					const isInsideTheme = isInsideRanges(match.index, themeBlockRanges);
+
+					if (isInsideTheme) {
+						if (matchesAllowedPrefixes(propertyName, allowedThemePrefixes)) {
+							continue;
+						}
+
+						const start = sourceCode.getLocFromIndex(match.index);
+						const end = sourceCode.getLocFromIndex(
+							match.index + propertyName.length,
+						);
+
+						context.report({
+							loc: { start, end },
+							messageId: "nonTailwindThemeNamespace",
+							data: {
+								propertyName,
+							},
+						});
+						continue;
+					}
 
 					if (allowCustomProperties.has(propertyName)) {
 						continue;

@@ -14,7 +14,7 @@ function SidebarLink(props: {
 	return (
 		<Link
 			href={props.href}
-			className={`inline-flex min-h-8 w-full items-center rounded-[10px] px-1 text-[0.92rem] text-[var(--text-soft)] transition-[background-color,color] duration-200 hover:bg-[rgba(255,255,255,0.02)] hover:text-[var(--accent-strong)] focus-visible:bg-[rgba(255,255,255,0.02)] focus-visible:text-[var(--accent-strong)] [&_strong]:text-inherit [&_strong]:text-[inherit] [&_strong]:font-normal [&_strong]:leading-[1.45] ${props.active ? "bg-[rgba(240,215,173,0.04)] text-[var(--accent-strong)]" : ""}`}
+			className={`inline-flex min-h-8 w-full items-center rounded-[10px] px-1 text-[0.92rem] text-text-soft transition-[background-color,color] duration-200 hover:bg-[rgba(255,255,255,0.02)] hover:text-accent-strong focus-visible:bg-[rgba(255,255,255,0.02)] focus-visible:text-accent-strong [&_strong]:text-inherit [&_strong]:font-normal [&_strong]:leading-[1.45] ${props.active ? "bg-[rgba(240,215,173,0.04)] text-accent-strong" : ""}`}
 			aria-current={props.active ? "page" : undefined}
 		>
 			{props.children}
@@ -42,11 +42,11 @@ export function AppShell(props: { children: ReactNode }) {
 	return (
 		<div className="min-h-screen">
 			<div className="relative mx-auto grid min-h-screen w-full overflow-hidden bg-[rgba(13,10,8,0.18)] min-[1181px]:grid-cols-[minmax(248px,300px)_minmax(0,1fr)] max-[1180px]:grid-cols-[272px_minmax(0,1fr)] max-[920px]:grid-cols-1">
-				<aside className="flex min-h-full flex-col gap-[26px] border-r border-[var(--line)] bg-[linear-gradient(180deg,rgba(255,255,255,0.03),transparent_16%),rgba(23,20,16,0.82)] px-4 pb-5 max-[920px]:border-b max-[920px]:border-r-0 max-[920px]:px-5 max-[640px]:px-4">
-					<section className="-mx-4 flex h-[58px] items-center px-4">
+				<aside className="flex min-h-full flex-col gap-6.5 border-r border-line bg-[linear-gradient(180deg,rgba(255,255,255,0.03),transparent_16%),rgba(23,20,16,0.82)] px-4 pb-5 max-[920px]:border-b max-[920px]:border-r-0 max-[920px]:px-5 max-[640px]:px-4">
+					<section className="-mx-4 flex h-14.5 items-center px-4">
 						<Link
 							href="/"
-							className="inline-flex items-center text-[var(--accent-strong)]"
+							className="inline-flex items-center text-accent-strong"
 							aria-current={pathname === "/" ? "page" : undefined}
 						>
 							<UltrahopeLogo className="h-7 w-7 shrink-0" />
@@ -61,7 +61,7 @@ export function AppShell(props: { children: ReactNode }) {
 
 					<section className="min-h-0">
 						<div className="mb-2.5 flex justify-start gap-3 px-1">
-							<p className="m-0 text-[0.76rem] uppercase tracking-[0.22em] text-[var(--text-faint)]">
+							<p className="m-0 text-[0.76rem] uppercase tracking-[0.22em] text-text-faint">
 								Writing
 							</p>
 						</div>
@@ -78,7 +78,7 @@ export function AppShell(props: { children: ReactNode }) {
 
 					<section className="min-h-0">
 						<div className="mb-2.5 flex justify-start gap-3 px-1">
-							<p className="m-0 text-[0.76rem] uppercase tracking-[0.22em] text-[var(--text-faint)]">
+							<p className="m-0 text-[0.76rem] uppercase tracking-[0.22em] text-text-faint">
 								Recent
 							</p>
 						</div>
@@ -99,7 +99,7 @@ export function AppShell(props: { children: ReactNode }) {
 					{Object.entries(categorizedPosts).map(([category, entries]) => (
 						<section key={category} className="min-h-0">
 							<div className="mb-2.5 flex justify-start gap-3 px-1">
-								<p className="m-0 text-[0.76rem] uppercase tracking-[0.22em] text-[var(--text-faint)]">
+								<p className="m-0 text-[0.76rem] uppercase tracking-[0.22em] text-text-faint">
 									{category}
 								</p>
 							</div>
@@ -118,7 +118,7 @@ export function AppShell(props: { children: ReactNode }) {
 						</section>
 					))}
 
-					<footer className="mt-auto px-1.5 pt-1 text-[0.84rem] text-[var(--text-faint)]">
+					<footer className="mt-auto px-1.5 pt-1 text-[0.84rem] text-text-faint">
 						<p className="mb-2 mt-0">
 							静かな余白と、読み心地の良い文章でつくるプロダクトノート。
 						</p>
@@ -126,7 +126,7 @@ export function AppShell(props: { children: ReactNode }) {
 							href="https://github.com/toyamarinyon/ultrahope"
 							target="_blank"
 							rel="noreferrer"
-							className="text-[var(--text-faint)] hover:text-[var(--text)] focus-visible:text-[var(--text)]"
+							className="text-text-faint hover:text-text-base focus-visible:text-text-base"
 						>
 							GitHub
 						</a>
@@ -134,13 +134,13 @@ export function AppShell(props: { children: ReactNode }) {
 				</aside>
 
 				<section className="flex min-w-0 flex-col bg-[radial-gradient(circle_at_top_right,rgba(240,215,173,0.04),transparent_28%),rgba(17,14,11,0.5)]">
-					<header className="flex h-[58px] items-center justify-start gap-5 px-[30px] max-[920px]:px-5 max-[640px]:flex-col max-[640px]:px-4">
+					<header className="flex h-14.5 items-center justify-start gap-5 px-7.5 max-[920px]:px-5 max-[640px]:flex-col max-[640px]:px-4">
 						<Link
 							href="/"
-							className="inline-flex min-h-8 items-center text-[var(--accent-strong)]"
+							className="inline-flex min-h-8 items-center text-accent-strong"
 							aria-current={pathname === "/" ? "page" : undefined}
 						>
-							<span className="font-[var(--font-satoshi)] text-[1.25rem] font-medium leading-none tracking-[-0.04em]">
+							<span className="font-sans text-[1.25rem] font-medium leading-none tracking-[-0.04em]">
 								Ultrahope
 							</span>
 						</Link>

@@ -28,7 +28,7 @@ export default function AboutPage() {
 
 			<ArticleShell>
 				<article className="article">
-					<div className="space-y-5 text-[var(--text-soft)]">
+					<div className="space-y-5 text-text-soft">
 						<p>
 							派手な装飾よりも、情報の置き方と余白で気持ちよさをつくる。その考え方をベースに、
 							ホームでは比較しやすく、記事ページでは没入しやすいレイアウトを目指しています。

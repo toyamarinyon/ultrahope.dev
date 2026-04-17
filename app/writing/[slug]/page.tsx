@@ -93,7 +93,7 @@ export default async function WritingArticlePage({
 			/>
 
 			<ArticleShell>
-				<div className="mb-[22px] flex gap-2.5">
+				<div className="mb-5.5 flex gap-2.5">
 					{hasJapanese ? (
 						<Link href={writingHref(slug, "ja")}>
 							<PillLink active={currentLocale === "ja"}>日本語</PillLink>

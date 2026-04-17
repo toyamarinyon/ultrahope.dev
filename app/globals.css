@@ -1,6 +1,19 @@
 @import "tailwindcss";
 @source "../node_modules/streamdown/dist/*.js";
 
+@theme inline {
+	--color-line: var(--line);
+	--color-line-strong: var(--line-strong);
+	--color-text-base: var(--text);
+	--color-text-soft: var(--text-soft);
+	--color-text-faint: var(--text-faint);
+	--color-accent: var(--accent);
+	--color-accent-strong: var(--accent-strong);
+	--font-sans: var(--sans);
+	--font-serif: var(--serif);
+	--font-mono: var(--mono);
+}
+
 :root {
 	--canvas: #171410;
 	--canvas-deep: #100d09;

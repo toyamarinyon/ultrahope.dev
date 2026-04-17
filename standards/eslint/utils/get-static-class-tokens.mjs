@@ -18,10 +18,7 @@ function getStaticClassTokens(node) {
 		return tokens;
 	}
 
-	if (
-		node.value.type !== "JSXExpressionContainer" ||
-		!node.value.expression
-	) {
+	if (node.value.type !== "JSXExpressionContainer" || !node.value.expression) {
 		return tokens;
 	}
 

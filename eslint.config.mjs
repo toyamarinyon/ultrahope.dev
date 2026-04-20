@@ -58,6 +58,7 @@ const eslintConfig = defineConfig([
 				},
 			],
 			"standards/no-disallowed-global-class-selectors": "error",
+			"standards/no-document-element-styles-in-css": "error",
 		},
 	},
 	globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),

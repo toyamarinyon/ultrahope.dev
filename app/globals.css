@@ -21,7 +21,7 @@
 	--shadow-editorial: 0 32px 80px rgba(0, 0, 0, 0.32);
 }
 
-html {
+:root {
 	--background: var(--color-base);
 	--foreground: var(--color-text);
 	--card: var(--color-surface);

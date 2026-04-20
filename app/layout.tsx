@@ -24,8 +24,8 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="ja" className="bg-canvas">
-			<body className={satoshi.variable}>
+		<html lang="ja" className="max-[640px]:text-base">
+			<body className={`${satoshi.variable} m-0 min-h-screen`}>
 				<AppShell>{children}</AppShell>
 			</body>
 		</html>

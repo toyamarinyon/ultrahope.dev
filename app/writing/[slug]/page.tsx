@@ -75,7 +75,7 @@ export default async function WritingArticlePage({
 	const bodyMarkdown = stripLeadingDuplicateH1(article.content, article.title);
 
 	return (
-		<main className="workspace-main">
+		<main className="px-7.5 pt-7 pb-8.5 max-[920px]:px-5 max-[640px]:px-4">
 			<PostHero
 				eyebrow="Writing"
 				title={article.title}
@@ -106,7 +106,7 @@ export default async function WritingArticlePage({
 					) : null}
 				</div>
 
-				<MarkdownRenderer markdown={bodyMarkdown} className="article" />
+				<MarkdownRenderer markdown={bodyMarkdown} className="max-w-190" />
 			</ArticleShell>
 		</main>
 	);

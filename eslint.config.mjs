@@ -57,12 +57,7 @@ const eslintConfig = defineConfig([
 					],
 				},
 			],
-			"standards/no-disallowed-global-class-selectors": [
-				"error",
-				{
-					allowedClassSelectors: ["article", "workspace-main"],
-				},
-			],
+			"standards/no-disallowed-global-class-selectors": "error",
 		},
 	},
 	globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
 	return (
-		<main className="workspace-main">
+		<main className="px-7.5 pt-7 pb-8.5 max-[920px]:px-5 max-[640px]:px-4">
 			<PostHero
 				eyebrow="About"
 				title="静かな余白と、読むためのインターフェース。"
@@ -27,8 +27,8 @@ export default function AboutPage() {
 			/>
 
 			<ArticleShell>
-				<article className="article">
-					<div className="space-y-5 text-text-soft">
+				<article className="max-w-190">
+					<div className="space-y-5 text-subtle">
 						<p>
 							派手な装飾よりも、情報の置き方と余白で気持ちよさをつくる。その考え方をベースに、
 							ホームでは比較しやすく、記事ページでは没入しやすいレイアウトを目指しています。

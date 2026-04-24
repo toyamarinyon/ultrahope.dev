@@ -6,8 +6,8 @@ export default function Home() {
 	const featuredPosts = otherPosts.slice(0, 3);
 
 	return (
-		<main className="px-7.5 pt-7 pb-8.5 max-[920px]:px-5 max-[640px]:px-4">
-			<section className="mb-5 grid gap-4.5 border-b border-highlight-med pb-6 xl:grid-cols-[minmax(0,1.35fr)_minmax(280px,0.65fr)]">
+		<main>
+			<section className="mb-5 border-b border-highlight-med pb-6">
 				<div className="px-2.5 pb-2 pt-3">
 					<Link href={`/posts/${latestPost.slug}`} className="block">
 						<div className="flex items-center justify-start gap-3">

@@ -14,7 +14,7 @@ function SidebarLink(props: {
 	return (
 		<Link
 			href={props.href}
-			className={`inline-flex min-h-8 w-full items-center rounded-[10px] px-1 text-[0.92rem] text-subtle transition-[background-color,color] duration-200 hover:bg-[rgba(255,255,255,0.02)] hover:text-rose focus-visible:bg-[rgba(255,255,255,0.02)] focus-visible:text-rose [&_strong]:text-inherit [&_strong]:font-normal [&_strong]:leading-[1.45] ${props.active ? "bg-[rgba(240,215,173,0.04)] text-rose" : ""}`}
+			className={`flex w-full items-center rounded-md px-2 py-1 text-[0.92rem] text-subtle transition-[background-color,color] duration-200 hover:bg-highlight-med hover:text-rose focus-visible:bg-[rgba(255,255,255,0.02)] focus-visible:text-rose [&_strong]:text-inherit [&_strong]:font-normal [&_strong]:leading-[1.45] ${props.active ? "bg-highlight-med text-rose" : ""}`}
 			aria-current={props.active ? "page" : undefined}
 		>
 			{props.children}
@@ -41,71 +41,47 @@ export function AppShell(props: { children: ReactNode }) {
 
 	return (
 		<div className="min-h-screen">
-			<div className="relative mx-auto grid min-h-screen w-full overflow-hidden bg-[rgba(13,10,8,0.18)] min-[1181px]:grid-cols-[minmax(248px,300px)_minmax(0,1fr)] max-[1180px]:grid-cols-[272px_minmax(0,1fr)] max-[920px]:grid-cols-1">
-				<aside className="flex min-h-full flex-col gap-6.5 border-r border-highlight-med bg-[linear-gradient(180deg,rgba(255,255,255,0.03),transparent_16%),rgba(23,20,16,0.82)] px-4 pb-5 max-[920px]:border-b max-[920px]:border-r-0 max-[920px]:px-5 max-[640px]:px-4">
-					<section className="-mx-4 flex h-14.5 items-center px-4">
+			<div className="relative mx-auto min-h-screen w-full overflow-hidden">
+				<aside className="fixed w-[240] top-0 bottom-0 border-r border-highlight-med p-2">
+					<section className="flex h-14.5 items-center mb-8 pl-2">
 						<Link
 							href="/"
-							className="inline-flex items-center text-rose"
+							className="flex items-center text-rose gap-2"
 							aria-current={pathname === "/" ? "page" : undefined}
 						>
 							<UltrahopeLogo className="h-7 w-7 shrink-0" />
+							<span className="font-sans text-[1.25rem] font-medium leading-none tracking-[-0.04em]">
+								Ultrahope
+							</span>
 						</Link>
 					</section>
 
-					<section className="min-h-0">
-						<SidebarLink href="/about" active={pathname === "/about"}>
-							About
-						</SidebarLink>
-					</section>
-
-					<section className="min-h-0">
-						<div className="mb-2.5 flex justify-start gap-3 px-1">
-							<p className="m-0 text-[0.76rem] uppercase tracking-[0.22em] text-muted">
-								Writing
-							</p>
-						</div>
-
-						<div className="grid gap-0.5 pr-0.5">
-							<SidebarLink
-								href="/writing/hermes-agent-mise"
-								active={activeWritingSlug === "hermes-agent-mise"}
-							>
-								<strong>Hermes Agent + mise + venv</strong>
+					<div className="grid gap-6">
+						<section>
+							<SidebarLink href="/about" active={pathname === "/about"}>
+								About
 							</SidebarLink>
-						</div>
-					</section>
+						</section>
 
-					<section className="min-h-0">
-						<div className="mb-2.5 flex justify-start gap-3 px-1">
-							<p className="m-0 text-[0.76rem] uppercase tracking-[0.22em] text-muted">
-								Recent
-							</p>
-						</div>
-
-						<div className="grid gap-0.5 pr-0.5">
-							{recentPosts.map((post) => (
+						<section className="grid gap-2">
+							<p className="text-muted text-sm px-2">Writing</p>
+							<div className="grid gap-0.5">
 								<SidebarLink
-									key={post.slug}
-									href={`/posts/${post.slug}`}
-									active={activePostSlug === post.slug}
+									href="/writing/hermes-agent-mise"
+									active={activeWritingSlug === "hermes-agent-mise"}
 								>
-									<strong>{post.title}</strong>
+									<strong>Hermes Agent + mise + venv</strong>
 								</SidebarLink>
-							))}
-						</div>
-					</section>
+							</div>
+						</section>
 
-					{Object.entries(categorizedPosts).map(([category, entries]) => (
-						<section key={category} className="min-h-0">
+						<section className="min-h-0">
 							<div className="mb-2.5 flex justify-start gap-3 px-1">
-								<p className="m-0 text-[0.76rem] uppercase tracking-[0.22em] text-muted">
-									{category}
-								</p>
+								<p className="text-muted">Recent</p>
 							</div>
 
 							<div className="grid gap-0.5 pr-0.5">
-								{entries.map((post) => (
+								{recentPosts.map((post) => (
 									<SidebarLink
 										key={post.slug}
 										href={`/posts/${post.slug}`}
@@ -116,7 +92,29 @@ export function AppShell(props: { children: ReactNode }) {
 								))}
 							</div>
 						</section>
-					))}
+
+						{Object.entries(categorizedPosts).map(([category, entries]) => (
+							<section key={category} className="min-h-0">
+								<div className="mb-2.5 flex justify-start gap-3 px-1">
+									<p className="m-0 text-[0.76rem] uppercase tracking-[0.22em] text-muted">
+										{category}
+									</p>
+								</div>
+
+								<div className="grid gap-0.5 pr-0.5">
+									{entries.map((post) => (
+										<SidebarLink
+											key={post.slug}
+											href={`/posts/${post.slug}`}
+											active={activePostSlug === post.slug}
+										>
+											<strong>{post.title}</strong>
+										</SidebarLink>
+									))}
+								</div>
+							</section>
+						))}
+					</div>
 
 					<footer className="mt-auto px-1.5 pt-1 text-[0.84rem] text-muted">
 						<p className="mb-2 mt-0">
@@ -133,18 +131,7 @@ export function AppShell(props: { children: ReactNode }) {
 					</footer>
 				</aside>
 
-				<section className="flex min-w-0 flex-col bg-[radial-gradient(circle_at_top_right,rgba(240,215,173,0.04),transparent_28%),rgba(17,14,11,0.5)]">
-					<header className="flex h-14.5 items-center justify-start gap-5 px-7.5 max-[920px]:px-5 max-[640px]:flex-col max-[640px]:px-4">
-						<Link
-							href="/"
-							className="inline-flex min-h-8 items-center text-rose"
-							aria-current={pathname === "/" ? "page" : undefined}
-						>
-							<span className="font-sans text-[1.25rem] font-medium leading-none tracking-[-0.04em]">
-								Ultrahope
-							</span>
-						</Link>
-					</header>
+				<section className="flex min-w-0 flex-col ml-[240]">
 					{props.children}
 				</section>
 			</div>

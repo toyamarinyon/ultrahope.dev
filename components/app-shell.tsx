@@ -3,7 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
-import { posts } from "@/lib/content";
+import {
+	getLocaleFromPathname,
+	localizedPath,
+	withoutLocalePrefix,
+} from "@/lib/i18n";
 import { UltrahopeLogo } from "./ultrahope-logo";
 
 function SidebarLink(props: {
@@ -24,20 +28,11 @@ function SidebarLink(props: {
 
 export function AppShell(props: { children: ReactNode }) {
 	const pathname = usePathname();
-	const activePostSlug = pathname?.startsWith("/posts/")
-		? pathname.split("/")[2]
+	const locale = getLocaleFromPathname(pathname);
+	const pathnameWithoutLocale = withoutLocalePrefix(pathname);
+	const activeWritingSlug = pathnameWithoutLocale.startsWith("/writing/")
+		? pathnameWithoutLocale.split("/")[2]
 		: null;
-	const activeWritingSlug = pathname?.startsWith("/writing/")
-		? pathname.split("/")[2]
-		: null;
-	const recentPosts = posts.slice(0, 2);
-	const categorizedPosts = posts
-		.slice(2)
-		.reduce<Record<string, typeof posts>>((groups, post) => {
-			groups[post.category] ??= [];
-			groups[post.category].push(post);
-			return groups;
-		}, {});
 
 	return (
 		<div className="min-h-screen">
@@ -45,9 +40,11 @@ export function AppShell(props: { children: ReactNode }) {
 				<aside className="fixed w-[240] top-0 bottom-0 border-r border-highlight-med p-2">
 					<section className="flex h-14.5 items-center mb-8 pl-2">
 						<Link
-							href="/"
+							href={localizedPath(locale)}
 							className="flex items-center text-rose gap-2"
-							aria-current={pathname === "/" ? "page" : undefined}
+							aria-current={
+								pathnameWithoutLocale === "/" ? "page" : undefined
+							}
 						>
 							<UltrahopeLogo className="size-8 shrink-0" />
 							<span className="font-sans text-[20px] font-medium leading-none tracking-[-0.04em]">
@@ -61,7 +58,7 @@ export function AppShell(props: { children: ReactNode }) {
 							<p className="text-muted px-2">Writing</p>
 							<div className="grid gap-0.5">
 								<SidebarLink
-									href="/writing/hermes-agent-mise"
+									href={localizedPath(locale, "/writing/hermes-agent-mise")}
 									active={activeWritingSlug === "hermes-agent-mise"}
 								>
 									Hermes Agent + mise + venv

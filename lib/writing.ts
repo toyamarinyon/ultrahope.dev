@@ -3,9 +3,11 @@ import path from "node:path";
 import matter from "gray-matter";
 import { cache } from "react";
 import { z } from "zod";
+import type { Locale } from "@/lib/i18n";
 
 const WRITING_DIR = path.join(process.cwd(), "writing");
 const ENGLISH_SUFFIX = ".en.md";
+const JAPANESE_SUFFIX = ".ja.md";
 const MARKDOWN_SUFFIX = ".md";
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
@@ -34,7 +36,7 @@ const WritingFrontmatterSchema = z
 	.strict();
 
 export type WritingFrontmatter = z.infer<typeof WritingFrontmatterSchema>;
-export type WritingLocale = "ja" | "en";
+export type WritingLocale = Locale;
 
 export interface WritingArticle extends WritingFrontmatter {
 	slug: string;
@@ -60,6 +62,12 @@ function parseFilename(fileName: string): ParseFilenameResult {
 		const slug = fileName.slice(0, -ENGLISH_SUFFIX.length);
 		ensureValidSlug(slug, fileName);
 		return { slug, locale: "en" };
+	}
+
+	if (fileName.endsWith(JAPANESE_SUFFIX)) {
+		const slug = fileName.slice(0, -JAPANESE_SUFFIX.length);
+		ensureValidSlug(slug, fileName);
+		return { slug, locale: "ja" };
 	}
 
 	if (fileName.endsWith(MARKDOWN_SUFFIX)) {
@@ -99,15 +107,6 @@ const loadAllWritingArticles = cache((): WritingArticle[] => {
 	});
 });
 
-export function parseWritingLocale(
-	input: string | string[] | undefined,
-): WritingLocale {
-	if (Array.isArray(input)) {
-		return input.includes("en") ? "en" : "ja";
-	}
-	return input === "en" ? "en" : "ja";
-}
-
 export function getWritingSlugs() {
 	const articles = loadAllWritingArticles().filter((article) => !article.draft);
 	const uniqueSlugs = new Set(articles.map((article) => article.slug));
@@ -125,17 +124,9 @@ export function getWritingArticle(
 	slug: string,
 	locale: WritingLocale,
 ): WritingArticle | undefined {
-	const matches = loadAllWritingArticles().filter(
-		(article) => article.slug === slug && !article.draft,
-	);
-	if (matches.length === 0) {
-		return undefined;
-	}
-
-	return (
-		matches.find((article) => article.locale === locale) ??
-		matches.find((article) => article.locale === "ja") ??
-		matches[0]
+	return loadAllWritingArticles().find(
+		(article) =>
+			article.slug === slug && article.locale === locale && !article.draft,
 	);
 }
 

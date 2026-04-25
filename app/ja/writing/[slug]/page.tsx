@@ -17,10 +17,10 @@ export async function generateMetadata({
 	params,
 }: WritingPageProps): Promise<Metadata> {
 	const { slug } = await params;
-	return getWritingArticleMetadata({ slug, locale: "en" });
+	return getWritingArticleMetadata({ slug, locale: "ja" });
 }
 
 export default async function Page({ params }: WritingPageProps) {
 	const { slug } = await params;
-	return <WritingArticlePage slug={slug} locale="en" />;
+	return <WritingArticlePage slug={slug} locale="ja" />;
 }

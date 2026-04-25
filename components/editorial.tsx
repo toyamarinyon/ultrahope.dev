@@ -9,21 +9,6 @@ function Eyebrow(props: { children: ReactNode }) {
 	return <p className="text-muted">{props.children}</p>;
 }
 
-function PostMeta(props: { items: PostHeroMetaItem[] }) {
-	return (
-		<dl className="border-l border-[rgba(232,228,220,0.08)] pl-4.5">
-			{props.items.map((item, index) => (
-				<div key={index}>
-					<dt className="m-0 text-[0.76rem] uppercase tracking-[0.22em] text-muted">
-						{item.label}
-					</dt>
-					<dd className="my-2.5 mb-4.5 text-muted last:mb-0">{item.value}</dd>
-				</div>
-			))}
-		</dl>
-	);
-}
-
 function PostHero(props: {
 	eyebrow: ReactNode;
 	title: ReactNode;

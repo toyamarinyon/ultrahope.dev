@@ -42,9 +42,7 @@ export function AppShell(props: { children: ReactNode }) {
 						<Link
 							href={localizedPath(locale)}
 							className="flex items-center text-rose gap-2"
-							aria-current={
-								pathnameWithoutLocale === "/" ? "page" : undefined
-							}
+							aria-current={pathnameWithoutLocale === "/" ? "page" : undefined}
 						>
 							<UltrahopeLogo className="size-8 shrink-0" />
 							<span className="font-sans text-[20px] font-medium leading-none tracking-[-0.04em]">

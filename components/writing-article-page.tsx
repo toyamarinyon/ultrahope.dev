@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PillLink, PostHero } from "@/components/editorial";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
-import { localizedPath, type Locale } from "@/lib/i18n";
+import { type Locale, localizedPath } from "@/lib/i18n";
 import {
 	formatWritingDate,
 	getWritingArticle,

@@ -6,7 +6,12 @@ export const metadata: Metadata = {
 };
 
 const colorTokens = [
-	{ name: "base", cssVar: "--color-base", value: "#171410", swatchClass: "bg-base" },
+	{
+		name: "base",
+		cssVar: "--color-base",
+		value: "#171410",
+		swatchClass: "bg-base",
+	},
 	{
 		name: "surface",
 		cssVar: "--color-surface",
@@ -19,17 +24,42 @@ const colorTokens = [
 		value: "rgba(28, 24, 19, 0.94)",
 		swatchClass: "bg-overlay",
 	},
-	{ name: "muted", cssVar: "--color-muted", value: "#7f776d", swatchClass: "bg-muted" },
+	{
+		name: "muted",
+		cssVar: "--color-muted",
+		value: "#7f776d",
+		swatchClass: "bg-muted",
+	},
 	{
 		name: "subtle",
 		cssVar: "--color-subtle",
 		value: "#b0a79c",
 		swatchClass: "bg-subtle",
 	},
-	{ name: "text", cssVar: "--color-text", value: "#e8e3d8", swatchClass: "bg-text" },
-	{ name: "love", cssVar: "--color-love", value: "#cc3333", swatchClass: "bg-love" },
-	{ name: "gold", cssVar: "--color-gold", value: "#f0d7ad", swatchClass: "bg-gold" },
-	{ name: "rose", cssVar: "--color-rose", value: "#f7e7c9", swatchClass: "bg-rose" },
+	{
+		name: "text",
+		cssVar: "--color-text",
+		value: "#e8e3d8",
+		swatchClass: "bg-text",
+	},
+	{
+		name: "love",
+		cssVar: "--color-love",
+		value: "#cc3333",
+		swatchClass: "bg-love",
+	},
+	{
+		name: "gold",
+		cssVar: "--color-gold",
+		value: "#f0d7ad",
+		swatchClass: "bg-gold",
+	},
+	{
+		name: "rose",
+		cssVar: "--color-rose",
+		value: "#f7e7c9",
+		swatchClass: "bg-rose",
+	},
 	{
 		name: "highlight-low",
 		cssVar: "--color-highlight-low",
@@ -57,13 +87,29 @@ const colorTokens = [
 ] as const;
 
 const semanticTokens = [
-	{ name: "background", cssVar: "--background", sampleClass: "bg-base text-text" },
-	{ name: "foreground", cssVar: "--foreground", sampleClass: "bg-surface text-text" },
+	{
+		name: "background",
+		cssVar: "--background",
+		sampleClass: "bg-base text-text",
+	},
+	{
+		name: "foreground",
+		cssVar: "--foreground",
+		sampleClass: "bg-surface text-text",
+	},
 	{ name: "card", cssVar: "--card", sampleClass: "bg-surface text-text" },
 	{ name: "popover", cssVar: "--popover", sampleClass: "bg-overlay text-text" },
 	{ name: "primary", cssVar: "--primary", sampleClass: "bg-gold text-base" },
-	{ name: "secondary", cssVar: "--secondary", sampleClass: "bg-overlay text-text" },
-	{ name: "border", cssVar: "--border", sampleClass: "bg-highlight-med text-text" },
+	{
+		name: "secondary",
+		cssVar: "--secondary",
+		sampleClass: "bg-overlay text-text",
+	},
+	{
+		name: "border",
+		cssVar: "--border",
+		sampleClass: "bg-highlight-med text-text",
+	},
 	{ name: "ring", cssVar: "--ring", sampleClass: "bg-gold text-base" },
 ] as const;
 
@@ -107,8 +153,12 @@ export default function TokensPage() {
 									/>
 									<div className="mt-3 space-y-1">
 										<p className="font-mono text-sm text-text">{token.name}</p>
-										<p className="font-mono text-xs text-muted">{token.cssVar}</p>
-										<p className="font-mono text-xs text-subtle">{token.value}</p>
+										<p className="font-mono text-xs text-muted">
+											{token.cssVar}
+										</p>
+										<p className="font-mono text-xs text-subtle">
+											{token.value}
+										</p>
 									</div>
 								</div>
 							))}
@@ -159,12 +209,12 @@ export default function TokensPage() {
 									key={token.name}
 									className="rounded-lg border border-highlight-med p-4"
 								>
-									<div
-										className={`rounded-md px-3 py-4 ${token.sampleClass}`}
-									>
+									<div className={`rounded-md px-3 py-4 ${token.sampleClass}`}>
 										<p className="font-mono text-sm">{token.name}</p>
 									</div>
-									<p className="mt-3 font-mono text-xs text-muted">{token.cssVar}</p>
+									<p className="mt-3 font-mono text-xs text-muted">
+										{token.cssVar}
+									</p>
 								</div>
 							))}
 						</div>
@@ -187,8 +237,8 @@ export default function TokensPage() {
 							</div>
 							<div className="rounded-xl border border-highlight-med bg-base/60 p-4">
 								<p className="text-sm text-subtle">
-									Selection color can be checked by selecting this sentence on the
-									page.
+									Selection color can be checked by selecting this sentence on
+									the page.
 								</p>
 							</div>
 						</div>

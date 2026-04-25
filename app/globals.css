@@ -1,25 +1,52 @@
 @import "tailwindcss";
 @source "../node_modules/streamdown/dist/*.js";
 
+/* Palette inspired by Rosé Pine: https://rosepinetheme.com/palette/ */
 @theme inline {
+	/* Foundation backgrounds: the three main canvas layers. */
+	/* Primary page background and app canvas. */
 	--color-base: #171410;
+	/* Secondary surfaces like cards, inputs, and embedded panels. */
 	--color-surface: rgba(37, 33, 26, 0.82);
+	/* Temporary elevated layers such as popovers, dialogs, and notices. */
 	--color-overlay: rgba(28, 24, 19, 0.94);
+
+	/* Foreground hierarchy: text contrast from quiet to primary. */
+	/* Low-priority copy, disabled text, and intentionally receded UI. */
 	--color-muted: #7f776d;
+	/* Supporting text such as labels, metadata, and helper copy. */
 	--color-subtle: #b0a79c;
+	/* Main readable foreground for body text and primary content. */
 	--color-text: #e8e3d8;
+
+	/* Accent colors: semantic and atmospheric highlights. */
+	/* Error, destructive intent, and sharp contrast moments. */
 	--color-love: #cc3333;
+	/* Warm emphasis for attention, calls to action, and important accents. */
 	--color-gold: #f0d7ad;
+	/* Soft editorial accent for headlines and moments of glow. */
 	--color-rose: #f7e7c9;
+
+	/* Highlight system: structural emphasis and interaction states. */
+	/* Barely visible fills for soft hover and layered depth. */
 	--color-highlight-low: rgba(255, 255, 255, 0.025);
+	/* Selections, active rows, and medium-emphasis interactive states. */
 	--color-highlight-med: rgba(232, 228, 220, 0.12);
+	/* Borders, dividers, and stronger focus or separation cues. */
 	--color-highlight-high: rgba(232, 228, 220, 0.18);
+	/* Selection tint mixed from gold for text highlighting. */
 	--color-selection: color-mix(in srgb, var(--color-gold) 18%, transparent);
+
+	/* Typography tokens. */
 	--font-sans: var(--font-satoshi), "Avenir Next", "Segoe UI", sans-serif;
+	/* Editorial serif for large type and long-form emphasis. */
 	--font-serif: "Iowan Old Style", "Times New Roman", serif;
+	/* Code and technical UI surfaces. */
 	--font-mono:
 		var(--font-geist-mono), "SFMono-Regular", "JetBrains Mono", "Menlo",
 		monospace;
+
+	/* Shared shape and depth tokens. */
 	--radius-md: 0.5rem;
 	--shadow-editorial: 0 32px 80px rgba(0, 0, 0, 0.32);
 }

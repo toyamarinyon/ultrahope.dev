@@ -6,11 +6,7 @@ type PostHeroMetaItem = {
 };
 
 function Eyebrow(props: { children: ReactNode }) {
-	return (
-		<p className="m-0 mb-4.5 text-[0.76rem] uppercase tracking-[0.22em] text-muted">
-			{props.children}
-		</p>
-	);
+	return <p className="text-muted">{props.children}</p>;
 }
 
 function PostMeta(props: { items: PostHeroMetaItem[] }) {
@@ -35,26 +31,21 @@ function PostHero(props: {
 	meta: PostHeroMetaItem[];
 }) {
 	return (
-		<section className="mb-5.5 grid gap-4.5 border-b border-highlight-med pb-5.5 xl:grid-cols-[minmax(0,1fr)_220px]">
+		<section>
 			<div>
 				<Eyebrow>{props.eyebrow}</Eyebrow>
-				<h2 className="m-0 font-serif text-[clamp(2rem,4vw,3.1rem)] leading-[0.98] tracking-[-0.04em] text-rose max-sm:text-[clamp(1.7rem,10vw,2.3rem)]">
-					{props.title}
-				</h2>
-				{props.intro ? (
-					<p className="mt-5 max-w-[58ch] text-[0.95rem] text-subtle">
-						{props.intro}
-					</p>
-				) : null}
+				<h2 className="text-3xl">{props.title}</h2>
+				<div className="text-muted text-sm">
+					<p>2026年4月24日 公開</p>
+				</div>
 			</div>
-			<PostMeta items={props.meta} />
 		</section>
 	);
 }
 
 function ArticleShell(props: { children: ReactNode }) {
 	return (
-		<section className="bg-transparent p-[clamp(24px,4vw,42px)]">
+		<section className="max-w-220 mx-auto mt-20 px-20">
 			{props.children}
 		</section>
 	);

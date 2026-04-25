@@ -71,9 +71,7 @@ export function AppShell(props: { children: ReactNode }) {
 					</div>
 				</aside>
 
-				<section className="flex min-w-0 flex-col ml-[240]">
-					{props.children}
-				</section>
+				<main className="flex min-w-0 flex-col ml-[240]">{props.children}</main>
 			</div>
 		</div>
 	);

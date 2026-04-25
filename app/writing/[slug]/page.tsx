@@ -75,7 +75,7 @@ export default async function WritingArticlePage({
 	const bodyMarkdown = stripLeadingDuplicateH1(article.content, article.title);
 
 	return (
-		<main className="px-7.5 pt-7 pb-8.5 max-[920px]:px-5 max-[640px]:px-4">
+		<main className="max-w-220 mx-auto mt-20 px-20">
 			<PostHero
 				eyebrow="Writing"
 				title={article.title}
@@ -92,22 +92,20 @@ export default async function WritingArticlePage({
 				]}
 			/>
 
-			<ArticleShell>
-				<div className="mb-5.5 flex gap-2.5">
-					{hasJapanese ? (
-						<Link href={writingHref(slug, "ja")}>
-							<PillLink active={currentLocale === "ja"}>日本語</PillLink>
-						</Link>
-					) : null}
-					{hasEnglish ? (
-						<Link href={writingHref(slug, "en")}>
-							<PillLink active={currentLocale === "en"}>English</PillLink>
-						</Link>
-					) : null}
-				</div>
+			<div className="mb-5.5 flex gap-2.5">
+				{hasJapanese ? (
+					<Link href={writingHref(slug, "ja")}>
+						<PillLink active={currentLocale === "ja"}>日本語</PillLink>
+					</Link>
+				) : null}
+				{hasEnglish ? (
+					<Link href={writingHref(slug, "en")}>
+						<PillLink active={currentLocale === "en"}>English</PillLink>
+					</Link>
+				) : null}
+			</div>
 
-				<MarkdownRenderer markdown={bodyMarkdown} className="max-w-190" />
-			</ArticleShell>
+			<MarkdownRenderer markdown={bodyMarkdown} className="max-w-190" />
 		</main>
 	);
 }

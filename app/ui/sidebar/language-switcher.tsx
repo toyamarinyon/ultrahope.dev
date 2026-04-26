@@ -67,11 +67,11 @@ export function LanguageSwitcher() {
 	}
 
 	return (
-		<div ref={containerRef} className="relative">
+		<div ref={containerRef} className="relative ml-2">
 			{open ? (
 				<div
 					id={menuId}
-					className="absolute bottom-full left-0 z-10 mb-3 w-54 rounded-md border border-highlight-high bg-overlay p-2 shadow-editorial"
+					className="absolute bottom-full left-0 z-10 mb-3 min-w-32 rounded-md border border-highlight-high bg-overlay p-1"
 					role="menu"
 					aria-label="Language"
 				>
@@ -79,13 +79,15 @@ export function LanguageSwitcher() {
 						<button
 							key={item.locale}
 							type="button"
-							className="flex h-11 w-full items-center justify-between rounded-md px-4 text-text transition-colors hover:bg-highlight-med focus-visible:bg-highlight-med focus-visible:outline-none"
+							className="flex py-1 w-full items-center justify-between rounded-md px-4 text-text transition-colors hover:bg-highlight-med focus-visible:bg-highlight-med focus-visible:outline-none"
 							role="menuitemradio"
 							aria-checked={item.locale === currentLocale}
 							onClick={() => selectLocale(item.locale)}
 						>
 							<span>{item.label}</span>
-							{item.locale === currentLocale ? <CheckIcon /> : null}
+							{item.locale === currentLocale ? (
+								<CheckIcon className="size-4" />
+							) : null}
 						</button>
 					))}
 				</div>
@@ -93,7 +95,7 @@ export function LanguageSwitcher() {
 
 			<button
 				type="button"
-				className="flex py-1 text-sm items-center justify-center gap-1 rounded-full border border-highlight-med bg-surface px-2 font-medium text-text transition-colors hover:border-highlight-high hover:bg-highlight-med focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+				className="flex py-1 text-sm items-center justify-center gap-1 rounded-full px-2 font-medium text-text transition-colors hover:border-highlight-high hover:bg-highlight-med focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
 				aria-haspopup="menu"
 				aria-expanded={open}
 				aria-controls={menuId}

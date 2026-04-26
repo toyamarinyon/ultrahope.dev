@@ -1,11 +1,6 @@
 "use client";
 
-import {
-	CheckIcon,
-	ChevronDownIcon,
-	ChevronUpIcon,
-	GlobeIcon,
-} from "lucide-react";
+import { CheckIcon, ChevronDownIcon, GlobeIcon } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import {
@@ -106,11 +101,9 @@ export function LanguageSwitcher() {
 			>
 				<GlobeIcon className="size-4" />
 				<span>{currentLabel}</span>
-				{open ? (
-					<ChevronUpIcon className="size-4" />
-				) : (
-					<ChevronDownIcon className="size-4" />
-				)}
+				<ChevronDownIcon
+					className={`size-4 transition-transform ${open ? "rotate-180" : "rotate-0"}`}
+				/>
 			</button>
 		</div>
 	);

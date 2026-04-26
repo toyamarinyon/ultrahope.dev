@@ -43,7 +43,7 @@ function PillLink(props: {
 }) {
 	return (
 		<span
-			className={`inline-flex min-h-7 items-center rounded-full border border-[rgba(240,215,173,0.12)] px-2.5 text-[0.84rem] text-gold ${props.active ? "border-[rgba(240,215,173,0.36)] bg-[rgba(240,215,173,0.08)] text-rose" : ""} ${props.className ?? ""}`}
+			className={`inline-flex min-h-7 items-center rounded-full border border-gold/15 px-2.5 text-sm text-gold ${props.active ? "border-gold/35 bg-gold/10 text-rose" : ""} ${props.className ?? ""}`}
 		>
 			{props.children}
 		</span>

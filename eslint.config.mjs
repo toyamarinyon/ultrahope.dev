@@ -14,6 +14,7 @@ const eslintConfig = defineConfig([
 		},
 		rules: {
 			"standards/no-inline-style-prop": "error",
+			"standards/no-tailwind-arbitrary-classes": "error",
 			"standards/prefer-tailwind-canonical-classes": "warn",
 		},
 	},
@@ -54,6 +55,7 @@ const eslintConfig = defineConfig([
 						"--font-",
 						"--radius-",
 						"--shadow-",
+						"--tracking-",
 					],
 				},
 			],

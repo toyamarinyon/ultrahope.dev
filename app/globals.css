@@ -48,7 +48,6 @@
 
 	/* Shared shape and depth tokens. */
 	--radius-md: 0.5rem;
-	--shadow-editorial: 0 32px 80px rgba(0, 0, 0, 0.32);
 }
 
 :root {

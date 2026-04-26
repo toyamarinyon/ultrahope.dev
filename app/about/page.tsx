@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
 	return (
-		<main className="px-7.5 pt-7 pb-8.5 max-[920px]:px-5 max-[640px]:px-4">
+		<main className="px-7.5 pt-7 pb-8.5 max-lg:px-5 max-sm:px-4">
 			<PostHero
 				eyebrow="About"
 				title="静かな余白と、読むためのインターフェース。"

@@ -2,6 +2,7 @@ import exhaustiveTailwindThemeTokens from "./rules/exhaustive-tailwind-theme-tok
 import noDisallowedGlobalClassSelectors from "./rules/no-disallowed-global-class-selectors.mjs";
 import noDocumentElementStylesInCss from "./rules/no-document-element-styles-in-css.mjs";
 import noInlineStyleProp from "./rules/no-inline-style-prop.mjs";
+import noTailwindArbitraryClasses from "./rules/no-tailwind-arbitrary-classes.mjs";
 import preferTailwindCanonicalClasses from "./rules/prefer-tailwind-canonical-classes.mjs";
 
 const standardsEslintPlugin = {
@@ -13,6 +14,7 @@ const standardsEslintPlugin = {
 		"no-disallowed-global-class-selectors": noDisallowedGlobalClassSelectors,
 		"no-document-element-styles-in-css": noDocumentElementStylesInCss,
 		"no-inline-style-prop": noInlineStyleProp,
+		"no-tailwind-arbitrary-classes": noTailwindArbitraryClasses,
 		"prefer-tailwind-canonical-classes": preferTailwindCanonicalClasses,
 	},
 	configs: {},

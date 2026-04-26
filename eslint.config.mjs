@@ -13,9 +13,8 @@ const eslintConfig = defineConfig([
 			standards: standardsEslintPlugin,
 		},
 		rules: {
+			"standards/exhaustive-tailwind-classes": "error",
 			"standards/no-inline-style-prop": "error",
-			"standards/no-tailwind-arbitrary-classes": "error",
-			"standards/prefer-tailwind-canonical-classes": "warn",
 		},
 	},
 	{

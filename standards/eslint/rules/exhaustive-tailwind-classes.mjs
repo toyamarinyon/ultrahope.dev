@@ -4,10 +4,10 @@ import { designSystem } from "../utils/tailwind-design-system.mjs";
 
 export default defineRule({
 	meta: {
-		type: "suggestion",
+		type: "problem",
 		docs: {
 			description:
-				"Prefer Tailwind's canonical class names when an equivalent shorthand exists.",
+				"Require Tailwind className usage to stay within canonical utilities and configured theme tokens.",
 		},
 		schema: [
 			{
@@ -21,15 +21,13 @@ export default defineRule({
 			},
 		],
 		messages: {
-			preferTailwindCanonicalClasses:
-				"The class '{{className}}' can be written as '{{canonicalClassName}}'.",
+			useCanonicalClass:
+				"The class '{{className}}' can be written as '{{canonicalClassName}}'. Use the canonical Tailwind class.",
+			noArbitraryClass:
+				"The class '{{className}}' is outside the Tailwind class policy. Add a theme token or use a canonical utility.",
 		},
 	},
 	create(context) {
-		if (!designSystem?.canonicalizeCandidates) {
-			return {};
-		}
-
 		const rootFontSize = context.options[0]?.rootFontSize ?? 16;
 
 		return {
@@ -42,21 +40,32 @@ export default defineRule({
 				}
 
 				for (const className of getStaticClassTokens(node)) {
-					const canonicalClassName = designSystem.canonicalizeCandidates(
-						[className],
-						{ rem: rootFontSize },
-					)[0];
+					const canonicalClassName =
+						designSystem?.canonicalizeCandidates?.([className], {
+							rem: rootFontSize,
+						})[0];
 
-					if (!canonicalClassName || canonicalClassName === className) {
+					if (canonicalClassName && canonicalClassName !== className) {
+						context.report({
+							node,
+							messageId: "useCanonicalClass",
+							data: {
+								className,
+								canonicalClassName,
+							},
+						});
+						continue;
+					}
+
+					if (!className.includes("[") && !className.includes("]")) {
 						continue;
 					}
 
 					context.report({
 						node,
-						messageId: "preferTailwindCanonicalClasses",
+						messageId: "noArbitraryClass",
 						data: {
 							className,
-							canonicalClassName,
 						},
 					});
 				}

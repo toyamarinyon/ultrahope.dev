@@ -1,19 +1,22 @@
 "use client";
 
-import { CheckIcon, ChevronDownIcon, GlobeIcon } from "lucide-react";
+import { GlobeIcon } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useId, useRef, useState } from "react";
 import {
 	getLocaleFromPathname,
 	type Locale,
 	localizedPath,
 	withoutLocalePrefix,
 } from "@/lib/i18n";
+import {
+	type SidebarDropdownOption,
+	SidebarDropdownSwitcher,
+} from "./dropdown-switcher";
 
 const localeCookieName = "journal_locale";
-const supportedLanguageItems: Array<{ locale: Locale; label: string }> = [
-	{ locale: "en", label: "English" },
-	{ locale: "ja", label: "日本語" },
+const supportedLanguageOptions: Array<SidebarDropdownOption<Locale>> = [
+	{ value: "en", label: "English" },
+	{ value: "ja", label: "日本語" },
 ];
 
 function setLocaleCookie(locale: Locale) {
@@ -24,89 +27,26 @@ function setLocaleCookie(locale: Locale) {
 export function LanguageSwitcher() {
 	const pathname = usePathname();
 	const router = useRouter();
-	const menuId = useId();
-	const containerRef = useRef<HTMLDivElement>(null);
-	const [open, setOpen] = useState(false);
 	const currentLocale = getLocaleFromPathname(pathname);
 	const currentLabel =
-		supportedLanguageItems.find((item) => item.locale === currentLocale)
+		supportedLanguageOptions.find((option) => option.value === currentLocale)
 			?.label ?? "English";
-
-	useEffect(() => {
-		if (!open) {
-			return;
-		}
-
-		function handlePointerDown(event: PointerEvent) {
-			if (!containerRef.current?.contains(event.target as Node)) {
-				setOpen(false);
-			}
-		}
-
-		function handleKeyDown(event: KeyboardEvent) {
-			if (event.key === "Escape") {
-				setOpen(false);
-			}
-		}
-
-		document.addEventListener("pointerdown", handlePointerDown, true);
-		document.addEventListener("keydown", handleKeyDown);
-
-		return () => {
-			document.removeEventListener("pointerdown", handlePointerDown, true);
-			document.removeEventListener("keydown", handleKeyDown);
-		};
-	}, [open]);
 
 	function selectLocale(locale: Locale) {
 		const path = withoutLocalePrefix(pathname) as `/${string}`;
 		setLocaleCookie(locale);
-		setOpen(false);
 		router.push(localizedPath(locale, path));
 		router.refresh();
 	}
 
 	return (
-		<div ref={containerRef} className="relative min-w-0">
-			{open ? (
-				<div
-					id={menuId}
-					className="absolute bottom-full left-0 z-10 mb-3 min-w-32 rounded-md border border-highlight-high bg-overlay p-1"
-					role="menu"
-					aria-label="Language"
-				>
-					{supportedLanguageItems.map((item) => (
-						<button
-							key={item.locale}
-							type="button"
-							className="flex py-1 w-full items-center justify-between rounded-md px-4 text-text transition-colors hover:bg-highlight-med focus-visible:bg-highlight-med focus-visible:outline-none"
-							role="menuitemradio"
-							aria-checked={item.locale === currentLocale}
-							onClick={() => selectLocale(item.locale)}
-						>
-							<span>{item.label}</span>
-							{item.locale === currentLocale ? (
-								<CheckIcon className="size-4" />
-							) : null}
-						</button>
-					))}
-				</div>
-			) : null}
-
-			<button
-				type="button"
-				className="flex min-w-0 items-center justify-center gap-1 rounded-full px-2 py-1 text-sm font-medium text-text transition-colors hover:border-highlight-high hover:bg-highlight-med focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
-				aria-haspopup="menu"
-				aria-expanded={open}
-				aria-controls={menuId}
-				onClick={() => setOpen((value) => !value)}
-			>
-				<GlobeIcon className="size-4" />
-				<span className="max-w-14 truncate">{currentLabel}</span>
-				<ChevronDownIcon
-					className={`size-4 transition-transform ${open ? "rotate-180" : "rotate-0"}`}
-				/>
-			</button>
-		</div>
+		<SidebarDropdownSwitcher
+			ariaLabel="Language"
+			currentValue={currentLocale}
+			currentLabel={currentLabel}
+			options={supportedLanguageOptions}
+			TriggerIcon={GlobeIcon}
+			onSelect={selectLocale}
+		/>
 	);
 }

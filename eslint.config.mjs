@@ -18,6 +18,15 @@ const eslintConfig = defineConfig([
 		},
 	},
 	{
+		files: ["app/**/layout.{js,jsx,ts,tsx}"],
+		plugins: {
+			standards: standardsEslintPlugin,
+		},
+		rules: {
+			"standards/no-await-in-layout": "error",
+		},
+	},
+	{
 		files: ["app/globals.css"],
 		plugins: {
 			css,

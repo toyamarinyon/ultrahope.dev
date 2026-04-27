@@ -67,7 +67,7 @@ export function LanguageSwitcher() {
 	}
 
 	return (
-		<div ref={containerRef} className="relative ml-2">
+		<div ref={containerRef} className="relative min-w-0">
 			{open ? (
 				<div
 					id={menuId}
@@ -95,14 +95,14 @@ export function LanguageSwitcher() {
 
 			<button
 				type="button"
-				className="flex py-1 text-sm items-center justify-center gap-1 rounded-full px-2 font-medium text-text transition-colors hover:border-highlight-high hover:bg-highlight-med focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+				className="flex min-w-0 items-center justify-center gap-1 rounded-full px-2 py-1 text-sm font-medium text-text transition-colors hover:border-highlight-high hover:bg-highlight-med focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
 				aria-haspopup="menu"
 				aria-expanded={open}
 				aria-controls={menuId}
 				onClick={() => setOpen((value) => !value)}
 			>
 				<GlobeIcon className="size-4" />
-				<span>{currentLabel}</span>
+				<span className="max-w-14 truncate">{currentLabel}</span>
 				<ChevronDownIcon
 					className={`size-4 transition-transform ${open ? "rotate-180" : "rotate-0"}`}
 				/>

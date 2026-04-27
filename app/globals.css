@@ -5,37 +5,37 @@
 @theme inline {
 	/* Foundation backgrounds: the three main canvas layers. */
 	/* Primary page background and app canvas. */
-	--color-base: #171410;
+	--color-base: var(--background);
 	/* Secondary surfaces like cards, inputs, and embedded panels. */
-	--color-surface: rgba(37, 33, 26, 0.82);
+	--color-surface: var(--card);
 	/* Temporary elevated layers such as popovers, dialogs, and notices. */
-	--color-overlay: rgba(28, 24, 19, 0.94);
+	--color-overlay: var(--popover);
 
 	/* Foreground hierarchy: text contrast from quiet to primary. */
 	/* Low-priority copy, disabled text, and intentionally receded UI. */
-	--color-muted: #7f776d;
+	--color-muted: var(--muted-foreground);
 	/* Supporting text such as labels, metadata, and helper copy. */
-	--color-subtle: #b0a79c;
+	--color-subtle: var(--accent-foreground);
 	/* Main readable foreground for body text and primary content. */
-	--color-text: #e8e3d8;
+	--color-text: var(--foreground);
 
 	/* Accent colors: semantic and atmospheric highlights. */
 	/* Error, destructive intent, and sharp contrast moments. */
-	--color-love: #cc3333;
+	--color-love: var(--destructive);
 	/* Warm emphasis for attention, calls to action, and important accents. */
-	--color-gold: #f0d7ad;
+	--color-gold: var(--primary);
 	/* Soft editorial accent for headlines and moments of glow. */
-	--color-rose: #f7e7c9;
+	--color-rose: color-mix(in srgb, var(--primary) 75%, white);
 
 	/* Highlight system: structural emphasis and interaction states. */
 	/* Barely visible fills for soft hover and layered depth. */
-	--color-highlight-low: rgba(255, 255, 255, 0.025);
+	--color-highlight-low: color-mix(in srgb, var(--foreground) 4%, transparent);
 	/* Selections, active rows, and medium-emphasis interactive states. */
-	--color-highlight-med: rgba(232, 228, 220, 0.12);
+	--color-highlight-med: var(--border);
 	/* Borders, dividers, and stronger focus or separation cues. */
-	--color-highlight-high: rgba(232, 228, 220, 0.18);
+	--color-highlight-high: color-mix(in srgb, var(--foreground) 18%, transparent);
 	/* Selection tint mixed from gold for text highlighting. */
-	--color-selection: color-mix(in srgb, var(--color-gold) 18%, transparent);
+	--color-selection: color-mix(in srgb, var(--primary) 18%, transparent);
 
 	/* Typography tokens. */
 	--font-sans: var(--font-satoshi), "Avenir Next", "Segoe UI", sans-serif;
@@ -51,24 +51,24 @@
 }
 
 :root {
-	--background: var(--color-base);
-	--foreground: var(--color-text);
-	--card: var(--color-surface);
-	--card-foreground: var(--color-text);
-	--popover: var(--color-overlay);
-	--popover-foreground: var(--color-text);
-	--primary: var(--color-gold);
-	--primary-foreground: var(--color-base);
-	--secondary: var(--color-overlay);
-	--secondary-foreground: var(--color-text);
-	--muted: var(--color-overlay);
-	--muted-foreground: var(--color-subtle);
-	--accent-foreground: var(--color-text);
-	--destructive: var(--color-love);
-	--destructive-foreground: var(--color-text);
-	--border: var(--color-highlight-med);
-	--input: var(--color-highlight-med);
-	--ring: var(--color-gold);
+	--background: #171410;
+	--foreground: #e8e3d8;
+	--card: rgba(37, 33, 26, 0.82);
+	--card-foreground: #e8e3d8;
+	--popover: rgba(28, 24, 19, 0.94);
+	--popover-foreground: #e8e3d8;
+	--primary: #f0d7ad;
+	--primary-foreground: #171410;
+	--secondary: rgba(28, 24, 19, 0.94);
+	--secondary-foreground: #e8e3d8;
+	--muted: rgba(28, 24, 19, 0.94);
+	--muted-foreground: #7f776d;
+	--accent-foreground: #b0a79c;
+	--destructive: #cc3333;
+	--destructive-foreground: #e8e3d8;
+	--border: rgba(232, 228, 220, 0.12);
+	--input: rgba(232, 228, 220, 0.12);
+	--ring: #f0d7ad;
 	--radius: var(--radius-md);
 	color-scheme: dark;
 	color: var(--color-text);
@@ -81,6 +81,57 @@
 	min-height: 100%;
 	scroll-behavior: smooth;
 }
+
+:root[data-theme="dark"] {
+	color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+	--background: #f6f0e6;
+	--foreground: #252018;
+	--card: rgba(246, 238, 225, 0.86);
+	--card-foreground: #252018;
+	--popover: rgba(255, 251, 244, 0.95);
+	--popover-foreground: #252018;
+	--primary: #a8742f;
+	--primary-foreground: #fff8ec;
+	--secondary: rgba(246, 238, 225, 0.92);
+	--secondary-foreground: #252018;
+	--muted: rgba(246, 238, 225, 0.92);
+	--muted-foreground: #72675a;
+	--accent-foreground: #4f473f;
+	--destructive: #aa2a2a;
+	--destructive-foreground: #fff5f2;
+	--border: rgba(64, 45, 20, 0.1);
+	--input: rgba(64, 45, 20, 0.1);
+	--ring: #a8742f;
+	color-scheme: light;
+}
+
+@media (prefers-color-scheme: light) {
+	:root[data-theme="system"] {
+		--background: #f6f0e6;
+		--foreground: #252018;
+		--card: rgba(246, 238, 225, 0.86);
+		--card-foreground: #252018;
+		--popover: rgba(255, 251, 244, 0.95);
+		--popover-foreground: #252018;
+		--primary: #a8742f;
+		--primary-foreground: #fff8ec;
+		--secondary: rgba(246, 238, 225, 0.92);
+		--secondary-foreground: #252018;
+		--muted: rgba(246, 238, 225, 0.92);
+		--muted-foreground: #72675a;
+		--accent-foreground: #4f473f;
+		--destructive: #aa2a2a;
+		--destructive-foreground: #fff5f2;
+		--border: rgba(64, 45, 20, 0.1);
+		--input: rgba(64, 45, 20, 0.1);
+		--ring: #a8742f;
+		color-scheme: light;
+	}
+}
+
 * {
 	box-sizing: border-box;
 }

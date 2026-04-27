@@ -3,9 +3,8 @@ import localFont from "next/font/local";
 import { cookies } from "next/headers";
 import "./globals.css";
 import { GeistMono } from "geist/font/mono";
+import { FooterControls } from "./ui/sidebar/footer-controls";
 import { HomeLink } from "./ui/sidebar/home-link";
-import { LanguageSwitcher } from "./ui/sidebar/language-switcher";
-import { ThemeSwitcher } from "./ui/sidebar/theme-switcher";
 import { WritingList } from "./ui/sidebar/writing-list";
 
 const satoshi = localFont({
@@ -61,10 +60,7 @@ export default async function RootLayout({
 								</div>
 							</div>
 
-							<div className="flex items-center justify-between gap-1 pb-2">
-								<ThemeSwitcher initialPreference={initialThemePreference} />
-								<LanguageSwitcher />
-							</div>
+							<FooterControls initialThemePreference={initialThemePreference} />
 						</aside>
 
 						<main className="ml-60 flex min-w-0 flex-col">{children}</main>

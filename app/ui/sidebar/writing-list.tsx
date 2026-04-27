@@ -17,10 +17,10 @@ function SidebarLink(props: {
 	return (
 		<Link
 			href={props.href}
-			className={`flex w-full items-center rounded-md px-2 py-1 transition-colors duration-200 hover:bg-highlight-med hover:text-rose focus-visible:text-rose ${props.active ? "bg-highlight-med text-rose" : ""}`}
+			className={`flex w-full min-w-0 items-center rounded-md px-2 py-1 transition-colors duration-200 hover:bg-highlight-med hover:text-rose focus-visible:text-rose ${props.active ? "bg-highlight-med text-rose" : ""}`}
 			aria-current={props.active ? "page" : undefined}
 		>
-			{props.children}
+			<span className="truncate">{props.children}</span>
 		</Link>
 	);
 }
@@ -34,8 +34,8 @@ export function WritingList() {
 		: null;
 
 	return (
-		<section className="grid gap-1">
-			<p className="text-muted px-2">Writing</p>
+		<section className="grid min-w-0 gap-1">
+			<p className="px-2 text-muted">Writing</p>
 			<div className="grid gap-0.5">
 				<SidebarLink
 					href={localizedPath(locale, "/writing/hermes-agent-mise")}

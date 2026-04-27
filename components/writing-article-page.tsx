@@ -61,7 +61,7 @@ export function WritingArticlePage({ locale, slug }: WritingArticlePageProps) {
 	const bodyMarkdown = stripLeadingDuplicateH1(article.content, article.title);
 
 	return (
-		<main className="max-w-220 mx-auto mt-20 px-20">
+		<main className="mx-auto mt-12 max-w-220 px-4 sm:px-8 md:mt-20 lg:px-20">
 			<PostHero
 				eyebrow="Writing"
 				title={article.title}
@@ -91,7 +91,7 @@ export function WritingArticlePage({ locale, slug }: WritingArticlePageProps) {
 				) : null}
 			</div>
 
-			<MarkdownRenderer markdown={bodyMarkdown} className="max-w-190" />
+			<MarkdownRenderer markdown={bodyMarkdown} className="max-w-190 min-w-0" />
 		</main>
 	);
 }

@@ -19,7 +19,7 @@ function PostHero(props: {
 		<section>
 			<div>
 				<Eyebrow>{props.eyebrow}</Eyebrow>
-				<h2 className="text-3xl">{props.title}</h2>
+				<h2 className="text-2xl sm:text-3xl">{props.title}</h2>
 				<div className="text-muted text-sm">
 					<p>2026年4月24日 公開</p>
 				</div>
@@ -30,7 +30,7 @@ function PostHero(props: {
 
 function ArticleShell(props: { children: ReactNode }) {
 	return (
-		<section className="max-w-220 mx-auto mt-20 px-20">
+		<section className="mx-auto mt-12 max-w-220 px-4 sm:px-8 md:mt-20 lg:px-20">
 			{props.children}
 		</section>
 	);

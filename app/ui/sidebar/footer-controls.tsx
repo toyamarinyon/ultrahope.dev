@@ -73,7 +73,7 @@ function PreferenceMenuItem<TValue extends string>({
 	return (
 		<button
 			type="button"
-			className="flex w-full items-center justify-between rounded-md px-3 py-1 text-text transition-colors hover:bg-highlight-med focus-visible:bg-highlight-med focus-visible:outline-none"
+			className="flex w-full items-center justify-between rounded-md px-3 py-1 text-subtle transition-colors hover:text-text hover:bg-highlight-med focus-visible:bg-highlight-med focus-visible:outline-none"
 			role="menuitemradio"
 			aria-checked={option.value === currentValue}
 			onClick={() => onSelect(option.value)}
@@ -97,7 +97,9 @@ export function FooterControls({
 	const menuId = useId();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [open, setOpen] = useState(false);
-	const [themePreference, setThemePreference] = useState(initialThemePreference);
+	const [themePreference, setThemePreference] = useState(
+		initialThemePreference,
+	);
 	const currentLocale = getLocaleFromPathname(pathname);
 
 	useEffect(() => {
@@ -155,11 +157,11 @@ export function FooterControls({
 	}
 
 	return (
-		<div ref={containerRef} className="relative min-w-0 pb-2">
+		<div ref={containerRef} className="relative min-w-0 pt-2 md:pt-0 md:pb-2">
 			{open ? (
 				<div
 					id={menuId}
-					className="absolute bottom-full left-0 z-10 mb-3 min-w-36 rounded-md border border-highlight-high bg-overlay p-1"
+					className="absolute top-full right-0 z-10 mt-3 min-w-36 rounded-md border border-highlight-high bg-overlay p-1 md:top-auto md:bottom-full md:left-0 md:right-auto md:mt-0 md:mb-3"
 					role="menu"
 					aria-label="Preferences"
 				>
@@ -193,7 +195,7 @@ export function FooterControls({
 
 			<button
 				type="button"
-				className="flex min-w-0 items-center justify-center gap-1 rounded-full px-2 py-1 text-sm font-medium text-text transition-colors hover:border-highlight-high hover:bg-highlight-med focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+				className="flex min-w-0 items-center justify-center gap-1 rounded-full px-2 py-1 text-sm text-subtle transition-colors hover:border-highlight-high hover:bg-highlight-med focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold max-md:justify-start"
 				aria-haspopup="menu"
 				aria-expanded={open}
 				aria-controls={menuId}

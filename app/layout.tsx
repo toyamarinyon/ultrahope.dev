@@ -5,6 +5,7 @@ import "./globals.css";
 import { GeistMono } from "geist/font/mono";
 import { FooterControls } from "./ui/sidebar/footer-controls";
 import { HomeLink } from "./ui/sidebar/home-link";
+import { MobileNavigation } from "./ui/sidebar/mobile-navigation";
 import { WritingList } from "./ui/sidebar/writing-list";
 
 const satoshi = localFont({
@@ -49,7 +50,13 @@ export default async function RootLayout({
 			<body className={`${satoshi.variable} ${GeistMono.variable} font-sans `}>
 				<div className="min-h-screen">
 					<div className="relative mx-auto min-h-screen w-full overflow-hidden">
-						<aside className="fixed top-0 bottom-0 flex w-60 flex-col border-r border-highlight-med p-2 bg-surface">
+						<div className="md:hidden">
+							<MobileNavigation
+								initialThemePreference={initialThemePreference}
+							/>
+						</div>
+
+						<aside className="fixed top-0 bottom-0 hidden w-60 flex-col border-highlight-med border-r bg-surface p-2 md:flex">
 							<div className="min-h-0 flex-1">
 								<section className="mb-8 flex h-14.5 items-center pl-2">
 									<HomeLink />
@@ -63,7 +70,7 @@ export default async function RootLayout({
 							<FooterControls initialThemePreference={initialThemePreference} />
 						</aside>
 
-						<main className="ml-60 flex min-w-0 flex-col">{children}</main>
+						<main className="flex min-w-0 flex-col md:ml-60">{children}</main>
 					</div>
 				</div>
 			</body>

@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PillLink, PostHero } from "@/components/editorial";
-import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { type Locale, localizedPath } from "@/lib/i18n";
 import {
 	formatWritingDate,
 	getWritingArticle,
 	hasWritingLocale,
-} from "@/lib/writing";
+} from "../lib/writing";
+import { PillLink, PostHero } from "./editorial";
+import { MarkdownRenderer } from "./markdown-renderer";
 
 type WritingArticlePageProps = {
 	locale: Locale;

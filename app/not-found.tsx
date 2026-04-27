@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { PillLink } from "@/components/editorial";
 
 export default function NotFound() {
 	return (
@@ -13,7 +12,9 @@ export default function NotFound() {
 					対応する記事は見つかりませんでした。左の一覧から別の記事へ移動できます。
 				</p>
 				<Link href="/" className="mt-6 inline-block">
-					<PillLink>Overview に戻る</PillLink>
+					<span className="inline-flex min-h-7 items-center rounded-full border border-gold/15 px-2.5 text-sm text-gold">
+						Overview に戻る
+					</span>
 				</Link>
 			</section>
 		</main>

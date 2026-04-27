@@ -1,5 +1,35 @@
 import { defineRule } from "../utils/define-rule.mjs";
 
+const tailwindThemeTokenNamespaces = {
+	exact: new Set([
+		"--blur",
+		"--drop-shadow",
+		"--radius",
+		"--shadow",
+		"--spacing",
+	]),
+	prefixes: [
+		"--animate-",
+		"--aspect-",
+		"--blur-",
+		"--breakpoint-",
+		"--color-",
+		"--container-",
+		"--default-",
+		"--drop-shadow-",
+		"--ease-",
+		"--font-",
+		"--inset-shadow-",
+		"--leading-",
+		"--perspective-",
+		"--radius-",
+		"--shadow-",
+		"--text-",
+		"--text-shadow-",
+		"--tracking-",
+	],
+};
+
 function getThemeBlockRanges(sourceText) {
 	const ranges = [];
 	let searchIndex = 0;
@@ -41,8 +71,13 @@ function isInsideRanges(index, ranges) {
 	return ranges.some(([start, end]) => index >= start && index < end);
 }
 
-function matchesAllowedPrefixes(propertyName, prefixes) {
-	return prefixes.some((prefix) => propertyName.startsWith(prefix));
+function matchesTailwindThemeTokenNamespace(propertyName) {
+	return (
+		tailwindThemeTokenNamespaces.exact.has(propertyName) ||
+		tailwindThemeTokenNamespaces.prefixes.some((prefix) =>
+			propertyName.startsWith(prefix),
+		)
+	);
 }
 
 export default defineRule({
@@ -57,13 +92,6 @@ export default defineRule({
 				type: "object",
 				properties: {
 					allowCustomProperties: {
-						type: "array",
-						items: {
-							type: "string",
-						},
-						uniqueItems: true,
-					},
-					allowedThemePrefixes: {
 						type: "array",
 						items: {
 							type: "string",
@@ -87,12 +115,6 @@ export default defineRule({
 		const allowCustomProperties = new Set(
 			context.options[0]?.allowCustomProperties ?? [],
 		);
-		const allowedThemePrefixes = context.options[0]?.allowedThemePrefixes ?? [
-			"--color-",
-			"--font-",
-			"--radius-",
-			"--shadow-",
-		];
 
 		return {
 			StyleSheet() {
@@ -108,7 +130,7 @@ export default defineRule({
 					const isInsideTheme = isInsideRanges(match.index, themeBlockRanges);
 
 					if (isInsideTheme) {
-						if (matchesAllowedPrefixes(propertyName, allowedThemePrefixes)) {
+						if (matchesTailwindThemeTokenNamespace(propertyName)) {
 							continue;
 						}
 

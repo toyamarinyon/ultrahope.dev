@@ -1,9 +1,9 @@
 import css from "@eslint/css";
-import exhaustiveTailwindThemeTokens from "./rules/exhaustive-tailwind-theme-tokens.mjs";
 import exhaustiveTailwindClasses from "./rules/exhaustive-tailwind-classes.mjs";
+import exhaustiveTailwindThemeTokens from "./rules/exhaustive-tailwind-theme-tokens.mjs";
+import noAwaitInLayout from "./rules/no-await-in-layout.mjs";
 import noDisallowedGlobalClassSelectors from "./rules/no-disallowed-global-class-selectors.mjs";
 import noDocumentElementStylesInCss from "./rules/no-document-element-styles-in-css.mjs";
-import noAwaitInLayout from "./rules/no-await-in-layout.mjs";
 import noInlineStyleProp from "./rules/no-inline-style-prop.mjs";
 
 const standardsEslintPlugin = {
@@ -73,13 +73,6 @@ export const standards = [
 						"--input",
 						"--ring",
 						"--radius",
-					],
-					allowedThemePrefixes: [
-						"--color-",
-						"--font-",
-						"--radius-",
-						"--shadow-",
-						"--tracking-",
 					],
 				},
 			],

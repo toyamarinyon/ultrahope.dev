@@ -25,7 +25,9 @@ export const metadata: Metadata = {
 
 type ThemePreference = "system" | "light" | "dark";
 
-function isThemePreference(value: string | undefined): value is ThemePreference {
+function isThemePreference(
+	value: string | undefined,
+): value is ThemePreference {
 	return value === "system" || value === "light" || value === "dark";
 }
 

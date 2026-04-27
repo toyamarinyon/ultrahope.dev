@@ -40,10 +40,12 @@ export default defineRule({
 				}
 
 				for (const className of getStaticClassTokens(node)) {
-					const canonicalClassName =
-						designSystem?.canonicalizeCandidates?.([className], {
+					const canonicalClassName = designSystem?.canonicalizeCandidates?.(
+						[className],
+						{
 							rem: rootFontSize,
-						})[0];
+						},
+					)[0];
 
 					if (canonicalClassName && canonicalClassName !== className) {
 						context.report({

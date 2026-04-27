@@ -35,7 +35,7 @@ export function MobileNavigation({
 	}, [open]);
 
 	return (
-		<header className="border-highlight-med border-b bg-surface">
+		<header className="border-highlight-med border-b bg-base">
 			<div className="flex h-16 items-center justify-between gap-4 px-4">
 				<HomeLink />
 

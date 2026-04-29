@@ -1,119 +1,78 @@
 ---
-title: Curious About Hermes Agent, But Not Ready for a Heavy Install - mise + venv
-description: A lightweight way to try Hermes Agent with mise for runtime and venv for isolation.
-publishedAt: "2026-04-12"
+title: Getting Started with Hermes Agent Using mise
+description: Install and run Hermes Agent with Python managed by mise.
+publishedAt: "2026-04-28"
 ---
 
-# Curious About Hermes Agent, But Not Ready for a Heavy Install - mise + venv
+Hermes Agent provides an [installer](https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh), but it does quite a lot. I felt a little hesitant about handing all of that over to an installer.
 
-I kept seeing Hermes Agent and wanted to try it.  
-At the same time, it looked like more local setup than tools like Codex or Claude Code, and I did not want to commit to a large install on day one.
+There is also [another documented approach](https://hermes-agent.nousresearch.com/docs/developer-guide/contributing#clone-and-install): clone the repository, install the dependencies, and create a symbolic link to the executable somewhere in your `PATH`. This time, I tried that route using Python managed by mise.
 
-What felt heavy was not Hermes Agent itself.  
-It was the feeling that my whole local environment might get pulled in before I even knew whether the tool was a fit.
+### Clone the Repository
 
-So I chose a smaller goal: try it cleanly, keep it easy to remove, and decide later if it deserves deeper setup.
-
-I ended up using `mise` for Python and `uv`, keeping Hermes Agent dependencies in a dedicated `venv`, and exposing only the entry command via `~/.local/bin`.
-
-## The actual goal was simple
-
-This was all I wanted:
-
-- Manage runtime with `mise` as usual
-- Isolate Hermes Agent dependencies in a dedicated `venv`
-- Call the command from `~/.local/bin/hermes`
-
-In short:
-
-- Keep the actual environment local and isolated
-- Expose only a clean command on PATH
-
-```txt
-Actual environment: ~/dev/hermes-agent/.venv
-Command entrypoint: ~/.local/bin/hermes
+```bash
+git clone --recurse-submodules https://github.com/NousResearch/hermes-agent.git
+cd hermes-agent
 ```
 
-With this shape, using it feels like a normal CLI, but removing it later is still straightforward.
+### Prepare uv with mise
 
-## Why I did not start with the installer
+When using `uv` with `mise`, setting `python.uv_venv_auto` in `mise.toml` is convenient because you no longer need to run `source .venv/bin/activate` manually.
 
-The official installation docs are solid.  
-For macOS/Linux/WSL2 there is a one-liner installer that can set up a lot of things for you, including Python/Node checks, dependencies, venv creation, command wiring, and provider setup.
+```bash
+touch mise.toml
+```
 
-That is great when you want the fastest start.
+```toml
+[settings]
+python.uv_venv_auto = "create|source"
+```
 
-My goal here was different. I wanted to keep the setup small enough that I could always answer:
+For more details about `python.uv_venv_auto`, see the [mise documentation](https://mise.jdx.dev/mise-cookbook/python.html#mise-uv).
 
-- What belongs to Hermes Agent itself?
-- What belongs to surrounding tooling?
-- What do I remove if I back out?
+### Create a venv with uv and install the dependencies
 
-So this is not "the installer is bad."  
-It is "for this trial phase, the installer solved more than I needed."
+If Python 3.11 and `uv` are not installed yet, install them here.
 
-## Why mise + venv felt good
+```bash
+mise use python@3.11
+mise use uv
+uv venv venv --python 3.11
+uv pip install -e ".[all,dev]"
+uv pip install -e "./tinker-atropos"
+```
 
-The main benefit was clear separation of responsibilities:
+### Create Hermes Agent directories and a symbolic link
 
-- `mise`: runtime and tool versions
-- `venv`: Hermes Agent dependency isolation
-- `~/.local/bin`: command entrypoint
+```bash
+mkdir -p ~/.hermes/{cron,sessions,logs,memories,skills}
+cp cli-config.yaml.example ~/.hermes/config.yaml
+mkdir -p ~/.local/bin
+ln -sf "$(pwd)/venv/bin/hermes" ~/.local/bin/hermes
+```
 
-That separation lowered the psychological cost of starting.  
-Even before first run, I knew where each part lived.
+### Run the doctor command
 
-## The "global install fear" needed a better label
+Running `hermes doctor` will show the remaining tasks needed to run Hermes, such as setting API keys. Check the output and handle anything it reports.
 
-Before trying Hermes Agent, I thought "this probably installs globally."
+```bash
+hermes doctor
+```
 
-After reading the manual flow, the reality looked closer to:
+### Run Hermes
 
-- Actual dependencies live in a virtual environment
-- Only the command entrypoint is exposed in user-local PATH
+```bash
+hermes
+```
 
-So the concern was understandable, but the implementation is less invasive than it first appears.
+If you see a screen like this, everything is working.
 
-## A practical minimum to get started
+![welcome screen of hermes](/writing/hermes-agent-mise/hermes-agent-screen.jpeg)
 
-If you are interested but low on energy, a minimal start is enough:
+### Closing thoughts
 
-- Git is available
-- One LLM provider is chosen
-- A dedicated directory for Hermes Agent exists
+I set up Hermes Agent in my local mise/uv environment without using the installer.
 
-You do not need to finalize a production-grade setup on day one.
+What we are doing is fairly simple: prepare a Python environment, install the dependencies, and make the executable available from `PATH`. Once the steps are separated out, it feels more straightforward to manage than I expected.
 
-## Why I skipped Docker this time
-
-Docker can give cleaner isolation, and it is a good option in many cases.
-
-But for this goal, which was "quickly feel the CLI and decide," Docker added too much ceremony:
-
-- More setup before first command
-- More context switching for simple trials
-- A tendency to over-engineer early
-
-For this specific use case, `mise + venv` was a better middle ground.
-
-## The key was not "install perfectly," it was "install reversibly"
-
-When trying a new tool, we often optimize too early for the final architecture.
-
-At the exploration stage, better criteria are:
-
-- Can I start quickly?
-- Do I know where things were installed?
-- Can I cleanly roll back?
-
-For me, `mise + venv` with a user-local command entrypoint hit that balance.
-
-## References
-
-- Hermes Agent Installation: <https://hermes-agent.nousresearch.com/docs/getting-started/installation/>
-- Hermes Agent Quickstart: <https://hermes-agent.nousresearch.com/docs/getting-started/quickstart/>
-- Hermes Agent AI Providers: <https://hermes-agent.nousresearch.com/docs/integrations/providers/>
-- mise Python: <https://mise.jdx.dev/lang/python.html>
-- mise Cookbook for Python: <https://mise.jdx.dev/mise-cookbook/python.html>
-- uv: Installing Python: <https://docs.astral.sh/uv/guides/install-python/>
-- uv: Using environments: <https://docs.astral.sh/uv/pip/environments/>
+If you already use mise, this approach may be a comfortable way to try Hermes Agent.

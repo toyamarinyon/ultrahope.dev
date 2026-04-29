@@ -27,7 +27,7 @@ function SidebarLink(props: {
 			className={`flex w-full min-w-0 items-center rounded-md px-2 py-1 transition-colors duration-200 hover:bg-highlight-med hover:text-rose focus-visible:text-rose ${props.active ? "bg-highlight-med text-rose" : ""}`}
 			aria-current={props.active ? "page" : undefined}
 		>
-			<span className="truncate">{props.children}</span>
+			<span className="line-clamp-2">{props.children}</span>
 		</Link>
 	);
 }

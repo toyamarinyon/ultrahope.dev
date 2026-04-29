@@ -1,18 +1,16 @@
 "use client";
 
 import { MenuIcon, XIcon } from "lucide-react";
+import type { ReactNode } from "react";
 import { useEffect, useId, useState } from "react";
-import { FooterControls, type ThemePreference } from "./footer-controls";
+import { FooterControls } from "./footer-controls";
 import { HomeLink } from "./home-link";
-import { WritingList } from "./writing-list";
 
 type MobileNavigationProps = {
-	initialThemePreference: ThemePreference;
+	writingList: ReactNode;
 };
 
-export function MobileNavigation({
-	initialThemePreference,
-}: MobileNavigationProps) {
+export function MobileNavigation({ writingList }: MobileNavigationProps) {
 	const menuId = useId();
 	const [open, setOpen] = useState(false);
 
@@ -97,10 +95,10 @@ export function MobileNavigation({
 							}
 						}}
 					>
-						<WritingList />
+						{writingList}
 					</div>
 
-					<FooterControls initialThemePreference={initialThemePreference} />
+					<FooterControls />
 				</aside>
 			</div>
 		</header>

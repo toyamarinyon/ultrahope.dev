@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { cookies } from "next/headers";
 import "./globals.css";
 import { GeistMono } from "geist/font/mono";
 import { FooterControls } from "./ui/sidebar/footer-controls";
@@ -23,37 +22,38 @@ export const metadata: Metadata = {
 	description: "静かな余白と、読み心地の良い文章でつくるプロダクトノート。",
 };
 
-type ThemePreference = "system" | "light" | "dark";
+const themeInitScript = `
+(() => {
+  try {
+    const key = "journal_theme";
+    const value = localStorage.getItem(key);
+    if (value === "system" || value === "light" || value === "dark") {
+      document.documentElement.dataset.theme = value;
+    } else {
+      document.documentElement.dataset.theme = "system";
+    }
+  } catch {
+    document.documentElement.dataset.theme = "system";
+  }
+})();
+`;
 
-function isThemePreference(
-	value: string | undefined,
-): value is ThemePreference {
-	return value === "system" || value === "light" || value === "dark";
-}
-
-export default async function RootLayout({
+export default function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	// eslint-disable-next-line standards/no-await-in-layout -- intentional: first-party theme cookie read keeps initial HTML theme aligned and avoids theme flash.
-	const themeCookie = (await cookies()).get("journal_theme")?.value;
-	const initialThemePreference = isThemePreference(themeCookie)
-		? themeCookie
-		: "system";
-
 	return (
-		<html
-			className="text-text bg-base subpixel-antialiased"
-			data-theme={initialThemePreference}
-		>
+		<html className="text-text bg-base subpixel-antialiased" data-theme="system">
+			<head>
+				{/* Apply the persisted theme before hydration so static pages keep their first paint aligned with the user's preference. */}
+				<script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+			</head>
 			<body className={`${satoshi.variable} ${GeistMono.variable} font-sans `}>
 				<div className="min-h-screen">
 					<div className="relative mx-auto min-h-screen w-full overflow-hidden">
 						<div className="md:hidden">
-							<MobileNavigation
-								initialThemePreference={initialThemePreference}
-							/>
+							<MobileNavigation writingList={<WritingList />} />
 						</div>
 
 						<aside className="fixed top-0 bottom-0 hidden w-60 flex-col border-highlight-med border-r bg-surface p-2 md:flex">
@@ -67,7 +67,7 @@ export default async function RootLayout({
 								</div>
 							</div>
 
-							<FooterControls initialThemePreference={initialThemePreference} />
+							<FooterControls />
 						</aside>
 
 						<main className="flex min-w-0 flex-col md:ml-60">{children}</main>

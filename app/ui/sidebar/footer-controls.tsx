@@ -27,10 +27,6 @@ type ControlOption<TValue extends string> = {
 	Icon?: ControlIcon;
 };
 
-type FooterControlsProps = {
-	initialThemePreference: ThemePreference;
-};
-
 type PreferenceMenuItemProps<TValue extends string> = {
 	currentValue: TValue;
 	onSelect: (value: TValue) => void;
@@ -38,7 +34,7 @@ type PreferenceMenuItemProps<TValue extends string> = {
 };
 
 const localeCookieName = "journal_locale";
-const themeCookieName = "journal_theme";
+const themeStorageKey = "journal_theme";
 
 const languageOptions: Array<ControlOption<Locale>> = [
 	{ value: "en", label: "English" },
@@ -56,13 +52,12 @@ function setLocaleCookie(locale: Locale) {
 	document.cookie = `${localeCookieName}=${locale}; Path=/; Max-Age=${maxAge}; SameSite=Lax`;
 }
 
-function setThemeCookie(preference: ThemePreference) {
-	const maxAge = 60 * 60 * 24 * 365;
-	document.cookie = `${themeCookieName}=${preference}; Path=/; Max-Age=${maxAge}; SameSite=Lax`;
-}
-
 function applyTheme(preference: ThemePreference) {
 	document.documentElement.dataset.theme = preference;
+}
+
+function isThemePreference(value: string | null): value is ThemePreference {
+	return value === "system" || value === "light" || value === "dark";
 }
 
 function PreferenceMenuItem<TValue extends string>({
@@ -89,22 +84,21 @@ function PreferenceMenuItem<TValue extends string>({
 	);
 }
 
-export function FooterControls({
-	initialThemePreference,
-}: FooterControlsProps) {
+export function FooterControls() {
 	const pathname = usePathname();
 	const router = useRouter();
 	const menuId = useId();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [open, setOpen] = useState(false);
-	const [themePreference, setThemePreference] = useState(
-		initialThemePreference,
-	);
-	const currentLocale = getLocaleFromPathname(pathname);
+	const [themePreference, setThemePreference] = useState<ThemePreference>(() => {
+		if (typeof window === "undefined") {
+			return "system";
+		}
 
-	useEffect(() => {
-		setThemePreference(initialThemePreference);
-	}, [initialThemePreference]);
+		const storedPreference = localStorage.getItem(themeStorageKey);
+		return isThemePreference(storedPreference) ? storedPreference : "system";
+	});
+	const currentLocale = getLocaleFromPathname(pathname);
 
 	useEffect(() => {
 		applyTheme(themePreference);
@@ -152,8 +146,8 @@ export function FooterControls({
 		}
 
 		setThemePreference(nextPreference);
-		setThemeCookie(nextPreference);
-		router.refresh();
+		localStorage.setItem(themeStorageKey, nextPreference);
+		applyTheme(nextPreference);
 	}
 
 	return (

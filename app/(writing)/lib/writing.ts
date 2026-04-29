@@ -1,14 +1,14 @@
+import type { Dirent } from "node:fs";
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import { cache } from "react";
 import { z } from "zod";
 import type { Locale } from "@/lib/i18n";
 
 const WRITING_DIR = path.join(process.cwd(), "writing");
-const ENGLISH_SUFFIX = ".en.md";
-const JAPANESE_SUFFIX = ".ja.md";
 const MARKDOWN_SUFFIX = ".md";
+const ENGLISH_FILE = "en.md";
+const JAPANESE_FILE = "ja.md";
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 function isValidUtcCalendarDate(value: string) {
@@ -44,9 +44,17 @@ export interface WritingArticle extends WritingFrontmatter {
 	content: string;
 }
 
-interface ParseFilenameResult {
+export interface WritingSidebarArticle {
+	slug: string;
+	title: string;
+	publishedAt: string;
+}
+
+interface ArticleSource {
 	slug: string;
 	locale: WritingLocale;
+	fileName: string;
+	filePath: string;
 }
 
 function ensureValidSlug(slug: string, fileName: string) {
@@ -57,36 +65,77 @@ function ensureValidSlug(slug: string, fileName: string) {
 	}
 }
 
-function parseFilename(fileName: string): ParseFilenameResult {
-	if (fileName.endsWith(ENGLISH_SUFFIX)) {
-		const slug = fileName.slice(0, -ENGLISH_SUFFIX.length);
-		ensureValidSlug(slug, fileName);
-		return { slug, locale: "en" };
+function parseDirectoryLocaleFileName(
+	fileName: string,
+	directoryName: string,
+): WritingLocale {
+	if (fileName === ENGLISH_FILE) {
+		return "en" as const;
 	}
 
-	if (fileName.endsWith(JAPANESE_SUFFIX)) {
-		const slug = fileName.slice(0, -JAPANESE_SUFFIX.length);
-		ensureValidSlug(slug, fileName);
-		return { slug, locale: "ja" };
+	if (fileName === JAPANESE_FILE) {
+		return "ja" as const;
 	}
 
-	if (fileName.endsWith(MARKDOWN_SUFFIX)) {
-		const slug = fileName.slice(0, -MARKDOWN_SUFFIX.length);
-		ensureValidSlug(slug, fileName);
-		return { slug, locale: "ja" };
-	}
-
-	throw new Error(`Unsupported writing filename "${fileName}".`);
+	throw new Error(
+		`Unsupported locale file "${directoryName}/${fileName}". Use "${ENGLISH_FILE}" or "${JAPANESE_FILE}".`,
+	);
 }
 
-const loadAllWritingArticles = cache((): WritingArticle[] => {
-	const files = readdirSync(WRITING_DIR)
-		.filter((entry) => entry.endsWith(MARKDOWN_SUFFIX))
+function collectDirectoryArticleSources(entry: Dirent): ArticleSource[] {
+	if (!entry.isDirectory()) {
+		return [] as ArticleSource[];
+	}
+
+	ensureValidSlug(entry.name, entry.name);
+	const directoryPath = path.join(WRITING_DIR, entry.name);
+	const markdownFiles = readdirSync(directoryPath)
+		.filter((fileName) => fileName.endsWith(MARKDOWN_SUFFIX))
 		.sort((a, b) => a.localeCompare(b));
 
-	return files.map((fileName) => {
-		const { slug, locale } = parseFilename(fileName);
-		const filePath = path.join(WRITING_DIR, fileName);
+	return markdownFiles.map((fileName) => ({
+		slug: entry.name,
+		locale: parseDirectoryLocaleFileName(fileName, entry.name),
+		fileName: `${entry.name}/${fileName}`,
+		filePath: path.join(directoryPath, fileName),
+	}));
+}
+
+function collectArticleSources(): ArticleSource[] {
+	const entries = readdirSync(WRITING_DIR, { withFileTypes: true }).sort(
+		(a, b) => a.name.localeCompare(b.name),
+	);
+	const sources: ArticleSource[] = [];
+
+	for (const entry of entries) {
+		if (entry.isFile() && entry.name.endsWith(MARKDOWN_SUFFIX)) {
+			throw new Error(
+				`Unsupported top-level writing file "${entry.name}". Use "writing/<slug>/${ENGLISH_FILE}" or "writing/<slug>/${JAPANESE_FILE}".`,
+			);
+		}
+
+		sources.push(...collectDirectoryArticleSources(entry));
+	}
+
+	const sourceBySlugAndLocale = new Map<string, string>();
+	for (const source of sources) {
+		const key = `${source.slug}:${source.locale}`;
+		const existing = sourceBySlugAndLocale.get(key);
+		if (existing) {
+			throw new Error(
+				`Duplicate writing article for "${key}" found in "${existing}" and "${source.fileName}".`,
+			);
+		}
+		sourceBySlugAndLocale.set(key, source.fileName);
+	}
+
+	return sources;
+}
+
+function loadAllWritingArticles(): WritingArticle[] {
+	const sources = collectArticleSources();
+
+	return sources.map(({ slug, locale, fileName, filePath }) => {
 		const source = readFileSync(filePath, "utf8");
 		const { content, data } = matter(source);
 		const frontmatterResult = WritingFrontmatterSchema.safeParse(data);
@@ -105,12 +154,46 @@ const loadAllWritingArticles = cache((): WritingArticle[] => {
 			content,
 		};
 	});
-});
+}
 
 export function getWritingSlugs() {
 	const articles = loadAllWritingArticles().filter((article) => !article.draft);
 	const uniqueSlugs = new Set(articles.map((article) => article.slug));
 	return [...uniqueSlugs].sort((a, b) => a.localeCompare(b));
+}
+
+export function getWritingSidebarArticlesByLocale(): Record<
+	WritingLocale,
+	WritingSidebarArticle[]
+> {
+	const publishedArticles = loadAllWritingArticles().filter(
+		(article) => !article.draft,
+	);
+
+	const byLocale: Record<WritingLocale, WritingSidebarArticle[]> = {
+		en: [],
+		ja: [],
+	};
+
+	for (const article of publishedArticles) {
+		byLocale[article.locale].push({
+			slug: article.slug,
+			title: article.title,
+			publishedAt: article.publishedAt,
+		});
+	}
+
+	for (const locale of Object.keys(byLocale) as WritingLocale[]) {
+		byLocale[locale].sort((a, b) => {
+			if (a.publishedAt !== b.publishedAt) {
+				return b.publishedAt.localeCompare(a.publishedAt);
+			}
+
+			return a.slug.localeCompare(b.slug);
+		});
+	}
+
+	return byLocale;
 }
 
 export function hasWritingLocale(slug: string, locale: WritingLocale) {

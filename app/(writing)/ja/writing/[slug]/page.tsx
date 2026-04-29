@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
+import { getWritingSlugs } from "../../../lib/writing";
 import {
 	getWritingArticleMetadata,
 	WritingArticlePage,
 } from "../../../ui/component";
-import { getWritingSlugs } from "../../../lib/writing";
 
 type WritingPageProps = {
 	params: Promise<{ slug: string }>;

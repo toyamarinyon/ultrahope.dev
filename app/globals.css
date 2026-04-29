@@ -72,7 +72,7 @@
 	--radius: var(--radius-md);
 	color-scheme: dark;
 	color: var(--color-text);
-	font-size: 15px;
+	font-size: 14px;
 	letter-spacing: 0.01em;
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -144,6 +144,71 @@ img {
 code,
 pre {
 	font-family: var(--font-mono);
+}
+
+[data-streamdown="code-block"] {
+	position: relative !important;
+	width: min(100%, calc(100vw - 2rem)) !important;
+	min-width: 0 !important;
+	max-width: 100% !important;
+	overflow: hidden !important;
+	border: 0 !important;
+	border-radius: 0.5rem !important;
+	background: color-mix(in srgb, var(--color-overlay) 82%, white 8%) !important;
+	padding: 0.5rem !important;
+}
+
+[data-streamdown="code-block-header"] {
+	height: auto !important;
+	color: var(--color-muted) !important;
+	font-size: 0.95rem !important;
+	line-height: 1.25 !important;
+}
+
+[data-streamdown="code-block-header"] > span {
+	margin-left: 0 !important;
+}
+
+[data-streamdown="code-block"]
+	> div:has([data-streamdown="code-block-actions"]) {
+	position: absolute !important;
+	top: 0.8rem !important;
+	right: 0.9rem !important;
+	margin-top: 0 !important;
+	height: auto !important;
+}
+
+[data-streamdown="code-block-actions"] {
+	border: 0 !important;
+	background: transparent !important;
+	padding: 0 !important;
+	backdrop-filter: none !important;
+	box-shadow: none !important;
+}
+
+[data-streamdown="code-block-copy-button"] {
+	padding: 0.125rem !important;
+	color: var(--color-muted) !important;
+}
+
+[data-streamdown="code-block-body"] {
+	max-width: 100% !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+	background: transparent !important;
+	padding: 0.9rem 0 0 !important;
+	font-size: 1rem !important;
+	line-height: 1.45 !important;
+	box-shadow: none !important;
+}
+
+[data-streamdown="code-block-body"] pre {
+	background: transparent !important;
+}
+
+[data-streamdown="code-block-body"] code {
+	display: block;
+	min-width: max-content;
 }
 
 ::selection {

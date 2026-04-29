@@ -6,5 +6,13 @@ export function MarkdownRenderer(props: {
 	markdown: string;
 	className?: string;
 }) {
-	return <Streamdown className={props.className}>{props.markdown}</Streamdown>;
+	return (
+		<Streamdown
+			className={props.className}
+			controls={{ code: { copy: true, download: false } }}
+			lineNumbers={false}
+		>
+			{props.markdown}
+		</Streamdown>
+	);
 }

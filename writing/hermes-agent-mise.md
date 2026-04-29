@@ -1,159 +1,79 @@
 ---
-title: Hermes Agent は気になる。でも大げさに入れたくないときの mise + venv
-description: Hermes Agent を mise + venv で軽く試したときの考え方と手順メモ。
-publishedAt: "2026-04-12"
+title: miseで始めるHermes Agent
+description: miseで管理しているPythonを使ってHermes Agentをinstallし利用できるようにします。
+publishedAt: "2026-04-28"
 ---
 
-# Hermes Agent は気になる。でも大げさに入れたくないときの mise + venv
+Hermes Agent には [installer](https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh) が用意されているのですが、installerが必要なほどにはやることが多く、それをインストーラーに任せるのはちょっと抵抗がありました。
 
-Hermes Agent を見かけることが増えて、少し気になっていました。  
-ただ、いざ試そうとすると、codex や Claude Code よりもローカルに入るものが多そうに見えます。インストーラーに任せれば早いのだと思うのですが、検証段階でそこまで一気に進めるのは、少し気が重い感じもありました。
+[別の方法](https://hermes-agent.nousresearch.com/docs/developer-guide/contributing#clone-and-install)としてレポジトリをCloneして依存関係を解決して実行ファイルのシンボリックリンクをpathの通ったディレクトリに作る方法も用意されており、今回はこれをmiseで管理しているPythonでやってみました。
+ 
 
-たぶん気になっていたのは、Hermes Agent そのものよりも、「試す前に環境ごと飲み込まれそう」という感覚だったのだと思います。
+### RepositoryをClone
 
-なので今回は、Hermes Agent をきれいに本格運用することよりも、まずは雑味なく触ってみることを優先しました。合わなければすぐ消せて、よさそうならそのあとで考えられる形です。
-
-その結果、私は `mise` で Python と `uv` を管理しつつ、Hermes Agent 自体は `venv` に閉じ込めて、入口だけ `~/.local/bin` に出す形にしました。
-
-## 先に結論を書くと、やりたかったのはこれだけです
-
-今回やりたかったのは、そんなに複雑なことではありません。
-
-- runtime は普段どおり `mise` で管理する
-- Hermes Agent の依存は専用の `venv` に隔離する
-- 実行コマンドだけ `~/.local/bin/hermes` から呼べるようにする
-
-つまり、
-
-- 実体はローカルに閉じる
-- 入口だけ手元の PATH に出す
-
-という分け方です。
-
-```txt
-実体: ~/dev/hermes-agent/.venv
-入口: ~/.local/bin/hermes
+```bash
+git clone --recurse-submodules https://github.com/NousResearch/hermes-agent.git
+cd hermes-agent
 ```
 
-この形にしておくと、使うときの見た目はふつうの CLI なのに、消したくなったらディレクトリごと外しやすいです。試す前に身構えなくてよい、というのがいちばん助かりました。
+### miseでuvの準備
 
-## なぜインストーラーをそのまま使わなかったのか
+`mise`で`uv`を使用する場合は、`mise.toml`ファイルで`python.uv_venv_auto`を設定すると`source .venv/bin/activate`する必要がなくなるので便利です。
 
-Hermes Agent の公式ドキュメントを見ると、導入はかなり親切です。  
-macOS / Linux / WSL2 向けにはワンライナーのインストーラーが用意されていて、Python や Node.js、`ripgrep`、`ffmpeg`、リポジトリの取得、`venv` の作成、`hermes` コマンドの設定、LLM provider の初期設定までまとめて面倒を見てくれます。
+```bash
+touch mise.toml
+```
 
-これは「とにかく最短で使い始めたい」人にはかなりよい導線だと思います。事前必須が Git くらい、というのもわかりやすいです。
+```toml
+[settings]
+python.uv_venv_auto = "create|source"
+```
 
-ただ、私が今回やりたかったのは、そこまで一気に整えることではありませんでした。
+`python.uv_venv_auto`について詳しい説明は[miseのドキュメント](https://mise.jdx.dev/mise-cookbook/python.html#mise-uv)を確認してください。
 
-まだ相性もわからない段階だと、
+### uvでvenvを作成してpip install
 
-- どこまでが Hermes Agent 本体なのか
-- どこからが周辺ツールの都合なのか
-- あとで消すときに何を戻せばいいのか
+Python 3.11とuvが入っていない場合はここで入れておきましょう。
 
-を自分の頭で追えるくらいの粒度で入れておきたかったんですよね。
+```bash
+mise use python@3.11
+mise use uv
+uv venv venv --python 3.11
+uv pip install -e ".[all,dev]"
+uv pip install -e "./tinker-atropos"
+```
 
-だから「公式のやり方がよくない」ではなく、「今の目的には少し親切すぎた」という感じです。
+### Hermes Agentが利用するファイル置き場と実行用のシンボリックリンクを作成する
 
-## mise + venv にすると、役割が分かれて気が楽でした
+```bash
+mkdir -p ~/.hermes/{cron,sessions,logs,memories,skills}
+cp cli-config.yaml.example ~/.hermes/config.yaml
+mkdir -p ~/.local/bin
+ln -sf "$(pwd)/venv/bin/hermes" ~/.local/bin/hermes
+```
 
-今回の構成でよかったのは、それぞれの責任範囲が比較的はっきりしていたことでした。
+### doctorコマンドを実行
 
-`mise` は、Hermes Agent のための道具というより、普段から使っている runtime 管理の土台です。Python の版を揃えたり、`uv` を扱いやすくしたりする役割を持たせています。
+`hermes doctor`を実行するとAPI KEYの設定など、hermesを実行するための残タスクが表示されるので確認して対応します。
 
-一方で、Hermes Agent の依存そのものは `venv` 側に閉じ込めます。  
-ここは「Hermes Agent を試すための小さな箱」みたいなものです。
+```bash
+hermes doctor
+```
 
-この分け方にしておくと、
+### hermesを実行
 
-- Python をどの版で使うかは `mise` の責任
-- Hermes Agent の依存をどこに閉じるかは `venv` の責任
-- どの名前で起動するかは `~/.local/bin` の責任
+```bash
+hermes
+```
 
-というふうに考えられます。
+以下のように表示されれば成功です。
 
-少し大げさに見えるかもしれませんが、試し始める前の心理的なハードルは、こういう「何がどこにあるのか」が見えるだけでずいぶん下がる気がします。
+![welcome screen of hermes](/writing/hermes-agent-mise/hermes-agent-screen.jpeg)
 
-## 「グローバルに入るのが怖い」は、少し言い換えてよさそうでした
+### 終わりに
 
-Hermes Agent を触る前は、「いろいろグローバルに入りそう」という印象がありました。  
-でも公式の手動インストール手順を確認すると、実際には `uv` で仮想環境を作り、その中に依存を入れて、最後に `~/.local/bin/hermes` へ symlink を置く流れになっています。
+installerを使わずに手元のmise/uv環境でHermes Agentをセットアップしてみました。
 
-なので厳密には、「全部がグローバルに入る」というより、
+やっていること自体は、Python環境を用意して依存関係を入れ、実行ファイルへpathを通すだけです。手順を分けて見ていくと、思ったより素直に管理できる印象でした。
 
-- 実体は仮想環境の中にある
-- 入口だけユーザー領域の PATH に出す
-
-という理解のほうが近そうでした。
-
-ここは、試す前に感じる怖さと、実際の構成が少しずれている部分かもしれません。
-
-もちろん、インストーラーに任せる以上は自分で一つずつ確認しながら入れる感じとは違います。  
-ただ、「一度入れたら取り返しがつかない」ほどではない、というのは知っておくと少し楽でした。
-
-## これなら試せそう、と思える最小ライン
-
-もし「気にはなるけれど、今日はまだ重いな」という日なら、最初から全部やらなくても十分です。
-
-まず確認するのは、たぶんこのくらいで足ります。
-
-- Git が使える
-- LLM provider をひとつ決められる
-- Hermes Agent 用のディレクトリをひとつ切れる
-
-ここまで見えていれば、あとはそのディレクトリの中に環境を閉じていくだけです。
-
-逆に言うと、最初の段階では「本番運用の形を決める」「周辺機能まで全部試す」まではいりません。  
-Hermes Agent は optional な追加機能も多いので、まずは最小構成で起動できるところまでを見る、くらいで十分だと思います。
-
-ちなみに、公式の手動手順では仮想環境名は `venv` ですが、私は普段の流儀に合わせて `.venv` に寄せています。  
-このあたりは、Hermes Agent の必須要件というより、自分があとで見返しやすい形を選べばよさそうです。
-
-## Docker を使わなかったのは、正しさより気軽さを取りたかったからです
-
-完全に隔離するなら Docker もあります。  
-実際、あとで再現性まで含めて考えるなら、そちらのほうがきれいな場面もあると思います。
-
-ただ今回は、Hermes Agent をサーバーとして運用したいわけでも、長期間固定したいわけでもありませんでした。やりたかったのは、CLI として少し触って、感触を見ることです。
-
-その用途だと、Docker は少しだけ重いです。
-
-- コンテナを意識するぶん、最初の一歩が遠くなる
-- CLI を気軽に叩くまでの準備が増える
-- 「試すだけ」のわりに構成が立派になりやすい
-
-このあたりを考えると、今回は `mise + venv` くらいの軽い隔離がちょうどよく感じました。
-
-雑にグローバルへ入れるほど無防備ではなく、Docker ほど構えなくていい。その中間にある感じです。
-
-## たぶん大事だったのは、「ちゃんと入れる」より「消しやすく入れる」でした
-
-新しいツールを試すとき、つい「せっかく入れるならちゃんと整えてから」と考えてしまいます。  
-でも、相性を見る段階では、その丁寧さが逆に着手の邪魔になることがあります。
-
-Hermes Agent もたぶんそうで、最初に必要なのは完璧な導入より、
-
-- 触り始められること
-- どこに何があるかわかること
-- 合わなければすぐ戻せること
-
-なのだと思います。
-
-その意味では、`mise` で runtime を揃えて、Hermes Agent 本体は `venv` に閉じて、`~/.local/bin` から呼ぶ構成はかなり都合がよかったです。
-
-「これで運用していく」と決める前に、「これなら一回試せるな」と思える形にしておく。  
-新しいツールに入っていくときは、そのくらいの温度がちょうどいいこともあります。
-
-もし Hermes Agent が気になっているけれど、導入の重さで手が止まっているなら、最初から全部整えなくても大丈夫です。  
-まずは消しやすい形で一度だけ触ってみる。それで十分、次の判断材料になると思います。
-
-## 参考にしたドキュメント
-
-- Hermes Agent Installation: <https://hermes-agent.nousresearch.com/docs/getting-started/installation/>
-- Hermes Agent Quickstart: <https://hermes-agent.nousresearch.com/docs/getting-started/quickstart/>
-- Hermes Agent AI Providers: <https://hermes-agent.nousresearch.com/docs/integrations/providers/>
-- mise Python: <https://mise.jdx.dev/lang/python.html>
-- mise Cookbook for Python: <https://mise.jdx.dev/mise-cookbook/python.html>
-- uv: Installing Python: <https://docs.astral.sh/uv/guides/install-python/>
-- uv: Using environments: <https://docs.astral.sh/uv/pip/environments/>
+すでにmiseを使っている方は、この方法で試してみると扱いやすいかもしれません。

@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { type Locale, localizedPath } from "@/lib/i18n";
-import {
-	formatWritingDate,
-	getWritingArticle,
-	hasWritingLocale,
-} from "../lib/writing";
-import { PillLink, PostHero } from "./editorial";
+import { type Locale } from "@/lib/i18n";
+import { formatWritingDate, getWritingArticle } from "../lib/writing";
 import { MarkdownRenderer } from "./markdown-renderer";
 
 type WritingArticlePageProps = {
@@ -27,10 +21,6 @@ function stripLeadingDuplicateH1(markdown: string, title: string) {
 	}
 
 	return markdown.slice(match[1].length).replace(/^\s*\n+/, "");
-}
-
-function writingHref(slug: string, locale: Locale) {
-	return localizedPath(locale, `/writing/${slug}`);
 }
 
 export function getWritingArticleMetadata({
@@ -56,41 +46,19 @@ export function WritingArticlePage({ locale, slug }: WritingArticlePageProps) {
 		notFound();
 	}
 
-	const hasEnglish = hasWritingLocale(slug, "en");
-	const hasJapanese = hasWritingLocale(slug, "ja");
 	const bodyMarkdown = stripLeadingDuplicateH1(article.content, article.title);
 
 	return (
-		<main className="mx-auto mt-12 max-w-220 px-4 sm:px-8 md:mt-20 lg:px-20">
-			<PostHero
-				eyebrow="Writing"
-				title={article.title}
-				intro={article.description}
-				meta={[
-					{
-						label: "Language",
-						value: locale === "en" ? "English" : "日本語",
-					},
-					{
-						label: "Published",
-						value: formatWritingDate(article.publishedAt, locale),
-					},
-				]}
-			/>
-
-			<div className="mb-5.5 flex gap-2.5">
-				{hasJapanese ? (
-					<Link href={writingHref(slug, "ja")}>
-						<PillLink active={locale === "ja"}>日本語</PillLink>
-					</Link>
-				) : null}
-				{hasEnglish ? (
-					<Link href={writingHref(slug, "en")}>
-						<PillLink active={locale === "en"}>English</PillLink>
-					</Link>
-				) : null}
-			</div>
-
+		<main className="mx-auto mt-12 max-w-220 px-4 sm:px-8 md:mt-20 lg:px-20 mb-24">
+			<header className="mb-8">
+				<h2 className="text-2xl sm:text-3xl">{article.title}</h2>
+				<div className="text-muted text-sm">
+					<p>
+						{formatWritingDate(article.publishedAt, locale)}{" "}
+						{locale === "en" ? "Published" : "公開"}
+					</p>
+				</div>
+			</header>
 			<MarkdownRenderer markdown={bodyMarkdown} className="max-w-190 min-w-0" />
 		</main>
 	);

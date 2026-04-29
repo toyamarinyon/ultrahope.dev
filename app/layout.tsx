@@ -44,7 +44,11 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html className="text-text bg-base subpixel-antialiased" data-theme="system">
+		<html
+			className="text-text bg-base subpixel-antialiased"
+			data-scroll-behavior="smooth"
+			data-theme="system"
+		>
 			<head>
 				{/* Apply the persisted theme before hydration so static pages keep their first paint aligned with the user's preference. */}
 				<script dangerouslySetInnerHTML={{ __html: themeInitScript }} />

@@ -90,14 +90,16 @@ export function FooterControls() {
 	const menuId = useId();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [open, setOpen] = useState(false);
-	const [themePreference, setThemePreference] = useState<ThemePreference>(() => {
-		if (typeof window === "undefined") {
-			return "system";
-		}
+	const [themePreference, setThemePreference] = useState<ThemePreference>(
+		() => {
+			if (typeof window === "undefined") {
+				return "system";
+			}
 
-		const storedPreference = localStorage.getItem(themeStorageKey);
-		return isThemePreference(storedPreference) ? storedPreference : "system";
-	});
+			const storedPreference = localStorage.getItem(themeStorageKey);
+			return isThemePreference(storedPreference) ? storedPreference : "system";
+		},
+	);
 	const currentLocale = getLocaleFromPathname(pathname);
 
 	useEffect(() => {

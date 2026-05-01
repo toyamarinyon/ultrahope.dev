@@ -1,6 +1,7 @@
 import { FooterControls } from "./footer-controls";
 import { HomeLink } from "./home-link";
 import { MobileSidebarShell } from "./mobile-sidebar-shell";
+import { ProjectList } from "./project-list";
 import { WritingList } from "./writing-list";
 
 function SidebarContent(props: { showHomeLink: boolean }) {
@@ -15,6 +16,7 @@ function SidebarContent(props: { showHomeLink: boolean }) {
 
 				<div className="grid gap-6">
 					<WritingList />
+					<ProjectList />
 				</div>
 			</div>
 

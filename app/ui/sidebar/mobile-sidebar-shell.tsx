@@ -3,14 +3,13 @@
 import { MenuIcon, XIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { useEffect, useId, useState } from "react";
-import { FooterControls } from "./footer-controls";
 import { HomeLink } from "./home-link";
 
-type MobileNavigationProps = {
-	writingList: ReactNode;
+type MobileSidebarShellProps = {
+	content: ReactNode;
 };
 
-export function MobileNavigation({ writingList }: MobileNavigationProps) {
+export function MobileSidebarShell({ content }: MobileSidebarShellProps) {
 	const menuId = useId();
 	const [open, setOpen] = useState(false);
 
@@ -33,21 +32,23 @@ export function MobileNavigation({ writingList }: MobileNavigationProps) {
 	}, [open]);
 
 	return (
-		<header className="border-highlight-med border-b bg-base">
-			<div className="flex h-16 items-center justify-between gap-4 px-4">
-				<HomeLink />
+		<>
+			<header className="border-highlight-med border-b bg-base md:hidden">
+				<div className="flex h-16 items-center justify-between gap-4 px-4">
+					<HomeLink />
 
-				<button
-					type="button"
-					className="inline-flex size-10 items-center justify-center rounded-full text-text transition-colors hover:bg-highlight-med focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
-					aria-label="Open menu"
-					aria-controls={menuId}
-					aria-expanded={open}
-					onClick={() => setOpen(true)}
-				>
-					<MenuIcon className="size-6" />
-				</button>
-			</div>
+					<button
+						type="button"
+						className="inline-flex size-10 items-center justify-center rounded-full text-text transition-colors hover:bg-highlight-med focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+						aria-label="Open menu"
+						aria-controls={menuId}
+						aria-expanded={open}
+						onClick={() => setOpen(true)}
+					>
+						<MenuIcon className="size-6" />
+					</button>
+				</div>
+			</header>
 
 			<div
 				className={`fixed inset-0 z-50 md:hidden ${
@@ -71,6 +72,14 @@ export function MobileNavigation({ writingList }: MobileNavigationProps) {
 					}`}
 					aria-label="Menu"
 					aria-hidden={!open}
+					onClickCapture={(event) => {
+						if (event.target instanceof Element) {
+							const link = event.target.closest("a");
+							if (link) {
+								setOpen(false);
+							}
+						}
+					}}
 				>
 					<div className="mb-8 flex h-12 items-center justify-end">
 						<button
@@ -84,23 +93,9 @@ export function MobileNavigation({ writingList }: MobileNavigationProps) {
 						</button>
 					</div>
 
-					<div
-						className="min-h-0 flex-1"
-						onClickCapture={(event) => {
-							if (event.target instanceof Element) {
-								const link = event.target.closest("a");
-								if (link) {
-									setOpen(false);
-								}
-							}
-						}}
-					>
-						{writingList}
-					</div>
-
-					<FooterControls />
+					{content}
 				</aside>
 			</div>
-		</header>
+		</>
 	);
 }

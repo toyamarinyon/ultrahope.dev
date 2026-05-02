@@ -12,8 +12,9 @@ const satoshi = localFont({
 });
 
 export const metadata: Metadata = {
+	metadataBase: new URL("https://ultrahope.dev"),
 	title: {
-		default: "Journal | Ultrahope",
+		default: "Ultrahope",
 		template: "%s | Ultrahope Journal",
 	},
 	description: "静かな余白と、読み心地の良い文章でつくるプロダクトノート。",

@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { type Locale } from "@/lib/i18n";
 import { formatWritingDate, getWritingArticle } from "../lib/writing";
@@ -21,22 +20,6 @@ function stripLeadingDuplicateH1(markdown: string, title: string) {
 	}
 
 	return markdown.slice(match[1].length).replace(/^\s*\n+/, "");
-}
-
-export function getWritingArticleMetadata({
-	locale,
-	slug,
-}: WritingArticlePageProps): Metadata {
-	const article = getWritingArticle(slug, locale);
-
-	if (!article) {
-		notFound();
-	}
-
-	return {
-		title: article.title,
-		description: article.description,
-	};
 }
 
 export function WritingArticlePage({ locale, slug }: WritingArticlePageProps) {

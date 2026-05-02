@@ -1,4 +1,7 @@
-import { getProjectMetadata, ProjectPage } from "../../../projects/ui/project-page";
+import {
+	getProjectMetadata,
+	ProjectPage,
+} from "../../../projects/ui/project-page";
 
 export const metadata = getProjectMetadata({
 	locale: "ja",

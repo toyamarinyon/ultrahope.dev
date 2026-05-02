@@ -4,9 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
 	getLocaleFromPathname,
+	type Locale,
 	localizedPath,
 	withoutLocalePrefix,
-	type Locale,
 } from "@/lib/i18n";
 
 type ProjectItem = {
@@ -14,11 +14,7 @@ type ProjectItem = {
 	content: Record<Locale, { title: string }>;
 };
 
-export function ProjectListClient({
-	projects,
-}: {
-	projects: ProjectItem[];
-}) {
+export function ProjectListClient({ projects }: { projects: ProjectItem[] }) {
 	const pathname = usePathname();
 	const locale = getLocaleFromPathname(pathname);
 	const pathnameWithoutLocale = withoutLocalePrefix(pathname);
@@ -35,7 +31,9 @@ export function ProjectListClient({
 						key={project.slug}
 						href={localizedPath(locale, `/projects/${project.slug}`)}
 						className={`flex w-full min-w-0 items-center rounded-md px-2 py-1 transition-colors duration-200 hover:bg-highlight-med hover:text-rose focus-visible:text-rose ${activeProjectSlug === project.slug ? "bg-highlight-med text-rose" : ""}`}
-						aria-current={activeProjectSlug === project.slug ? "page" : undefined}
+						aria-current={
+							activeProjectSlug === project.slug ? "page" : undefined
+						}
 					>
 						<span className="line-clamp-2">
 							{project.content[locale]?.title ?? project.content.en.title}

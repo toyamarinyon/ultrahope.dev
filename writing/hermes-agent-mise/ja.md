@@ -1,7 +1,6 @@
 ---
 title: miseで始めるHermes Agent
-description: miseで管理しているPythonを使ってHermes Agentをinstallし利用できるようにします。
-publishedAt: "2026-04-28"
+publishedAt: "2026-05-02"
 ---
 
 Hermes Agent には [installer](https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh) が用意されているのですが、installerが必要なほどにはやることが多く、それをインストーラーに任せるのはちょっと抵抗がありました。

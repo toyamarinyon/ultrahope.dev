@@ -1,7 +1,6 @@
 ---
 title: Getting Started with Hermes Agent Using mise
-description: Install and run Hermes Agent with Python managed by mise.
-publishedAt: "2026-04-28"
+publishedAt: "2026-05-02"
 ---
 
 Hermes Agent provides an [installer](https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh), but it does quite a lot. I felt a little hesitant about handing all of that over to an installer.

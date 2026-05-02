@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { getWritingSlugs } from "../../../lib/writing";
-import {
-	getWritingArticleMetadata,
-	WritingArticlePage,
-} from "../../../ui/component";
+import { getWritingArticleSocialMetadata } from "../../../ui/article-social";
+import { WritingArticlePage } from "../../../ui/component";
 
 type WritingPageProps = {
 	params: Promise<{ slug: string }>;
@@ -17,7 +15,7 @@ export async function generateMetadata({
 	params,
 }: WritingPageProps): Promise<Metadata> {
 	const { slug } = await params;
-	return getWritingArticleMetadata({ slug, locale: "ja" });
+	return getWritingArticleSocialMetadata({ slug, locale: "ja" });
 }
 
 export default async function Page({ params }: WritingPageProps) {

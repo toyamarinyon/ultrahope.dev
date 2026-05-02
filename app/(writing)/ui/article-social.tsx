@@ -5,11 +5,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ImageResponse } from "next/og";
 import { type Locale, localizedPath } from "@/lib/i18n";
-import {
-	formatWritingDate,
-	getWritingArticle,
-	hasWritingLocale,
-} from "../lib/writing";
+import { getWritingArticle, hasWritingLocale } from "../lib/writing";
 
 type WritingArticleSocialProps = {
 	slug: string;
@@ -35,6 +31,10 @@ function getLogotypeDataUrl() {
 	);
 
 	return logotypeDataUrl;
+}
+
+function formatWritingOgDate(date: string) {
+	return date.replaceAll("-", "/");
 }
 
 export function getWritingArticleSocialMetadata({
@@ -150,14 +150,14 @@ export async function getWritingArticleOgImage({
 			<div
 				style={{
 					display: "flex",
-					justifyContent: "flex-start",
+					justifyContent: "flex-end",
 					alignItems: "center",
 					fontSize: 26,
 					color: "#aeb0b8",
 				}}
 			>
-				<div style={{ display: "flex" }}>
-					{formatWritingDate(article.publishedAt, locale)}
+				<div style={{ display: "flex", textAlign: "right" }}>
+					{formatWritingOgDate(article.publishedAt)}
 				</div>
 			</div>
 		</div>,

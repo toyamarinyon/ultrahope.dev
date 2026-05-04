@@ -1,6 +1,6 @@
-import { defineRule } from "../utils/define-rule.mjs";
-import { getStaticClassTokens } from "../utils/get-static-class-tokens.mjs";
-import { designSystem } from "../utils/tailwind-design-system.mjs";
+import { defineRule } from "../utils/define-rule";
+import { getStaticClassTokens } from "../utils/get-static-class-tokens";
+import { designSystem } from "../utils/tailwind-design-system";
 
 export default defineRule({
 	meta: {

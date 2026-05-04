@@ -1,4 +1,4 @@
-import { defineRule } from "../utils/define-rule.mjs";
+import { defineRule } from "../utils/define-rule";
 
 const tailwindThemeTokenNamespaces = {
 	exact: new Set([

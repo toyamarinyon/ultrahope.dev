@@ -1,15 +1,45 @@
 {
-  "name": "eslint-plugin-raula",
-  "version": "0.0.0",
-  "type": "module",
-  "main": "./index.mjs",
-  "exports": {
-    ".": "./index.mjs"
-  },
-  "peerDependencies": {
-    "eslint": "^9"
-  },
-  "dependencies": {
-    "tailwindcss": "^4"
-  }
+	"name": "eslint-plugin-raula",
+	"version": "0.0.0",
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		},
+		"./tailwind": {
+			"types": "./dist/tailwind.d.ts",
+			"import": "./dist/tailwind.js",
+			"default": "./dist/tailwind.js"
+		},
+		"./next-layout": {
+			"types": "./dist/next-layout.d.ts",
+			"import": "./dist/next-layout.js",
+			"default": "./dist/next-layout.js"
+		},
+		"./css": {
+			"types": "./dist/css.d.ts",
+			"import": "./dist/css.js",
+			"default": "./dist/css.js"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsup"
+	},
+	"peerDependencies": {
+		"eslint": "^9"
+	},
+	"dependencies": {
+		"tailwindcss": "^4"
+	},
+	"devDependencies": {
+		"tsup": "^8.5.0",
+		"typescript": "^5.9.3"
+	}
 }

@@ -6,7 +6,22 @@ import { __unstable__loadDesignSystem as loadDesignSystem } from "tailwindcss";
 const require = createRequire(import.meta.url);
 const globalsCssPath = path.resolve(process.cwd(), "app/globals.css");
 
-async function loadStylesheet(id, base) {
+type LoadedStylesheet = {
+	base: string;
+	content: string;
+};
+
+type DesignSystem = {
+	canonicalizeCandidates?: (
+		candidates: string[],
+		options: { rem: number },
+	) => string[];
+};
+
+async function loadStylesheet(
+	id: string,
+	base: string,
+): Promise<LoadedStylesheet> {
 	const resolvedPath =
 		id === "tailwindcss"
 			? require.resolve("tailwindcss/index.css")
@@ -18,15 +33,15 @@ async function loadStylesheet(id, base) {
 	};
 }
 
-let designSystem = null;
+let designSystem: DesignSystem | null = null;
 
 try {
 	const globalsCss = await fs.readFile(globalsCssPath, "utf8");
 
-	designSystem = await loadDesignSystem(globalsCss, {
+	designSystem = (await loadDesignSystem(globalsCss, {
 		from: globalsCssPath,
 		loadStylesheet,
-	});
+	})) as DesignSystem;
 } catch {
 	designSystem = null;
 }

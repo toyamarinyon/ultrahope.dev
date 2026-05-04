@@ -1,6 +1,24 @@
 {
 	"name": "eslint-plugin-raula",
-	"version": "0.0.0",
+	"version": "0.0.1",
+	"description": "Opinionated ESLint rules and flat-config presets for Tailwind and Next.js app standards.",
+	"keywords": [
+		"eslint",
+		"eslintplugin",
+		"eslint-plugin",
+		"nextjs",
+		"tailwindcss",
+		"design-system"
+	],
+	"homepage": "https://github.com/toyamarinyon/journal.ultrahope.dev/tree/main/packages/eslint-plugin-raula",
+	"bugs": {
+		"url": "https://github.com/toyamarinyon/journal.ultrahope.dev/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/toyamarinyon/journal.ultrahope.dev.git",
+		"directory": "packages/eslint-plugin-raula"
+	},
 	"type": "module",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
@@ -29,8 +47,13 @@
 	"files": [
 		"dist"
 	],
+	"sideEffects": false,
 	"scripts": {
-		"build": "tsup"
+		"build": "tsup",
+		"prepublishOnly": "npm run build"
+	},
+	"publishConfig": {
+		"access": "public"
 	},
 	"peerDependencies": {
 		"eslint": "^9"

@@ -1,4 +1,4 @@
-import { defineRule } from "../utils/define-rule.mjs";
+import { defineRule } from "../utils/define-rule";
 
 export default defineRule({
 	meta: {

@@ -1,0 +1,15 @@
+{
+  "name": "eslint-plugin-raula",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./index.mjs",
+  "exports": {
+    ".": "./index.mjs"
+  },
+  "peerDependencies": {
+    "eslint": "^9"
+  },
+  "dependencies": {
+    "tailwindcss": "^4"
+  }
+}

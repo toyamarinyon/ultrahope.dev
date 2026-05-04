@@ -1,42 +1,19 @@
 {
 	"name": "ultrahope.dev",
-	"version": "0.1.0",
 	"private": true,
+	"packageManager": "bun@1.3.13",
+	"workspaces": [
+		"apps/*",
+		"packages/*"
+	],
 	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
-		"start": "next start",
-		"lint": "eslint .",
-		"format": "biome check --write ."
-	},
-	"dependencies": {
-		"geist": "1.7.0",
-		"gray-matter": "^4.0.3",
-		"lucide-react": "1.11.0",
-		"next": "16.2.2",
-		"react": "19.2.4",
-		"react-dom": "19.2.4",
-		"streamdown": "2.5.0",
-		"zod": "^4.3.6"
+		"dev": "turbo dev",
+		"build": "turbo build",
+		"lint": "turbo lint",
+		"fmt": "bunx @biomejs/biome check --write .",
+		"format": "bun fmt"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.2.0",
-		"@eslint/css": "^1.1.0",
-		"@tailwindcss/postcss": "^4",
-		"@types/node": "^20",
-		"@types/react": "^19",
-		"@types/react-dom": "^19",
-		"eslint": "^9",
-		"eslint-config-next": "16.2.2",
-		"tailwindcss": "^4",
-		"typescript": "^5"
-	},
-	"ignoreScripts": [
-		"sharp",
-		"unrs-resolver"
-	],
-	"trustedDependencies": [
-		"sharp",
-		"unrs-resolver"
-	]
+		"turbo": "2.9.8"
+	}
 }

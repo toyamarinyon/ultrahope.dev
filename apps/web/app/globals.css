@@ -33,7 +33,11 @@
 	/* Selections, active rows, and medium-emphasis interactive states. */
 	--color-highlight-med: var(--border);
 	/* Borders, dividers, and stronger focus or separation cues. */
-	--color-highlight-high: color-mix(in srgb, var(--foreground) 18%, transparent);
+	--color-highlight-high: color-mix(
+		in srgb,
+		var(--foreground) 18%,
+		transparent
+	);
 	/* Selection tint mixed from gold for text highlighting. */
 	--color-selection: color-mix(in srgb, var(--primary) 18%, transparent);
 

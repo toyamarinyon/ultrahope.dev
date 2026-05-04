@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element, standards/no-inline-style-prop */
+/* eslint-disable @next/next/no-img-element, raula/no-inline-style-prop */
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import type { Metadata } from "next";

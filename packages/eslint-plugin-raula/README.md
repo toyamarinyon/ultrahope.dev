@@ -73,6 +73,8 @@ Applies to `app/globals.css` and enables:
 - `raula/no-disallowed-global-class-selectors`
 - `raula/no-document-element-styles-in-css`
 
+This preset also configures ESLint's CSS language support for `app/globals.css`.
+
 ## Rules
 
 ### `raula/exhaustive-tailwind-classes`

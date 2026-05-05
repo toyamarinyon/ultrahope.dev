@@ -1,3 +1,4 @@
+import cssPlugin from "@eslint/css";
 import type { Linter } from "eslint";
 
 import { plugin } from "./plugin";
@@ -5,7 +6,9 @@ import { plugin } from "./plugin";
 const css: Linter.Config[] = [
 	{
 		files: ["app/globals.css"],
+		language: "css/css",
 		plugins: {
+			css: cssPlugin as never,
 			raula: plugin,
 		},
 		rules: {

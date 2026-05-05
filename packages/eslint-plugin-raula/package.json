@@ -1,6 +1,6 @@
 {
 	"name": "eslint-plugin-raula",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Opinionated ESLint rules and flat-config presets for Tailwind and Next.js app standards.",
 	"keywords": [
 		"eslint",
@@ -22,6 +22,9 @@
 	"type": "module",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
+	"bin": {
+		"eslint-plugin-raula": "./bin/eslint-plugin-raula.js"
+	},
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
@@ -45,12 +48,16 @@
 		}
 	},
 	"files": [
-		"dist"
+		"dist",
+		"REFERENCE.md",
+		"references",
+		"bin"
 	],
 	"sideEffects": false,
 	"scripts": {
-		"build": "tsup",
-		"prepublishOnly": "npm run build"
+		"generate-reference": "bun run scripts/generate-reference.ts",
+		"build": "bun run generate-reference && tsup",
+		"prepublishOnly": "bun run build"
 	},
 	"publishConfig": {
 		"access": "public"

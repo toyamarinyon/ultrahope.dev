@@ -122,3 +122,26 @@ Options:
 ### `raula/no-document-element-styles-in-css`
 
 Disallows styling `html` and `body` directly in CSS.
+
+## Reference
+
+Rule docs are generated from rule metadata and published as:
+
+- `./REFERENCE.md`
+- `./references/<rule-name>.md`
+
+Use the package references before editing styling, className usage, global CSS, or layout-related code.
+
+## CLI
+
+You can use the package CLI to inject the managed AGENTS reference block into the current repository:
+
+```bash
+npx eslint-plugin-raula instruct
+```
+
+The command updates `AGENTS.md` in the current working directory with an idempotent block pointing to:
+
+```
+./node_modules/eslint-plugin-raula/REFERENCE.md
+```

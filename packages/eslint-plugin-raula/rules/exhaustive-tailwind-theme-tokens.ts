@@ -1,4 +1,5 @@
 import { defineRule } from "../utils/define-rule";
+import type { RuleDoc } from "./docs";
 
 const tailwindThemeTokenNamespaces = {
 	exact: new Set([
@@ -79,6 +80,38 @@ function matchesTailwindThemeTokenNamespace(propertyName) {
 		)
 	);
 }
+
+export const docs = {
+	title: "Tailwind theme token governance",
+	category: "CSS",
+	summary:
+		"Require CSS custom properties to be declared inside `@theme` blocks and only under supported namespaces.",
+	why: "This keeps global design tokens centralized and aligned with Tailwind's theme contract.",
+	bad: [
+		{
+			label: "Token outside @theme",
+			code: ":root {\n\t--foreground: 123;\n}",
+			language: "css",
+		},
+		{
+			label: "Unsupported namespace",
+			code: ":root {\n\t@theme {\n\t\t--random-token: #000;\n\t}\n}",
+			language: "css",
+		},
+	],
+	good: [
+		{
+			label: "Supported namespaces in @theme",
+			code: "@theme {\n\t--color-background: #fff;\n\t--spacing-sm: 0.5rem;\n}",
+			language: "css",
+		},
+	],
+	options: {
+		description:
+			"Add allowlisted custom properties that may remain outside `@theme`.",
+		schema: '{\n\tallowCustomProperties: ["--background", "--foreground"]\n}',
+	},
+} satisfies RuleDoc;
 
 export default defineRule({
 	meta: {

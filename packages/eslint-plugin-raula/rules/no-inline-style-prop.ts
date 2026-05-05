@@ -1,4 +1,27 @@
 import { defineRule } from "../utils/define-rule";
+import type { RuleDoc } from "./docs";
+
+export const docs = {
+	title: "No inline style prop",
+	category: "React",
+	summary:
+		"Disallow inline style props in JSX so styling remains centralized and consistent.",
+	why: "Inline styles bypass design-system conventions and make static enforcement harder.",
+	bad: [
+		{
+			label: "Direct inline style object",
+			code: "<div style={{ background: '#fff' }} />",
+			language: "tsx",
+		},
+	],
+	good: [
+		{
+			label: "Use className instead",
+			code: '<div className="bg-white" />',
+			language: "tsx",
+		},
+	],
+} satisfies RuleDoc;
 
 export default defineRule({
 	meta: {

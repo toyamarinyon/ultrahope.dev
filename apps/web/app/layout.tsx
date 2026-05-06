@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import { GeistMono } from "geist/font/mono";
 import { ResponsiveSidebar } from "./ui/sidebar/responsive-sidebar";
-import { Analytics } from "@vercel/analytics/next";
 
 const satoshi = localFont({
 	src: "./fonts/Satoshi-Variable.woff2",

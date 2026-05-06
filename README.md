@@ -7,8 +7,6 @@ This repository is a minimal Bun workspace monorepo with Turborepo.
 ```text
 apps/
   web/                     Next.js app
-packages/
-  eslint-plugin-raula/     Local ESLint plugin, dogfooded by apps/web
 ```
 
 ## Requirements
@@ -44,12 +42,6 @@ bun lint
 bun build
 bun format
 ```
-
-## ESLint Plugin
-
-`packages/eslint-plugin-raula` is a standalone package named `eslint-plugin-raula`.
-
-`apps/web` consumes it through the Bun workspace, so local ESLint rule changes are immediately dogfooded in the app.
 
 ## Vercel
 

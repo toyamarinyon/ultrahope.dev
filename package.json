@@ -10,10 +10,11 @@
 		"dev": "turbo dev",
 		"build": "turbo build",
 		"lint": "turbo lint",
-		"fmt": "bunx @biomejs/biome check --write .",
-		"format": "bun fmt"
+		"format": "biome check --write .",
+		"format:check": "biome check ."
 	},
 	"devDependencies": {
+		"@biomejs/biome": "2.4.14",
 		"turbo": "2.9.8"
 	}
 }

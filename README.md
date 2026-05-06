@@ -42,7 +42,7 @@ Open [http://localhost:3000](http://localhost:3000).
 ```bash
 bun lint
 bun build
-bun fmt
+bun format
 ```
 
 ## ESLint Plugin

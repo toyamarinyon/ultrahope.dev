@@ -1,6 +1,6 @@
 import type { Locale } from "@/lib/i18n";
 
-export type ProjectSlug = "halo";
+export type ProjectSlug = "halo" | "eslint-plugin-raula";
 
 type LocalizedProjectContent = {
 	title: string;
@@ -17,6 +17,36 @@ export type Project = {
 };
 
 const projects: Project[] = [
+	{
+		slug: "eslint-plugin-raula",
+		url: "https://www.npmjs.com/package/eslint-plugin-raula",
+		content: {
+			en: {
+				title: "eslint-plugin-raula",
+				summary:
+					"Opinionated ESLint rules for Tailwind and Next.js App Router, with built-in reference documentation generation.",
+				description: [
+					"eslint-plugin-raula is an Ultrahope project for teams that want strict, predictable conventions around Tailwind and the Next.js App Router. It provides opinionated rules rather than a broad generic lint set, and this site also uses eslint-plugin-raula in its own codebase.",
+					"The rules focus on `className`, `app/globals.css`, and `app/**/layout.*`, so design-system and App Router structure constraints can be enforced consistently in both code review and CI.",
+					"It is not only linting. The package generates reference documentation from each rule's metadata, ships `REFERENCE.md` plus per-rule docs in the npm package, and `npx eslint-plugin-raula instruct` adds an `AGENTS.md` block that points coding agents to `node_modules/eslint-plugin-raula/REFERENCE.md`.",
+				],
+				linkLabel: "Open project",
+				visitLabel: "Visit npm package",
+			},
+			ja: {
+				title: "eslint-plugin-raula",
+				summary:
+					"Tailwind と Next.js App Router 向けの opinionated な ESLint ルールセットで、ルール metadata から参照ドキュメントも生成します。",
+				description: [
+					"eslint-plugin-raula は、Tailwind と Next.js App Router の運用ルールを強くそろえたいチーム向けの Ultrahope プロジェクトです。汎用的な lint 集ではなく、判断基準を明確にした opinionated なルールを提供し、このサイト自身でも eslint-plugin-raula を使っています。",
+					"ルールは `className`、`app/globals.css`、`app/**/layout.*` に焦点を当てており、デザインシステムと App Router の構造に関する制約を、レビューと CI の両方で一貫して適用できます。",
+					"これは lint だけのパッケージではありません。各ルールの metadata から参照ドキュメントを生成し、npm パッケージ内に `REFERENCE.md` とルールごとのドキュメントを同梱します。さらに `npx eslint-plugin-raula instruct` を実行すると、coding agent を `node_modules/eslint-plugin-raula/REFERENCE.md` に誘導する `AGENTS.md` ブロックを追加できます。",
+				],
+				linkLabel: "プロジェクトを見る",
+				visitLabel: "npm パッケージを見る",
+			},
+		},
+	},
 	{
 		slug: "halo",
 		url: "https://halo.ultrahope.dev/",

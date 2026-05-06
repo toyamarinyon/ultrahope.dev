@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { GeistMono } from "geist/font/mono";
 import { ResponsiveSidebar } from "./ui/sidebar/responsive-sidebar";
+import { Analytics } from "@vercel/analytics/next";
 
 const satoshi = localFont({
 	src: "./fonts/Satoshi-Variable.woff2",
@@ -59,6 +60,7 @@ export default function RootLayout({
 						<main className="flex min-w-0 flex-col md:ml-60">{children}</main>
 					</div>
 				</div>
+				<Analytics />
 			</body>
 		</html>
 	);

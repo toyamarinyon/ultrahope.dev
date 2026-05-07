@@ -1,21 +1,21 @@
 ---
-title: Agentに読みやすいMarkdownレスポンスをNext.jsで返す
+title: 人間にHTML、エージェントにMarkdown
 publishedAt: "2026-05-07"
 ---
 
 このサイトは、自分のための文章置き場でありつつ、Coding Agentにも読みやすい場所にしておきたいと思っています。
 
-人間が読むページとしては、HTMLで読み心地よく表示されていれば十分です。けれど、Agentがそのページを読むときには、navigation、stylesheet、JavaScript、footerなども一緒に受け取ります。本文を知りたいだけなのに、周辺のmarkupがたくさん混ざるわけです。
+人間が読むページとしては、HTMLで読み心地よく表示されていれば十分です。しかし、Agentが同じページを読むときには、navigation、stylesheet、JavaScript、footerなどは不要です。
 
-Cloudflareの[Markdown for Agents](https://blog.cloudflare.com/markdown-for-agents/)の記事を読んだとき、最初に少し迷いました。
+このサイトはNext.jsで構築しVercelにdeployしているので、Vercelが何かいい方法を考えているだろうと調べたところ、[Making agent-friendly pages with content negotiation](https://vercel.com/blog/making-agent-friendly-pages-with-content-negotiation)と、Knowledge Baseの[How to serve documentation for agents](https://vercel.com/kb/guide/how-to-serve-documentation-for-agents)を見つけました。
 
-これはサイト側で何か実装する話なのか。Coding AgentがCloudflareを使えばいい話なのか。それとも「AgentにはMarkdownを返すとよい」という概念の話なのか。
+これがまさしくだったのでやってみました。
 
-調べてみると、Cloudflareの記事はCloudflare側の機能として、`Accept: text/markdown`を送ってきたrequestに対してHTMLをMarkdownへ変換して返す、というものでした。つまり、Agent側が何か特別なCloudflareを使うというより、サイト運営側がAgent向けの表現を用意する話です。
+試しに、ターミナルを開いて次のように入力すると、このページのMarkdownが表示されます。
 
-このサイトはVercelにdeployしているので、次にVercel側の考え方を見ました。そこで見つけたのが、Vercelの[Making agent-friendly pages with content negotiation](https://vercel.com/blog/making-agent-friendly-pages-with-content-negotiation)と、Knowledge Baseの[How to serve documentation for agents](https://vercel.com/kb/guide/how-to-serve-documentation-for-agents)です。
-
-結論としては、かなり素直な形に落ち着きました。
+```bash
+curl -H "Accept: text/markdown" https://ultrahope.dev/ja/writing/html-for-humans-markdown-for-agents
+```
 
 ### 同じURLで、HTMLとMarkdownを出し分ける
 
@@ -33,9 +33,9 @@ Accept: text/markdown, text/html, */*
 
 ### page.tsxでheadersを読まない
 
-最初に考えたのは、Next.jsの`page.tsx`でrequest headerを見て、`Accept: text/markdown`ならMarkdownを返す方法でした。
+Vercelの記事を読む前に自分で最初に考えたのは、Next.jsの`page.tsx`でrequest headerを見て、`Accept: text/markdown`ならMarkdownを返す方法でした。
 
-ただ、これはあまりよくなさそうでした。
+ただ、思いついたと同時にこれは良くないアプローチだと思いました。
 
 `page.tsx`で`headers()`を読むと、そのrouteはrequest-timeの情報に依存します。今回の`/writing/[slug]`は`generateStaticParams()`で静的に生成できているので、HTMLページはそのままSSGにしておきたいです。Agent向け対応のために、人間向けのHTML配信をdynamic寄りにするのは少しもったいない。
 
@@ -82,9 +82,9 @@ export default nextConfig;
 
 ブラウザから普通にアクセスした場合は、これまで通り`/writing/[slug]/page.tsx`がHTMLを返します。Agentが`Accept: text/markdown`を送ってきた場合だけ、内部的に`/writing/md/[slug]`へrewriteされます。
 
-この分離が気持ちよいです。
+rewriteを上手に使えている気がして嬉しいですね。
 
-HTML pageはHTML pageとして静的に保ち、Markdown responseはMarkdown responseとしてRoute Handlerに閉じ込める。実装の責務がはっきりします。
+これでHTML pageはHTML pageとして静的に保ち、Markdown responseはMarkdown responseとしてRoute Handlerに閉じ込める。実装の責務がはっきりします。
 
 ### Markdown用のRoute Handlerを作る
 

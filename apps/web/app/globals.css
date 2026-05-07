@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @source "../node_modules/streamdown/dist/*.js";
+@source "../node_modules/@streamdown/code/dist/*.js";
 
 /* Palette inspired by Rosé Pine: https://rosepinetheme.com/palette/ */
 @theme inline {

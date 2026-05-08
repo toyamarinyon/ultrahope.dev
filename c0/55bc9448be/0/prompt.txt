@@ -1,0 +1,29 @@
+Sidebarの記事のgapが狭いからか、ちょっと見づらい気がします。borderは不要ですが余白を少し調整したり、インデントでわかりやすくできないですかね？
+
+`portless` で devserver 起動して [@Browser](plugin://browser-use@openai-bundled) で表示確認して色々試してみてください。
+
+---
+
+# In app browser:
+- The user has the in-app browser open.
+- Current URL: https://web.localhost/writing/eslint-plugin-raula-coding-agent
+
+## My request for Codex:
+Projectの方もインデントしないと統一感がないですね
+
+---
+
+indentどうでしょう、余計ですかね？
+
+---
+
+Sidebarの横幅をもう少し広げて、1行truncateにしてみましょうか
+
+---
+
+# In app browser:
+- The user has the in-app browser open.
+- Current URL: https://web.ultrahope-dev.localhost/writing/eslint-plugin-raula-coding-agent
+
+## My request for Codex:
+これならindentなくてもいいかも

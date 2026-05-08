@@ -24,10 +24,10 @@ function SidebarLink(props: {
 	return (
 		<Link
 			href={props.href}
-			className={`flex w-full min-w-0 items-center rounded-md px-2 py-1 transition-colors duration-200 hover:bg-highlight-med hover:text-rose focus-visible:text-rose ${props.active ? "bg-highlight-med text-rose" : ""}`}
+			className={`flex w-full min-w-0 items-center rounded-md px-2.5 py-1.5 transition-colors duration-200 hover:bg-highlight-med hover:text-rose focus-visible:text-rose ${props.active ? "bg-highlight-med text-rose" : ""}`}
 			aria-current={props.active ? "page" : undefined}
 		>
-			<span className="line-clamp-2">{props.children}</span>
+			<span className="truncate">{props.children}</span>
 		</Link>
 	);
 }
@@ -49,9 +49,9 @@ export function WritingListClient({
 	const articles = articlesByLocale[locale] ?? [];
 
 	return (
-		<section className="grid min-w-0 gap-1">
+		<section className="grid min-w-0 gap-2">
 			<p className="px-2 text-muted">Writing</p>
-			<div className="grid gap-0.5">
+			<div className="grid gap-1">
 				{articles.map((article) => (
 					<SidebarLink
 						key={`${article.slug}:${locale}`}

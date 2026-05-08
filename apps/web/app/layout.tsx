@@ -57,7 +57,7 @@ export default function RootLayout({
 					<div className="relative mx-auto min-h-screen w-full overflow-hidden">
 						<ResponsiveSidebar />
 
-						<main className="flex min-w-0 flex-col md:ml-60">{children}</main>
+						<main className="flex min-w-0 flex-col md:ml-72">{children}</main>
 					</div>
 				</div>
 				<Analytics />

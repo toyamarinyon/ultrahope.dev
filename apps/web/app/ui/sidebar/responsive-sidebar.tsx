@@ -30,7 +30,7 @@ export function ResponsiveSidebar() {
 		<>
 			<MobileSidebarShell content={<SidebarContent showHomeLink={false} />} />
 
-			<aside className="fixed top-0 bottom-0 hidden w-60 flex-col border-highlight-med border-r bg-surface p-2 md:flex">
+			<aside className="fixed top-0 bottom-0 hidden w-72 flex-col border-highlight-med border-r bg-surface p-2 md:flex">
 				<SidebarContent showHomeLink />
 			</aside>
 		</>

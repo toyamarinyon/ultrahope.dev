@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "205e42aae3f7",
+  "strategy": "manual-commit",
+  "branch": "codex/first-impression-entireio",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/writing/first-impression-of-entire-io/ja.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/20/5e42aae3f7/0/metadata.json",
+      "transcript": "/20/5e42aae3f7/0/full.jsonl",
+      "content_hash": "/20/5e42aae3f7/0/content_hash.txt",
+      "prompt": "/20/5e42aae3f7/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 77276,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 1318912,
+    "output_tokens": 6931,
+    "api_call_count": 24
+  }
+}

@@ -51,6 +51,23 @@ function MarkdownParagraph({ children, node, ...props }: MarkdownParagraphProps)
 
 function MarkdownLink({ node, ...props }: MarkdownAnchorProps) {
 	void node;
+	const isPageAnchor = typeof props.href === "string" && props.href.startsWith("#");
+	const isFootnoteAnchor =
+		"data-footnote-ref" in props || "data-footnote-backref" in props;
+	const href =
+		isFootnoteAnchor &&
+		typeof props.href === "string" &&
+		props.href.startsWith("#user-content-")
+			? `#user-content-${props.href.slice(1)}`
+			: props.href;
+
+	if (isPageAnchor) {
+		const { rel, target, ...anchorProps } = props;
+		void rel;
+		void target;
+		return <a {...anchorProps} href={href} />;
+	}
+
 	return <a {...props} />;
 }
 

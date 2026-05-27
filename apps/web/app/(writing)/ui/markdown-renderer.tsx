@@ -3,6 +3,7 @@
 import { code } from "@streamdown/code";
 import {
 	Children,
+	Fragment,
 	isValidElement,
 	type ComponentProps,
 	type ReactNode,
@@ -46,7 +47,7 @@ function MarkdownParagraph({ children, node, ...props }: MarkdownParagraphProps)
 		return <YouTubeEmbed videoId={youtubeId} title={title} />;
 	}
 
-	return <p {...props}>{children}</p>;
+	return <p {...props}>{renderLineBreaks(children)}</p>;
 }
 
 function MarkdownLink({ node, ...props }: MarkdownAnchorProps) {
@@ -145,4 +146,24 @@ function getAnchorProps(node: ReactNode) {
 	}
 
 	return node.props;
+}
+
+function renderLineBreaks(children: ReactNode): ReactNode {
+	return Children.map(children, (child) => {
+		if (typeof child !== "string") {
+			return child;
+		}
+
+		const lines = child.split("\n");
+		if (lines.length === 1) {
+			return child;
+		}
+
+		return lines.map((line, index) => (
+			<Fragment key={index}>
+				{index > 0 ? <br /> : null}
+				{line}
+			</Fragment>
+		));
+	});
 }

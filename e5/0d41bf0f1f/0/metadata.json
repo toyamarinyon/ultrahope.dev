@@ -1,0 +1,46 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e50d41bf0f1f",
+  "session_id": "019e62fc-5be8-7e82-b204-3683855a5750",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-27T09:15:07.651133Z",
+  "branch": "codex/rename-fool-article-slug",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/writing/okay-to-be-a-fool-ai-builder/ja.md"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "a0f98692e7ab",
+  "token_usage": {
+    "input_tokens": 3962856,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 33249664,
+    "output_tokens": 98984,
+    "api_call_count": 326
+  },
+  "session_metrics": {
+    "turn_count": 38
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-27T09:15:07.459976Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 205,
+    "human_modified": 203,
+    "human_removed": 0,
+    "total_committed": 205,
+    "total_lines_changed": 613,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}

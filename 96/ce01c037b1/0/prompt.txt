@@ -458,3 +458,7 @@ Doo-bee-doo-wop  Pappaparadise
 ---
 
 ではそれで更新してください。
+
+---
+
+pull request 作りましょう。

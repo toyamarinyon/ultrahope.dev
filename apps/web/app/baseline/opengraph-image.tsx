@@ -32,8 +32,9 @@ export default async function Image() {
 				flexDirection: "column",
 				justifyContent: "space-between",
 				padding: "56px",
-				background: "#f6f0e6",
-				color: "#252018",
+				background:
+					"linear-gradient(180deg, #0f1115 0%, #090b0f 60%, #06070a 100%)",
+				color: "#f7f7f5",
 				fontFamily: "sans-serif",
 			}}
 		>
@@ -67,7 +68,7 @@ export default async function Image() {
 							display: "flex",
 							flexDirection: "column",
 							gap: "12px",
-							color: "#4f473f",
+							color: "#aeb0b8",
 							fontSize: 34,
 							lineHeight: 1.35,
 							fontWeight: 400,
@@ -87,7 +88,7 @@ export default async function Image() {
 					display: "flex",
 					alignItems: "center",
 					gap: "18px",
-					color: "#a8742f",
+					color: "#d7ccc0",
 					fontSize: 28,
 					letterSpacing: 0,
 				}}
@@ -96,7 +97,7 @@ export default async function Image() {
 					style={{
 						width: 160,
 						height: 2,
-						background: "#a8742f",
+						background: "#d7ccc0",
 					}}
 				/>
 				<div>Weaving the In-Between</div>

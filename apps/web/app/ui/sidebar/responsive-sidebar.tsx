@@ -1,3 +1,4 @@
+import { BaselineLink } from "./baseline-link";
 import { FooterControls } from "./footer-controls";
 import { HomeLink } from "./home-link";
 import { MobileSidebarShell } from "./mobile-sidebar-shell";
@@ -13,6 +14,8 @@ function SidebarContent(props: { showHomeLink: boolean }) {
 						<HomeLink />
 					</section>
 				) : null}
+
+				<BaselineLink />
 
 				<div className="grid gap-6">
 					<WritingList />

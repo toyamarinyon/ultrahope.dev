@@ -81,25 +81,7 @@ export default async function Image() {
 				</div>
 			</div>
 
-			<div
-				style={{
-					display: "flex",
-					alignItems: "center",
-					gap: "18px",
-					color: "#d7ccc0",
-					fontSize: 28,
-					letterSpacing: 0,
-				}}
-			>
-				<div
-					style={{
-						width: 160,
-						height: 2,
-						background: "#d7ccc0",
-					}}
-				/>
-				<div>あわいを紡ぐ</div>
-			</div>
+			<div />
 		</div>,
 		size,
 	);

@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "f36b85f0121b",
+  "strategy": "manual-commit",
+  "branch": "codex/generated-code-transforming-system",
+  "checkpoints_count": 9,
+  "files_touched": [
+    "apps/web/writing/generated-code-creaking-system/ja.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/f3/6b85f0121b/0/metadata.json",
+      "transcript": "/f3/6b85f0121b/0/full.jsonl",
+      "content_hash": "/f3/6b85f0121b/0/content_hash.txt",
+      "prompt": "/f3/6b85f0121b/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1249548,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 16312320,
+    "output_tokens": 39862,
+    "api_call_count": 116
+  }
+}

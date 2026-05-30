@@ -1,0 +1,118 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "f36b85f0121b",
+  "session_id": "019e72b0-943b-7710-a2dc-5bb5c759bc85",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-30T01:52:28.945255Z",
+  "branch": "codex/generated-code-transforming-system",
+  "checkpoints_count": 9,
+  "files_touched": [
+    "apps/web/writing/generated-code-creaking-system/ja.md"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "0c3b734f3300",
+  "token_usage": {
+    "input_tokens": 1249548,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 16312320,
+    "output_tokens": 39862,
+    "api_call_count": 116
+  },
+  "session_metrics": {
+    "turn_count": 27
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-30T01:52:28.859477Z",
+    "agent_lines": 15,
+    "agent_removed": 0,
+    "human_added": 203,
+    "human_modified": 1,
+    "human_removed": 0,
+    "total_committed": 219,
+    "total_lines_changed": 219,
+    "agent_percentage": 6.8493150684931505,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 186,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "apps/web/writing/generated-code-creaking-system/ja.md": 186
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 196,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 201,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 201,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 201,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 6,
+      "user_lines_added": 1,
+      "user_lines_removed": 1,
+      "agent_lines_added": 201,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "apps/web/writing/generated-code-creaking-system/ja.md": 1
+      },
+      "user_removed_per_file": {
+        "apps/web/writing/generated-code-creaking-system/ja.md": 1
+      }
+    },
+    {
+      "checkpoint_number": 7,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 203,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 8,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 203,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 9,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 203,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 10,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 203,
+      "agent_lines_removed": 0
+    }
+  ]
+}

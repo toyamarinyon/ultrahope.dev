@@ -1,0 +1,25 @@
+entire.ioをVercelにデプロイするプロジェクトで使う場合は、vercel.jsonで、`entire/checkpoints/v1`をデプロイ対象から除外しないと都度デプロイされて面倒だよというブログが書きたいです。ここ2日間のCodexの会話を調べたら大体何やっていたかわかると思うので、やってみて。ブログ書くときは [$writing-like-toyamarinyon](/Users/toyamarinyon/skills/writing-like-toyamarinyon/SKILL.md) 使ってください。
+
+---
+
+とてもよく書けているし、toyamarinyonが書きそうな文体ですが、このブログのメッセージはとてもシンプルなのでそれに対しては色々お袈裟に言いすぎていると思います。もう少しシンプルにコンパクトにいきましょう
+
+---
+
+slugどう思います？
+
+---
+
+exclude-entire-checkpoints-from-vercelにしましょう
+
+---
+
+「entireのcheckpointをVercelに流さない」のタイトルもちょっと気になりますね
+
+---
+
+「entireのcheckpoint branchはVercel deployしない」わかりやすけど、ちょっと説明的なのでこの方向で一工夫したい。
+
+---
+
+「entireのcheckpoint branchをVercelにdeployしない」にしましょう英語もこの方向で書き換えてください

@@ -1,16 +1,1 @@
-[next.config.ts](apps/web/next.config.ts) に [en.md](apps/web/writing/exclude-entire-checkpoints-from-vercel/en.md)で書いていることを実践したい。実装は [@builder](subagent://builder) に任せてあなたはゴールイメージを考えて依頼して、outputにgap があった場合はフィードバックを繰り返して
-
----
-
-Task in /Users/toyamarinyon/.codex/worktrees/b688/ultrahope.dev: Implement the guidance from apps/web/writing/exclude-entire-checkpoints-from-vercel/en.md for this repo. User specifically pointed at apps/web/next.config.ts, but the article describes Vercel branch deployment config (`git.deploymentEnabled`) which may belong in `vercel.json`; please verify the appropriate config surface in this repo and make the smallest correct change.
-
-Goal image:
-- Pushes to branch `entire/checkpoints/v1` should not trigger Vercel deployments.
-- Existing Next.js rewrites and config behavior remain unchanged.
-- Keep existing project conventions, formatting, and files intact.
-- If a `vercel.json` already exists, preserve and merge existing settings. If not, create the appropriate one at the project root used by Vercel for `apps/web` if discoverable.
-
-Important constraints:
-- You are not alone in the codebase; do not revert edits made by others.
-- Read AGENTS instruction: this Next.js may differ; only touch Next APIs if needed after checking relevant docs. This task likely does not require Next API changes.
-- Edit files directly in your workspace and report changed paths plus any verification commands run.
+okです。ではpushしてpull request作成までしましょう。

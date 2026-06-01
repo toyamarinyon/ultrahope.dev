@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-	allowedDevOrigins: ["*.ultrahope-dev.localhost"],
+	allowedDevOrigins: ["*.ultrahope-dev.localhost", "*.web.localhost"],
 	async rewrites() {
 		return {
 			beforeFiles: [

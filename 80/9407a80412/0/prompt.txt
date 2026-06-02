@@ -1,0 +1,23 @@
+/goal 現在monorepoですが、パッケージを別レポジトリにした結果、現在 [web](apps/web/) しかないのでmonorepoをやめれる状態です。　[web](apps/web/) をrootにして、諸々動くようにしてください。
+
+あなたは最終的なイメージを想像したのちに、作業は [@builder](subagent://builder) に依頼して、アウトプットのgapを埋めるようにフィードバックを繰り返してください。
+
+一度でやるのが難しそうであればプランを考えて、少しづつ進めるのも効果的です。その場合は、適宜コミットしてください。
+
+---
+
+作業依頼です。リポジトリ `/Users/toyamarinyon/.codex/worktrees/76e8/ultrahope.dev` は現在 monorepo ですが、残っているアプリは `apps/web` のみです。最終形は `apps/web` の中身をリポジトリ root に移し、monorepo/turbo/workspaces 前提をなくして、root で通常の Next.js アプリとして `bun install` / lint / build / dev / Vercel が動く状態です。
+
+ユーザーの明示要望: 最終像を親エージェントが想像した後、実作業は @builder に依頼し、親がアウトプットの gap をレビュー・フィードバックして詰めること。
+
+重要:
+- 既存の変更を勝手に戻さないでください。あなたは単独ではなく、親エージェントがレビュー・補正します。
+- `AGENTS.md` の指示に従い、Next.js 関連を編集する前に利用可能なら `node_modules/next/dist/docs/` の関連ガイドを読んでください。現状 root には docs が無い可能性があります。その場合は package/config を読んで判断してください。
+- 直接ファイルを編集してください。最終回答では変更したファイルパス、実行した検証コマンド、残課題を簡潔に列挙してください。
+
+期待する作業範囲:
+1. `apps/web` 配下のアプリファイル・設定・writing コンテンツを root に移す。
+2. root `package.json`, lockfile, tsconfig, eslint, biome, vercel, next config などを単一アプリ向けに整える。
+3. `apps/`, `turbo.json`, workspaces など不要な monorepo 構成を削除・調整する。
+4. パス参照や scripts が root 前提で動くように修正する。
+5. 可能なら `bun run lint` と `bun run build` まで確認する。

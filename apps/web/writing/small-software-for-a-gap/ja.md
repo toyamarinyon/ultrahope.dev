@@ -3,7 +3,7 @@ title: "隙間を埋めるソフトウェアを理解できる大きさで"
 publishedAt: "2026-06-09"
 ---
 
-左右のCommandキーを単体で押したときに、macOSの英数/かなを切り替えられるようにする小さな道具として、[enka](https://enka.ultrahope.dev/)を作りました。
+左右のCommandキーを単体で押したときに、macOSの英数/かなを切り替えられるようにする小さな道具として、[enka](/ja/projects/enka)を作りました。
 
 このユースケースには[Karabiner-Elements](https://karabiner-elements.pqrs.org/)というデファクトに近い道具がありますし、同じような入力切り替えを実現できる代替Appもいくつかあります。私も長らくKarabiner-Elementsを使ってきました。
 

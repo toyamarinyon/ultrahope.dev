@@ -3,7 +3,7 @@ title: "Small software for a gap"
 publishedAt: "2026-06-09"
 ---
 
-I made [enka](https://enka.ultrahope.dev/), a small utility that lets left and right Command key single-taps switch macOS input between Eisu and Kana.
+I made [enka](/projects/enka), a small utility that lets left and right Command key single-taps switch macOS input between Eisu and Kana.
 
 There is already a de facto tool in this area: [Karabiner-Elements](https://karabiner-elements.pqrs.org/). There are also other apps that can provide similar input switching behavior. I used Karabiner-Elements for a long time, too.
 

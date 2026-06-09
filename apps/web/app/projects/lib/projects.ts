@@ -19,7 +19,7 @@ export type Project = {
 const projects: Project[] = [
 	{
 		slug: "enka",
-		url: "https://enka.ultrahope.dev/",
+		url: "https://github.com/toyamarinyon/enka#",
 		content: {
 			en: {
 				title: "enka",

@@ -3,38 +3,37 @@
   "checkpoint_id": "fa00237225a0",
   "session_id": "019eab0d-f536-77c2-bf1a-1d05c8dd38a5",
   "strategy": "manual-commit",
-  "created_at": "2026-06-09T06:44:17.212616Z",
+  "created_at": "2026-06-09T06:52:44.753649Z",
   "branch": "codex/add-enka-project-and-writing",
   "checkpoints_count": 0,
   "files_touched": [
-    "apps/web/writing/enka-command-tap-input-source/ja.md",
-    "apps/web/writing/enka-command-tap-input-source/en.md"
+    "apps/web/writing/enka-command-tap-input-source/ja.md"
   ],
   "agent": "Codex",
   "model": "gpt-5.5",
-  "turn_id": "15f3e44cb74a",
-  "checkpoint_transcript_start": 226,
-  "transcript_lines_at_start": 226,
+  "turn_id": "ee3b905b2bcc",
+  "checkpoint_transcript_start": 285,
+  "transcript_lines_at_start": 285,
   "token_usage": {
-    "input_tokens": 46447,
+    "input_tokens": 66548,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 300928,
-    "output_tokens": 2391,
-    "api_call_count": 5
+    "cache_read_tokens": 227456,
+    "output_tokens": 1807,
+    "api_call_count": 3
   },
   "session_metrics": {
-    "turn_count": 2
+    "turn_count": 3
   },
   "initial_attribution": {
-    "calculated_at": "2026-06-09T06:44:17.179355Z",
-    "agent_lines": 12,
-    "agent_removed": 14,
-    "human_added": 54,
+    "calculated_at": "2026-06-09T06:52:44.718408Z",
+    "agent_lines": 5,
+    "agent_removed": 1,
+    "human_added": 119,
     "human_modified": 0,
     "human_removed": 0,
-    "total_committed": 66,
-    "total_lines_changed": 81,
-    "agent_percentage": 32.098765432098766,
+    "total_committed": 124,
+    "total_lines_changed": 126,
+    "agent_percentage": 4.761904761904762,
     "metric_version": 2
   },
   "prompt_attributions": [

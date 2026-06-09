@@ -5,7 +5,6 @@
   "branch": "codex/add-enka-project-and-writing",
   "checkpoints_count": 0,
   "files_touched": [
-    "apps/web/writing/enka-command-tap-input-source/en.md",
     "apps/web/writing/enka-command-tap-input-source/ja.md"
   ],
   "sessions": [
@@ -17,10 +16,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 46447,
+    "input_tokens": 66548,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 300928,
-    "output_tokens": 2391,
-    "api_call_count": 5
+    "cache_read_tokens": 227456,
+    "output_tokens": 1807,
+    "api_call_count": 3
   }
 }

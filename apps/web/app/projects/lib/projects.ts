@@ -1,6 +1,6 @@
 import type { Locale } from "@/lib/i18n";
 
-export type ProjectSlug = "halo" | "eslint-plugin-raula";
+export type ProjectSlug = "enka" | "halo" | "eslint-plugin-raula";
 
 type LocalizedProjectContent = {
 	title: string;
@@ -17,6 +17,36 @@ export type Project = {
 };
 
 const projects: Project[] = [
+	{
+		slug: "enka",
+		url: "https://github.com/toyamarinyon/enka#",
+		content: {
+			en: {
+				title: "enka",
+				summary:
+					"A small macOS utility that maps left/right Command key single-taps to JIS Eisu and Kana input-source keys.",
+				description: [
+					"enka is an Ultrahope project for people who switch between Japanese and English input all day and want that motion to stay close to their hands. A left Command single-tap posts the JIS Eisu key event, and a right Command single-tap posts the JIS Kana key event.",
+					"The scope is intentionally narrow. enka is not a general command launcher; it watches Command releases, cancels when another key is pressed, and posts the input-source key events directly with CGEvent.",
+					"It ships as a Swift CLI plus Enka.app for the macOS Accessibility permission identity. The hosted installer installs the binary and app bundle, writes the LaunchAgent, opens the permission flow, waits for approval, and starts the daemon once macOS allows it.",
+				],
+				linkLabel: "Open project",
+				visitLabel: "Visit enka",
+			},
+			ja: {
+				title: "enka",
+				summary:
+					"左右の Command キー単体タップを、macOS の JIS 英数 / かなキー入力に変換する小さなユーティリティです。",
+				description: [
+					"enka は、日本語と英語の入力を一日に何度も切り替える人のための Ultrahope プロジェクトです。左 Command の単体タップで JIS 英数キー、右 Command の単体タップで JIS かなキーのイベントを送ります。",
+					"あえて汎用ランチャーにはしていません。daemon は Command の release を見て、別のキーが押されたら取り消し、入力ソース切り替えに必要な key event だけを CGEvent で直接 post します。",
+					"Swift 製の CLI と、macOS の Accessibility 権限の identity になる Enka.app を同梱しています。hosted installer は binary と app bundle を配置し、LaunchAgent を書き、権限許可のために Enka.app を開いて、許可後に daemon を起動します。",
+				],
+				linkLabel: "プロジェクトを見る",
+				visitLabel: "enka を見る",
+			},
+		},
+	},
 	{
 		slug: "eslint-plugin-raula",
 		url: "https://www.npmjs.com/package/eslint-plugin-raula",

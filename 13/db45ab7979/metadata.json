@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "13db45ab7979",
+  "strategy": "manual-commit",
+  "branch": "codex/refine-writing-link-styles",
+  "checkpoints_count": 4,
+  "files_touched": [
+    "apps/web/app/(writing)/ui/component.tsx",
+    "apps/web/app/globals.css",
+    "apps/web/eslint.config.mjs"
+  ],
+  "sessions": [
+    {
+      "metadata": "/13/db45ab7979/0/metadata.json",
+      "transcript": "/13/db45ab7979/0/full.jsonl",
+      "content_hash": "/13/db45ab7979/0/content_hash.txt",
+      "prompt": "/13/db45ab7979/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 303384,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 5987968,
+    "output_tokens": 17401,
+    "api_call_count": 71
+  }
+}

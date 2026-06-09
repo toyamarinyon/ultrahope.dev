@@ -1,0 +1,28 @@
+リンクのスタイリングがちょっとわかりづらいので、工夫したい。ローカルサーバー立てて [@Browser](plugin://browser@openai-bundled) で確認できると思います。
+
+---
+
+# In app browser:
+- The user has the in-app browser open.
+- Current URL: http://localhost:3000/ja/writing/html-for-humans-markdown-for-agents
+
+## My request for Codex:
+underlineを最初から出すんじゃなくて、hoverでunderline出したいですね。
+
+---
+
+# In app browser:
+- The user has the in-app browser open.
+- Current URL: http://localhost:3000/ja/writing/html-for-humans-markdown-for-agents
+
+## My request for Codex:
+[@Browser](plugin://browser@openai-bundled) で確認したい
+
+---
+
+# In app browser:
+- The user has the in-app browser open.
+- Current URL: http://localhost:3000/ja/writing/html-for-humans-markdown-for-agents
+
+## My request for Codex:
+薄いハイライト表示もなくて良さそうです。

@@ -3,9 +3,10 @@
   "checkpoint_id": "fa00237225a0",
   "strategy": "manual-commit",
   "branch": "codex/add-enka-project-and-writing",
-  "checkpoints_count": 0,
+  "checkpoints_count": 10,
   "files_touched": [
-    "apps/web/writing/enka-command-tap-input-source/ja.md"
+    "apps/web/writing/small-software-for-a-gap/en.md",
+    "apps/web/writing/small-software-for-a-gap/ja.md"
   ],
   "sessions": [
     {
@@ -16,10 +17,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 66548,
+    "input_tokens": 148064,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 227456,
-    "output_tokens": 1807,
-    "api_call_count": 3
+    "cache_read_tokens": 2959360,
+    "output_tokens": 12297,
+    "api_call_count": 33
   }
 }

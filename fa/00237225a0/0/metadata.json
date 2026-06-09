@@ -3,37 +3,38 @@
   "checkpoint_id": "fa00237225a0",
   "session_id": "019eab0d-f536-77c2-bf1a-1d05c8dd38a5",
   "strategy": "manual-commit",
-  "created_at": "2026-06-09T06:52:44.753649Z",
+  "created_at": "2026-06-09T14:17:31.415233Z",
   "branch": "codex/add-enka-project-and-writing",
-  "checkpoints_count": 0,
+  "checkpoints_count": 10,
   "files_touched": [
-    "apps/web/writing/enka-command-tap-input-source/ja.md"
+    "apps/web/writing/small-software-for-a-gap/en.md",
+    "apps/web/writing/small-software-for-a-gap/ja.md"
   ],
   "agent": "Codex",
   "model": "gpt-5.5",
-  "turn_id": "ee3b905b2bcc",
-  "checkpoint_transcript_start": 285,
-  "transcript_lines_at_start": 285,
+  "turn_id": "e4d7265e5c15",
+  "checkpoint_transcript_start": 333,
+  "transcript_lines_at_start": 333,
   "token_usage": {
-    "input_tokens": 66548,
+    "input_tokens": 148064,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 227456,
-    "output_tokens": 1807,
-    "api_call_count": 3
+    "cache_read_tokens": 2959360,
+    "output_tokens": 12297,
+    "api_call_count": 33
   },
   "session_metrics": {
-    "turn_count": 3
+    "turn_count": 14
   },
   "initial_attribution": {
-    "calculated_at": "2026-06-09T06:52:44.718408Z",
-    "agent_lines": 5,
-    "agent_removed": 1,
-    "human_added": 119,
+    "calculated_at": "2026-06-09T14:17:31.373597Z",
+    "agent_lines": 100,
+    "agent_removed": 0,
+    "human_added": 54,
     "human_modified": 0,
     "human_removed": 0,
-    "total_committed": 124,
-    "total_lines_changed": 126,
-    "agent_percentage": 4.761904761904762,
+    "total_committed": 154,
+    "total_lines_changed": 155,
+    "agent_percentage": 64.51612903225806,
     "metric_version": 2
   },
   "prompt_attributions": [
@@ -43,6 +44,94 @@
       "user_lines_removed": 0,
       "agent_lines_added": 0,
       "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 11,
+      "user_lines_removed": 36,
+      "agent_lines_added": 4,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "apps/web/writing/enka-command-tap-input-source/ja.md": 11
+      },
+      "user_removed_per_file": {
+        "apps/web/writing/enka-command-tap-input-source/ja.md": 36
+      }
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 4,
+      "user_lines_removed": 4,
+      "agent_lines_added": 12,
+      "agent_lines_removed": 30,
+      "user_added_per_file": {
+        "apps/web/writing/enka-command-tap-input-source/ja.md": 4
+      },
+      "user_removed_per_file": {
+        "apps/web/writing/enka-command-tap-input-source/ja.md": 4
+      }
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 1,
+      "user_lines_removed": 1,
+      "agent_lines_added": 12,
+      "agent_lines_removed": 30,
+      "user_added_per_file": {
+        "apps/web/writing/enka-command-tap-input-source/ja.md": 1
+      },
+      "user_removed_per_file": {
+        "apps/web/writing/enka-command-tap-input-source/ja.md": 1
+      }
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 13,
+      "agent_lines_removed": 31
+    },
+    {
+      "checkpoint_number": 6,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 13,
+      "agent_lines_removed": 31
+    },
+    {
+      "checkpoint_number": 7,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 116,
+      "agent_lines_removed": 134
+    },
+    {
+      "checkpoint_number": 8,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 116,
+      "agent_lines_removed": 134
+    },
+    {
+      "checkpoint_number": 9,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 116,
+      "agent_lines_removed": 134
+    },
+    {
+      "checkpoint_number": 10,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 116,
+      "agent_lines_removed": 134
+    },
+    {
+      "checkpoint_number": 11,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 100,
+      "agent_lines_removed": 134
     }
   ]
 }

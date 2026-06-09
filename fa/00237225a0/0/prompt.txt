@@ -1,1 +1,1 @@
-enkaというプロダクトを作りました。/Users/toyamarinyon/Documents/enka にコードがあって、Codexの履歴も色々あると多います。READMEにコンセプトとか作った理由あるので、これを projects ページで紹介したいので、紹介ブログも書きたい。
+branch作ってpull request作ってください。

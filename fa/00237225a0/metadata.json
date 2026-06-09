@@ -3,11 +3,8 @@
   "checkpoint_id": "fa00237225a0",
   "strategy": "manual-commit",
   "branch": "codex/add-enka-project-and-writing",
-  "checkpoints_count": 1,
+  "checkpoints_count": 0,
   "files_touched": [
-    "apps/web/app/ja/projects/enka/page.tsx",
-    "apps/web/app/projects/enka/page.tsx",
-    "apps/web/app/projects/lib/projects.ts",
     "apps/web/writing/enka-command-tap-input-source/en.md",
     "apps/web/writing/enka-command-tap-input-source/ja.md"
   ],
@@ -20,10 +17,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 160309,
+    "input_tokens": 46447,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 1131904,
-    "output_tokens": 9510,
-    "api_call_count": 25
+    "cache_read_tokens": 300928,
+    "output_tokens": 2391,
+    "api_call_count": 5
   }
 }

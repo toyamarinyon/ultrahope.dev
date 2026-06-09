@@ -1,0 +1,32 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "894acf53a2a9",
+  "session_id": "019eab0d-f536-77c2-bf1a-1d05c8dd38a5",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-09T14:28:40.445098Z",
+  "branch": "codex/add-enka-project-and-writing",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "e0444d2939fe",
+  "token_usage": {
+    "input_tokens": 481071,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 7284736,
+    "output_tokens": 32103,
+    "api_call_count": 93
+  },
+  "session_metrics": {
+    "turn_count": 15
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}

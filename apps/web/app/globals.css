@@ -231,6 +231,37 @@ pre {
 	display: block !important;
 }
 
+@layer components {
+	.writing-markdown a {
+		color: var(--color-rose);
+		font-weight: 550;
+		text-decoration-line: none;
+		text-decoration-color: color-mix(
+			in srgb,
+			var(--color-gold) 52%,
+			transparent
+		);
+		text-decoration-thickness: 0.075em;
+		text-underline-offset: 0.19em;
+		transition:
+			color 160ms ease,
+			text-decoration-color 160ms ease;
+	}
+
+	.writing-markdown a:hover {
+		color: var(--color-gold);
+		text-decoration-line: underline;
+		text-decoration-color: currentColor;
+	}
+
+	.writing-markdown a:focus-visible {
+		outline: 2px solid var(--color-ring);
+		outline-offset: 0.16rem;
+		border-radius: 0.12rem;
+		text-decoration-line: underline;
+	}
+}
+
 [data-footnotes] {
 	margin-top: 1.5rem !important;
 	padding-top: 1rem !important;
@@ -262,14 +293,18 @@ pre {
 	margin: 0 !important;
 }
 
+[data-footnotes] a,
 [data-footnotes] [data-streamdown="link"] {
 	color: var(--color-subtle) !important;
+	background-image: none !important;
+	font-weight: 500 !important;
 	font-size: 0.95rem !important;
 	text-underline-offset: 0.2rem !important;
 }
 
 [data-footnotes] [data-footnote-backref] {
 	margin-left: 0.4rem !important;
+	background-image: none !important;
 	font-size: 0.9rem !important;
 	text-decoration: none !important;
 	opacity: 0.9 !important;

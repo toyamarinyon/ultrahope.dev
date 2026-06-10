@@ -14,6 +14,12 @@ const eslintConfig = defineConfig([
 	{
 		files: ["app/globals.css"],
 		rules: {
+			"raula/no-disallowed-global-class-selectors": [
+				"error",
+				{
+					allowedClassSelectors: ["writing-markdown"],
+				},
+			],
 			"raula/exhaustive-tailwind-theme-tokens": [
 				"error",
 				{

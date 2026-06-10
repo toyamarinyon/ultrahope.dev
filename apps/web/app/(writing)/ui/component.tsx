@@ -42,7 +42,10 @@ export function WritingArticlePage({ locale, slug }: WritingArticlePageProps) {
 					</p>
 				</div>
 			</header>
-			<MarkdownRenderer markdown={bodyMarkdown} className="max-w-190 min-w-0" />
+			<MarkdownRenderer
+				markdown={bodyMarkdown}
+				className="writing-markdown max-w-190 min-w-0"
+			/>
 		</main>
 	);
 }

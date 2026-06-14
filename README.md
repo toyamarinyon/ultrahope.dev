@@ -1,13 +1,6 @@
 # ultrahope.dev
 
-This repository is a minimal Bun workspace monorepo with Turborepo.
-
-## Structure
-
-```text
-apps/
-  web/                     Next.js app
-```
+This repository contains a single Next.js app at the repository root.
 
 ## Requirements
 
@@ -21,16 +14,8 @@ bun install
 
 ## Development
 
-Start the monorepo dev task:
-
 ```bash
 bun dev
-```
-
-Run the web app directly:
-
-```bash
-bun --cwd apps/web dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
@@ -38,36 +23,25 @@ Open [http://localhost:3000](http://localhost:3000).
 ## Common Commands
 
 ```bash
-bun lint
 bun build
+bun lint
 bun format
+bun format:check
 ```
 
 ## Vercel
 
-For Vercel, keep the project linked to the repository root and set the Root Directory to `apps/web`.
+For Vercel, keep the project linked to the repository root.
 
 Recommended Project Settings:
 
 - Framework Preset: `Next.js`
-- Root Directory: `apps/web`
+- Root Directory: (repository root)
 - Install Command: `bun install`
-- Build Command: `turbo build`
+- Build Command: `bun build`
 - Output Directory: leave empty and use the Next.js default
 
-Why this shape:
-
-- `apps/web` as Root Directory lets Vercel infer the correct package for the deployment.
-- `turbo build` matches Vercel's Turborepo guidance and lets Vercel infer the right filter from the root directory.
-- You do not need a custom `outputDirectory` for a standard Next.js deployment.
-
-For local CLI deploys before the Root Directory is configured, you can also target the app explicitly:
-
-```bash
-vercel apps/web
-```
-
-After Root Directory is configured in Project Settings:
+For local CLI deploys:
 
 ```bash
 vercel

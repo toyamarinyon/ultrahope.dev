@@ -88,7 +88,7 @@ With this setup, the HTML page can stay static as an HTML page, and the Markdown
 
 ### Create a Markdown Route Handler
 
-The articles on this site are already written as Markdown files, such as `apps/web/writing/<slug>/ja.md` and `en.md`.
+The articles on this site are already written as Markdown files, such as `writing/<slug>/ja.md` and `en.md`.
 
 That means there is no need to convert rich text from a CMS into Markdown. The Route Handler can read the existing Markdown body, add frontmatter that is useful for agents, and return it.
 

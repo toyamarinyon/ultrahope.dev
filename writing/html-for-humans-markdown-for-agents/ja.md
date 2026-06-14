@@ -88,7 +88,7 @@ rewriteを上手に使えている気がして嬉しいですね。
 
 ### Markdown用のRoute Handlerを作る
 
-このサイトの記事は、もともと`apps/web/writing/<slug>/ja.md`や`en.md`としてMarkdownで書いています。
+このサイトの記事は、もともと`writing/<slug>/ja.md`や`en.md`としてMarkdownで書いています。
 
 そのため、CMSのrich textをMarkdownへ変換する必要はありません。既存のMarkdown本文を読み、Agentが扱いやすいようにfrontmatterを付け直して返すだけです。
 

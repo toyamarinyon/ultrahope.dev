@@ -3,6 +3,7 @@
 node_modules
 
 # output
+.next
 out
 dist
 *.tgz
@@ -26,6 +27,7 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 # caches
 .eslintcache
 .cache
+next-env.d.ts
 *.tsbuildinfo
 .turbo
 .swc

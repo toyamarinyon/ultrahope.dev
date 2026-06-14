@@ -3,9 +3,9 @@
 import { code } from "@streamdown/code";
 import {
 	Children,
+	type ComponentProps,
 	Fragment,
 	isValidElement,
-	type ComponentProps,
 	type ReactNode,
 } from "react";
 import { Streamdown } from "streamdown";
@@ -35,7 +35,11 @@ export function MarkdownRenderer(props: {
 	);
 }
 
-function MarkdownParagraph({ children, node, ...props }: MarkdownParagraphProps) {
+function MarkdownParagraph({
+	children,
+	node,
+	...props
+}: MarkdownParagraphProps) {
 	void node;
 	const singleChild = getOnlyChild(children);
 	const linkProps = getAnchorProps(singleChild);
@@ -52,7 +56,8 @@ function MarkdownParagraph({ children, node, ...props }: MarkdownParagraphProps)
 
 function MarkdownLink({ node, ...props }: MarkdownAnchorProps) {
 	void node;
-	const isPageAnchor = typeof props.href === "string" && props.href.startsWith("#");
+	const isPageAnchor =
+		typeof props.href === "string" && props.href.startsWith("#");
 	const isFootnoteAnchor =
 		"data-footnote-ref" in props || "data-footnote-backref" in props;
 	const href =
@@ -133,11 +138,13 @@ function getOnlyChild(children: ReactNode) {
 }
 
 function getAnchorProps(node: ReactNode) {
-	if (!isValidElement<{
-		children?: ReactNode;
-		href?: string;
-		node?: { tagName?: string };
-	}>(node)) {
+	if (
+		!isValidElement<{
+			children?: ReactNode;
+			href?: string;
+			node?: { tagName?: string };
+		}>(node)
+	) {
 		return undefined;
 	}
 

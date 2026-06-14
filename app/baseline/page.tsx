@@ -64,9 +64,9 @@ export default function BaselinePage() {
 				<h1 className="max-w-170 text-3xl sm:text-4xl">Baseline</h1>
 				<div className="grid max-w-150 gap-3 text-subtle leading-7">
 					<p>
-						A person&apos;s thoughts and actions have habits: how they choose, how
-						they hesitate, how they keep distance from others, what kind of air
-						they leave in a room. Those small habits eventually become a
+						A person&apos;s thoughts and actions have habits: how they choose,
+						how they hesitate, how they keep distance from others, what kind of
+						air they leave in a room. Those small habits eventually become a
 						distinct trace. I call that baseline.
 					</p>
 				</div>
@@ -79,10 +79,10 @@ export default function BaselinePage() {
 					</h2>
 					<div className="grid max-w-150 gap-3 text-subtle leading-7">
 						<p>
-							In Japanese, there is a word I keep returning to: awai, the
-							space between things. It is not the correct middle. It is the
-							place between grief and joy, decision and suspension, self and
-							other, where things keep swaying and changing shape.
+							In Japanese, there is a word I keep returning to: awai, the space
+							between things. It is not the correct middle. It is the place
+							between grief and joy, decision and suspension, self and other,
+							where things keep swaying and changing shape.
 						</p>
 						<p>
 							To weave is to keep moving your hands among things that have not
@@ -109,7 +109,8 @@ export default function BaselinePage() {
 					</p>
 					<p>
 						What matters is not erasing ambiguity carelessly, and not leaving it
-						as someone else&apos;s burden. These are six practices for doing that.
+						as someone else&apos;s burden. These are six practices for doing
+						that.
 					</p>
 				</div>
 			</section>

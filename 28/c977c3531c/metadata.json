@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "28c977c3531c",
+  "strategy": "manual-commit",
+  "branch": "codex/frontiercode-coding-agent-request",
+  "checkpoints_count": 16,
+  "files_touched": [
+    "writing/frontiercode-coding-agent-request/ja.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/28/c977c3531c/0/metadata.json",
+      "transcript": "/28/c977c3531c/0/full.jsonl",
+      "content_hash": "/28/c977c3531c/0/content_hash.txt",
+      "prompt": "/28/c977c3531c/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 2682667,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 21749760,
+    "output_tokens": 65389,
+    "api_call_count": 202
+  }
+}

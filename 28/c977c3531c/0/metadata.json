@@ -1,0 +1,170 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "28c977c3531c",
+  "session_id": "019ec6c4-384f-79a2-a7d5-0316b51bf498",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-16T14:53:09.116537Z",
+  "branch": "codex/frontiercode-coding-agent-request",
+  "checkpoints_count": 16,
+  "files_touched": [
+    "writing/frontiercode-coding-agent-request/ja.md"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "747daf425bb4",
+  "token_usage": {
+    "input_tokens": 2682667,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 21749760,
+    "output_tokens": 65389,
+    "api_call_count": 202
+  },
+  "session_metrics": {
+    "turn_count": 44
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-16T14:53:08.93669Z",
+    "agent_lines": 124,
+    "agent_removed": 0,
+    "human_added": 136,
+    "human_modified": 15,
+    "human_removed": 0,
+    "total_committed": 274,
+    "total_lines_changed": 275,
+    "agent_percentage": 45.09090909090909,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 175,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 190,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 198,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 164,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 6,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 166,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 7,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 166,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 8,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 166,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 9,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 162,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 10,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 162,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 11,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 145,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 12,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 145,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 13,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 145,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 14,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 145,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 15,
+      "user_lines_added": 3,
+      "user_lines_removed": 13,
+      "agent_lines_added": 147,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "writing/frontiercode-coding-agent-request/ja.md": 3
+      },
+      "user_removed_per_file": {
+        "writing/frontiercode-coding-agent-request/ja.md": 13
+      }
+    },
+    {
+      "checkpoint_number": 16,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 142,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 17,
+      "user_lines_added": 1,
+      "user_lines_removed": 1,
+      "agent_lines_added": 142,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "writing/frontiercode-coding-agent-request/ja.md": 1
+      },
+      "user_removed_per_file": {
+        "writing/frontiercode-coding-agent-request/ja.md": 1
+      }
+    }
+  ]
+}

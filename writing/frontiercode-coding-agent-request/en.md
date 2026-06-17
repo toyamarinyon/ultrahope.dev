@@ -1,5 +1,5 @@
 ---
-title: What FrontierCode's Evaluation Design Teaches Us About Entrusting Work to Coding Agents
+title: FrontierCode and Mergeable Agent Diffs
 publishedAt: "2026-06-15"
 ---
 
@@ -33,7 +33,7 @@ These questions cannot be fully captured by green tests.
 
 What I find interesting about FrontierCode is that it tries to evaluate this directly. The article says the question is no longer only whether models can write correct code, but whether they can write good code. The question about mergeability from the beginning sits around here.
 
-### Thinking About the Conditions for Good Code
+### What Makes a Diff Mergeable?
 
 In FrontierCode, more than 20 OSS maintainers create tasks from 36 major OSS repositories. Each task takes more than 40 hours to create, and maintainers translate their own standards for a mergeable change in that repository into evaluation criteria.
 
@@ -91,7 +91,7 @@ There is distance between writing a test and being able to feel reassured.
 
 I think it matters not to leave that distance entirely to the agent.
 
-### Continuing to Cultivate Judgment Outside the Agent's Loop
+### Judgment Outside the Agent's Loop
 
 The FrontierCode article gives an example involving a `LOG_WARNING()` helper for warning logs.
 

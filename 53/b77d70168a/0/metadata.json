@@ -1,0 +1,48 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "53b77d70168a",
+  "session_id": "019ec6c4-384f-79a2-a7d5-0316b51bf498",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-17T00:12:25.468043Z",
+  "branch": "codex/frontiercode-coding-agent-request",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "writing/frontiercode-coding-agent-request/en.md"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "3ecd79f175b2",
+  "checkpoint_transcript_start": 1523,
+  "transcript_lines_at_start": 1523,
+  "token_usage": {
+    "input_tokens": 194637,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 987904,
+    "output_tokens": 1992,
+    "api_call_count": 6
+  },
+  "session_metrics": {
+    "turn_count": 47
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-17T00:12:25.233812Z",
+    "agent_lines": 3,
+    "agent_removed": 3,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 3,
+    "total_lines_changed": 6,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}

@@ -82,10 +82,10 @@ The recommended workflow is:
 
 1. Write the code normally.
 2. Clean up the structure and presentation roughly.
-3. Run `bun lint`.
+3. Run `pnpm lint`.
 4. If lint reports an issue, adjust the code to match the rule.
 
-In other words, do not feel pressure to get every styling choice right on the first pass. Move forward first, then use `bun lint` to verify whether the implementation drifted from the standard.
+In other words, do not feel pressure to get every styling choice right on the first pass. Move forward first, then use `pnpm lint` to verify whether the implementation drifted from the standard.
 
 The point of this workflow is to keep both speed and consistency. Writing should feel lightweight, and alignment should be easy to verify mechanically.
 

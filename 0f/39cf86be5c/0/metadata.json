@@ -1,0 +1,70 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "0f39cf86be5c",
+  "session_id": "019edb19-2264-7730-8ea1-8542a1f99a33",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-19T06:40:00.578958Z",
+  "branch": "codex/migrate-to-pnpm",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".gitignore",
+    "README.md",
+    "bun.lock",
+    "package.json",
+    "standards/styling.md"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "170651e148d5",
+  "token_usage": {
+    "input_tokens": 161144,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 1197312,
+    "output_tokens": 7495,
+    "api_call_count": 31
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-19T06:40:00.552185Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 1481,
+    "total_committed": 1,
+    "total_lines_changed": 1481,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 6423,
+      "user_lines_removed": 1481,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "README.md": 8,
+        "package.json": 1,
+        "pnpm-lock.yaml": 6409,
+        "pnpm-workspace.yaml": 3,
+        "standards/styling.md": 2
+      },
+      "user_removed_per_file": {
+        "README.md": 8,
+        "bun.lock": 1470,
+        "package.json": 1,
+        "standards/styling.md": 2
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 6424,
+      "agent_lines_removed": 1481
+    }
+  ]
+}

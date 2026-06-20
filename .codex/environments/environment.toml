@@ -3,4 +3,4 @@ version = 1
 name = "ultrahope.dev"
 
 [setup]
-script = "bun i"
+script = "pnpm i"

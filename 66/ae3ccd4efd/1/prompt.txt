@@ -1,0 +1,6 @@
+`portless run next dev`を実行してください。
+portless run next dev がローカル CA の信頼登録や特権 HTTPS プロキシ起動、~/.portless への永続書き込みを行う可能性があることを理解したうえで、実行を許可します。
+
+---
+
+okです。終了してください。

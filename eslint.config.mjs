@@ -17,7 +17,7 @@ const eslintConfig = defineConfig([
 			"raula/no-disallowed-global-class-selectors": [
 				"error",
 				{
-					allowedClassSelectors: ["writing-markdown"],
+					allowedClassSelectors: ["writing-markdown", "sidebar-scroll-fade"],
 				},
 			],
 			"raula/exhaustive-tailwind-theme-tokens": [

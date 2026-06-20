@@ -8,7 +8,7 @@ import { WritingList } from "./writing-list";
 function SidebarContent(props: { showHomeLink: boolean }) {
 	return (
 		<>
-			<div className="min-h-0 flex-1">
+			<div className="shrink-0">
 				{props.showHomeLink ? (
 					<section className="mb-8 flex h-14.5 items-center pl-2">
 						<HomeLink />
@@ -16,14 +16,18 @@ function SidebarContent(props: { showHomeLink: boolean }) {
 				) : null}
 
 				<BaselineLink />
+			</div>
 
+			<div className="sidebar-scroll-fade min-h-0 flex-1 overflow-y-auto py-4 pr-1">
 				<div className="grid gap-6">
 					<WritingList />
 					<ProjectList />
 				</div>
 			</div>
 
-			<FooterControls />
+			<div className="shrink-0">
+				<FooterControls />
+			</div>
 		</>
 	);
 }

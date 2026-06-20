@@ -1,0 +1,17 @@
+lockfile_version: '1'
+generated_at: '2026-06-20T12:08:41.996588+00:00'
+apm_version: 0.21.0
+dependencies:
+- repo_url: vercel-labs/portless
+  host: github.com
+  resolved_commit: e4f65fa715e6f8df77fd511b1ae039cfa3ed82d6
+  resolved_ref: e4f65fa715e6f8df77fd511b1ae039cfa3ed82d6
+  virtual_path: skills/portless
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/portless
+  - .agents/skills/portless/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/portless/SKILL.md: sha256:f51180c37bc49d3cf106a6326d8ab567a8c6487735a4a45ec06a8be2cfc098ab
+  content_hash: sha256:cee49d001444a5af71476d22b6294cdb4f2f639b69431e248c26478a1d75e860

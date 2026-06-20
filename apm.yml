@@ -1,0 +1,10 @@
+name: ultrahope.dev
+version: 1.0.0
+description: APM project for ultrahope.dev
+author: toyamarinyon
+dependencies:
+  apm:
+  - vercel-labs/portless/skills/portless#e4f65fa715e6f8df77fd511b1ae039cfa3ed82d6
+  mcp: []
+includes: auto
+scripts: {}

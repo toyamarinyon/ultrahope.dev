@@ -1,0 +1,29 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "cfdb5f6fce0b",
+  "strategy": "manual-commit",
+  "branch": "codex/base-ui-sidebar-scrollarea",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "app/globals.css",
+    "app/ui/sidebar/responsive-sidebar.tsx",
+    "eslint.config.mjs",
+    "package.json",
+    "pnpm-lock.yaml"
+  ],
+  "sessions": [
+    {
+      "metadata": "/cf/db5f6fce0b/0/metadata.json",
+      "transcript": "/cf/db5f6fce0b/0/full.jsonl",
+      "content_hash": "/cf/db5f6fce0b/0/content_hash.txt",
+      "prompt": "/cf/db5f6fce0b/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 258918,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 3139328,
+    "output_tokens": 9892,
+    "api_call_count": 46
+  }
+}

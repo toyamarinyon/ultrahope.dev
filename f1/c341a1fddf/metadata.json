@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "f1c341a1fddf",
+  "strategy": "manual-commit",
+  "branch": "codex/fix-sidebar-layout",
+  "checkpoints_count": 7,
+  "files_touched": [
+    "app/globals.css",
+    "app/ui/sidebar/responsive-sidebar.tsx",
+    "eslint.config.mjs"
+  ],
+  "sessions": [
+    {
+      "metadata": "/f1/c341a1fddf/0/metadata.json",
+      "transcript": "/f1/c341a1fddf/0/full.jsonl",
+      "content_hash": "/f1/c341a1fddf/0/content_hash.txt",
+      "prompt": "/f1/c341a1fddf/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 436043,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 5450496,
+    "output_tokens": 18795,
+    "api_call_count": 62
+  }
+}

@@ -12,6 +12,7 @@
 		"format:check": "biome check ."
 	},
 	"dependencies": {
+		"@base-ui/react": "1.6.0",
 		"@streamdown/code": "^1.1.1",
 		"@vercel/analytics": "^2.0.1",
 		"geist": "1.7.0",
@@ -31,7 +32,7 @@
 		"@types/react-dom": "^19",
 		"eslint": "^9",
 		"eslint-config-next": "16.2.2",
-		"eslint-plugin-raula": "0.0.3",
+		"eslint-plugin-raula": "0.0.7",
 		"tailwindcss": "^4",
 		"typescript": "^5"
 	}

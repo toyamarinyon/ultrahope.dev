@@ -145,6 +145,27 @@ img {
 	max-width: 100%;
 }
 
+.sidebar-scroll-fade {
+	mask-image: linear-gradient(
+		to bottom,
+		transparent 0,
+		black 1.5rem,
+		black calc(100% - 1.5rem),
+		transparent 100%
+	);
+	mask-repeat: no-repeat;
+	mask-size: 100% 100%;
+	-webkit-mask-image: linear-gradient(
+		to bottom,
+		transparent 0,
+		black 1.5rem,
+		black calc(100% - 1.5rem),
+		transparent 100%
+	);
+	-webkit-mask-repeat: no-repeat;
+	-webkit-mask-size: 100% 100%;
+}
+
 code,
 pre {
 	font-family: var(--font-mono);

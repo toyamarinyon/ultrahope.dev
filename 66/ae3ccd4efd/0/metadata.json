@@ -1,0 +1,72 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "66ae3ccd4efd",
+  "session_id": "019ee4a1-c519-7bb3-8e58-d155b9563d43",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-20T12:12:20.894574Z",
+  "branch": "main",
+  "checkpoints_count": 3,
+  "files_touched": [
+    ".gitignore"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "cdcfd2be5aff",
+  "token_usage": {
+    "input_tokens": 34153,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 187392,
+    "output_tokens": 2077,
+    "api_call_count": 8
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-20T12:12:20.780528Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 2,
+    "total_committed": 0,
+    "total_lines_changed": 2,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 504,
+      "user_lines_removed": 4,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".agents/skills/portless/SKILL.md": 468,
+        ".codex/environments/environment.toml": 1,
+        ".gitignore": 2,
+        "apm.lock.yaml": 19,
+        "apm.yml": 14
+      },
+      "user_removed_per_file": {
+        ".codex/environments/environment.toml": 1,
+        ".gitignore": 2,
+        "CLAUDE.md": 1
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 504,
+      "agent_lines_removed": 4
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 504,
+      "agent_lines_removed": 4
+    }
+  ]
+}

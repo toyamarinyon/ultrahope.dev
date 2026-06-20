@@ -1,0 +1,9 @@
+local serverを起動してください。
+
+---
+
+[AGENTS.md](AGENTS.md) のlocal serverに関する記述はあなたの行動に意味がありましたか？
+
+---
+
+okです。server停止してください。

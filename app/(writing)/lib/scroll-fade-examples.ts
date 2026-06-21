@@ -1,6 +1,7 @@
 export const scrollFadeExamples = [
 	{
 		id: "plain",
+		previewPath: "/plain-overflow",
 		title: "fadeなし",
 		code: `<div className="h-52 overflow-y-auto border border-highlight-med bg-surface p-4">
   {items.map((item) => (
@@ -10,6 +11,7 @@ export const scrollFadeExamples = [
 	},
 	{
 		id: "react-mask",
+		previewPath: "/css-mask-fade",
 		title: "fadeあり（普通の React）",
 		code: `<div className="h-52 overflow-y-auto border border-highlight-med bg-surface p-4 mask-linear-[to_bottom,transparent_0,black_1.5rem,black_calc(100%-1.5rem),transparent_100%] mask-no-repeat">
   {items.map((item) => (
@@ -19,6 +21,7 @@ export const scrollFadeExamples = [
 	},
 	{
 		id: "base-ui",
+		previewPath: "/base-ui-scroll-area",
 		title: "fadeあり（Base UI ScrollArea）",
 		code: `<ScrollArea.Root className="relative h-52 overflow-hidden border border-highlight-med bg-surface">
   <ScrollArea.Viewport className="h-full outline-none mask-linear-[to_bottom,transparent_0,black_min(1.5rem,var(--scroll-area-overflow-y-start)),black_calc(100%-min(1.5rem,var(--scroll-area-overflow-y-end,1.5rem))),transparent_100%] mask-no-repeat">

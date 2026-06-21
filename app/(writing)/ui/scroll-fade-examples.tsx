@@ -1,7 +1,7 @@
 "use client";
 
 import { ScrollArea } from "@base-ui/react/scroll-area";
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import { scrollFadeExamples } from "../lib/scroll-fade-examples";
 
 const previewItems = [
@@ -21,6 +21,7 @@ const previewItems = [
 
 type ContentMode = "preview" | "code" | "both";
 type LayoutMode = "row" | "stack";
+type CodeStyleMode = "trace" | "file" | "panel";
 
 const contentModes: { label: string; value: ContentMode }[] = [
 	{ label: "Preview", value: "preview" },
@@ -33,14 +34,21 @@ const layoutModes: { label: string; value: LayoutMode }[] = [
 	{ label: "Stack", value: "stack" },
 ];
 
+const codeStyleModes: { label: string; value: CodeStyleMode }[] = [
+	{ label: "Trace", value: "trace" },
+	{ label: "File", value: "file" },
+	{ label: "Panel", value: "panel" },
+];
+
 export function ScrollFadeExamples() {
 	const [contentMode, setContentMode] = useState<ContentMode>("both");
 	const [layoutMode, setLayoutMode] = useState<LayoutMode>("row");
+	const [codeStyleMode, setCodeStyleMode] = useState<CodeStyleMode>("trace");
 	const gridClassName =
 		layoutMode === "row" ? "lg:grid-cols-3" : "lg:grid-cols-1";
 
 	return (
-		<div className="my-8 grid gap-5 md:-mx-8 lg:-mx-16 xl:-mx-28">
+		<div className="my-8 grid gap-5 md:-mx-8 lg:-mx-24 xl:-mx-40">
 			<div className="flex flex-wrap items-center justify-between gap-3 border-highlight-med border-b pb-3">
 				<SegmentedControl
 					label="Display"
@@ -54,6 +62,12 @@ export function ScrollFadeExamples() {
 					options={layoutModes}
 					value={layoutMode}
 				/>
+				<SegmentedControl
+					label="Code"
+					onChange={setCodeStyleMode}
+					options={codeStyleModes}
+					value={codeStyleMode}
+				/>
 			</div>
 			<div className={`grid gap-5 ${gridClassName}`}>
 				{scrollFadeExamples.map((example) => (
@@ -66,13 +80,90 @@ export function ScrollFadeExamples() {
 							<ExamplePreview exampleId={example.id} />
 						) : null}
 						{contentMode === "code" || contentMode === "both" ? (
-							<pre className="h-72 min-w-0 max-w-full overflow-auto border border-highlight-med bg-overlay p-4 text-sm leading-relaxed">
-								<code>{example.code}</code>
-							</pre>
+							<CodeBlock
+								code={example.code}
+								styleMode={codeStyleMode}
+								title={`${example.id}.tsx`}
+							/>
 						) : null}
 					</section>
 				))}
 			</div>
+		</div>
+	);
+}
+
+function CodeBlock(props: {
+	code: string;
+	styleMode: CodeStyleMode;
+	title: string;
+}) {
+	if (props.styleMode === "file") {
+		return <FileCodeBlock code={props.code} title={props.title} />;
+	}
+
+	if (props.styleMode === "panel") {
+		return <PanelCodeBlock code={props.code} title={props.title} />;
+	}
+
+	return <TraceCodeBlock code={props.code} title={props.title} />;
+}
+
+function TraceCodeBlock(props: { code: string; title: string }) {
+	const lines = props.code.split("\n");
+
+	return (
+		<div className="h-72 min-w-0 overflow-hidden border border-highlight-med bg-overlay">
+			<div className="flex items-center justify-between border-highlight-med border-b px-3 py-2 text-muted text-xs">
+				<span>{props.title}</span>
+				<span>tsx</span>
+			</div>
+			<div className="h-60 overflow-auto">
+				<pre className="min-w-max p-0 text-xs leading-relaxed">
+					<code className="font-mono">
+						{lines.map((line, index) => (
+							<span className="flex" key={`${index}-${line}`}>
+								<span className="w-10 shrink-0 border-highlight-med border-r pr-3 text-right text-muted">
+									{index + 1}
+								</span>
+								<span className="border-highlight-med border-l px-4">
+									{line || " "}
+								</span>
+							</span>
+						))}
+					</code>
+				</pre>
+			</div>
+		</div>
+	);
+}
+
+function FileCodeBlock(props: { code: string; title: string }) {
+	return (
+		<div className="h-72 min-w-0 overflow-hidden border border-highlight-med bg-surface">
+			<div className="flex items-center gap-2 border-highlight-med border-b px-3 py-2 text-subtle text-xs">
+				<span className="size-2 bg-love" />
+				<span className="size-2 bg-gold" />
+				<span className="size-2 bg-rose" />
+				<span className="ml-2 truncate">{props.title}</span>
+			</div>
+			<pre className="h-60 min-w-0 overflow-auto p-4 text-xs leading-relaxed">
+				<code className="font-mono">{props.code}</code>
+			</pre>
+		</div>
+	);
+}
+
+function PanelCodeBlock(props: { code: string; title: string }) {
+	return (
+		<div className="h-72 min-w-0 border border-highlight-med bg-overlay p-3">
+			<div className="mb-3 flex items-center justify-between text-muted text-xs">
+				<span>{props.title}</span>
+				<span>example</span>
+			</div>
+			<pre className="h-58 min-w-0 overflow-auto bg-highlight-low p-3 text-xs leading-relaxed">
+				<code className="font-mono">{props.code}</code>
+			</pre>
 		</div>
 	);
 }
@@ -113,8 +204,14 @@ function SegmentedControl<T extends string>(props: {
 function ExamplePreview(props: {
 	exampleId: (typeof scrollFadeExamples)[number]["id"];
 }) {
+	const example = scrollFadeExamples.find(
+		(item) => item.id === props.exampleId,
+	);
+
 	if (props.exampleId === "base-ui") {
-		return <BaseUiPreview />;
+		return (
+			<BaseUiPreview path={example?.previewPath ?? "/base-ui-scroll-area"} />
+		);
 	}
 
 	const fadeClassName =
@@ -123,26 +220,47 @@ function ExamplePreview(props: {
 			: "";
 
 	return (
-		<div
-			className={`h-52 overflow-y-auto border border-highlight-med bg-surface p-4 ${fadeClassName}`}
-		>
-			<PreviewItems />
-		</div>
+		<BrowserPreviewFrame path={example?.previewPath ?? "/plain-overflow"}>
+			<div className={`h-44 overflow-y-auto bg-surface p-4 ${fadeClassName}`}>
+				<PreviewItems />
+			</div>
+		</BrowserPreviewFrame>
 	);
 }
 
-function BaseUiPreview() {
+function BaseUiPreview(props: { path: string }) {
 	return (
-		<ScrollArea.Root className="relative h-52 overflow-hidden border border-highlight-med bg-surface">
-			<ScrollArea.Viewport className="h-full outline-none mask-linear-[to_bottom,transparent_0,black_min(1.5rem,var(--scroll-area-overflow-y-start)),black_calc(100%-min(1.5rem,var(--scroll-area-overflow-y-end,1.5rem))),transparent_100%] mask-no-repeat">
-				<ScrollArea.Content className="p-4">
-					<PreviewItems />
-				</ScrollArea.Content>
-			</ScrollArea.Viewport>
-			<ScrollArea.Scrollbar className="flex w-2 justify-center py-2 opacity-0 transition-opacity data-hovering:opacity-100 data-scrolling:opacity-100">
-				<ScrollArea.Thumb className="w-1 rounded-full bg-highlight-high" />
-			</ScrollArea.Scrollbar>
-		</ScrollArea.Root>
+		<BrowserPreviewFrame path={props.path}>
+			<ScrollArea.Root className="relative h-44 overflow-hidden bg-surface">
+				<ScrollArea.Viewport className="h-full outline-none mask-linear-[to_bottom,transparent_0,black_min(1.5rem,var(--scroll-area-overflow-y-start)),black_calc(100%-min(1.5rem,var(--scroll-area-overflow-y-end,1.5rem))),transparent_100%] mask-no-repeat">
+					<ScrollArea.Content className="p-4">
+						<PreviewItems />
+					</ScrollArea.Content>
+				</ScrollArea.Viewport>
+				<ScrollArea.Scrollbar className="flex w-2 justify-center py-2 opacity-0 transition-opacity data-hovering:opacity-100 data-scrolling:opacity-100">
+					<ScrollArea.Thumb className="w-1 rounded-full bg-highlight-high" />
+				</ScrollArea.Scrollbar>
+			</ScrollArea.Root>
+		</BrowserPreviewFrame>
+	);
+}
+
+function BrowserPreviewFrame(props: { children: ReactNode; path: string }) {
+	return (
+		<div className="h-52 min-w-0 overflow-hidden rounded-md border border-highlight-med bg-overlay">
+			<div className="flex h-8 items-center gap-2 border-highlight-med border-b px-3">
+				<span className="size-2 rounded-full bg-love" />
+				<span className="size-2 rounded-full bg-gold" />
+				<span className="size-2 rounded-full bg-green-500" />
+				<div
+					aria-label="Preview path"
+					className="ml-1 min-w-0 flex-1 rounded-sm border border-highlight-med bg-base px-2 py-0.5 text-muted text-xs"
+				>
+					{props.path}
+				</div>
+			</div>
+			{props.children}
+		</div>
 	);
 }
 

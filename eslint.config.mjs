@@ -41,6 +41,7 @@ const eslintConfig = defineConfig([
 						"--input",
 						"--ring",
 						"--radius",
+						"--font-mono",
 					],
 				},
 			],

@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
+import { createElement } from "react";
 import { type Locale } from "@/lib/i18n";
 import { formatWritingDate, getWritingArticle } from "../lib/writing";
+import { getWritingMdxComponent } from "../lib/writing-mdx";
 import { MarkdownRenderer } from "./markdown-renderer";
 
 type WritingArticlePageProps = {
@@ -30,6 +32,10 @@ export function WritingArticlePage({ locale, slug }: WritingArticlePageProps) {
 	}
 
 	const bodyMarkdown = stripLeadingDuplicateH1(article.content, article.title);
+	const writingMdxElement =
+		article.format === "mdx"
+			? createWritingMdxElement(article.slug, article.locale)
+			: undefined;
 
 	return (
 		<main className="mx-auto mt-12 max-w-220 px-4 sm:px-8 md:mt-20 lg:px-20 mb-24">
@@ -42,10 +48,14 @@ export function WritingArticlePage({ locale, slug }: WritingArticlePageProps) {
 					</p>
 				</div>
 			</header>
-			<MarkdownRenderer
-				markdown={bodyMarkdown}
-				className="writing-markdown max-w-190 min-w-0"
-			/>
+			<div className="writing-markdown max-w-190 min-w-0">
+				{writingMdxElement ?? <MarkdownRenderer markdown={bodyMarkdown} />}
+			</div>
 		</main>
 	);
+}
+
+function createWritingMdxElement(slug: string, locale: Locale) {
+	const Component = getWritingMdxComponent(slug, locale);
+	return Component ? createElement(Component) : undefined;
 }

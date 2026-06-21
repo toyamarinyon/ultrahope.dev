@@ -1,4 +1,5 @@
 import type { Locale } from "@/lib/i18n";
+import { renderScrollFadeExamplesMarkdown } from "./scroll-fade-examples";
 import {
 	getWritingArticle,
 	getWritingSidebarArticlesByLocale,
@@ -61,8 +62,19 @@ function renderWritingMarkdown(article: WritingArticle) {
 		"",
 	);
 
-	const markdownBody = article.content.trim();
+	const markdownBody = renderMarkdownBodyForAgents(article).trim();
 	return `${frontmatterLines.join("\n")}${markdownBody}\n`;
+}
+
+function renderMarkdownBodyForAgents(article: WritingArticle) {
+	if (article.format !== "mdx") {
+		return article.content;
+	}
+
+	return article.content.replace(
+		/^<ScrollFadeExamples\s*\/>\s*$/gm,
+		renderScrollFadeExamplesMarkdown,
+	);
 }
 
 export function getWritingSitemapMarkdown(locale: Locale) {

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { getWritingSlugs } from "../../lib/writing";
+import { getWritingStaticParams } from "../../lib/writing";
 import { getWritingArticleSocialMetadata } from "../../ui/article-social";
 import { WritingArticlePage } from "../../ui/component";
 
 export function generateStaticParams() {
-	return getWritingSlugs().map((slug) => ({ slug }));
+	return getWritingStaticParams("en");
 }
 
 export async function generateMetadata({

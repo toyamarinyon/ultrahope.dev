@@ -13,7 +13,11 @@
 	},
 	"dependencies": {
 		"@base-ui/react": "1.6.0",
+		"@mdx-js/loader": "^3.1.1",
+		"@mdx-js/react": "^3.1.1",
+		"@next/mdx": "^16.2.2",
 		"@streamdown/code": "^1.1.1",
+		"@types/mdx": "^2.0.14",
 		"@vercel/analytics": "^2.0.1",
 		"geist": "1.7.0",
 		"gray-matter": "^4.0.3",
@@ -21,6 +25,7 @@
 		"next": "16.2.2",
 		"react": "19.2.4",
 		"react-dom": "19.2.4",
+		"remark-frontmatter": "^5.0.0",
 		"streamdown": "2.5.0",
 		"zod": "^4.3.6"
 	},

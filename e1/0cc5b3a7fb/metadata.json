@@ -1,0 +1,37 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e10cc5b3a7fb",
+  "strategy": "manual-commit",
+  "branch": "codex/mdx-scroll-fade-article-prototype",
+  "checkpoints_count": 9,
+  "files_touched": [
+    "app/(writing)/ja/writing/[slug]/page.tsx",
+    "app/(writing)/lib/writing-markdown.ts",
+    "app/(writing)/lib/writing-mdx.ts",
+    "app/(writing)/lib/writing.ts",
+    "app/(writing)/ui/component.tsx",
+    "app/(writing)/ui/scroll-fade-examples.tsx",
+    "app/(writing)/writing/[slug]/page.tsx",
+    "mdx-components.tsx",
+    "next.config.ts",
+    "package.json",
+    "pnpm-lock.yaml",
+    "tsconfig.json",
+    "writing/base-ui-scroll-fade/ja.mdx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/e1/0cc5b3a7fb/0/metadata.json",
+      "transcript": "/e1/0cc5b3a7fb/0/full.jsonl",
+      "content_hash": "/e1/0cc5b3a7fb/0/content_hash.txt",
+      "prompt": "/e1/0cc5b3a7fb/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 719676,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 18605056,
+    "output_tokens": 44370,
+    "api_call_count": 144
+  }
+}

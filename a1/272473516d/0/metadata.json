@@ -1,0 +1,121 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "a1272473516d",
+  "session_id": "019ee5b0-a55f-7d11-a148-9e7e3266f589",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-21T13:17:32.121416Z",
+  "branch": "codex/mdx-scroll-fade-article-prototype",
+  "checkpoints_count": 10,
+  "files_touched": [
+    "app/(writing)/lib/scroll-fade-examples.ts",
+    "app/(writing)/ui/scroll-fade-examples.tsx",
+    "app/globals.css",
+    "eslint.config.mjs"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "b2a6fa43af64",
+  "token_usage": {
+    "input_tokens": 1080534,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 33255808,
+    "output_tokens": 65582,
+    "api_call_count": 214
+  },
+  "session_metrics": {
+    "turn_count": 19
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-21T13:17:32.012264Z",
+    "agent_lines": 130,
+    "agent_removed": 15,
+    "human_added": 0,
+    "human_modified": 2,
+    "human_removed": 10,
+    "total_committed": 132,
+    "total_lines_changed": 157,
+    "agent_percentage": 92.35668789808918,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 94,
+      "agent_lines_removed": 3
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 128,
+      "agent_lines_removed": 19
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 128,
+      "agent_lines_removed": 19
+    },
+    {
+      "checkpoint_number": 6,
+      "user_lines_added": 2,
+      "user_lines_removed": 5,
+      "agent_lines_added": 133,
+      "agent_lines_removed": 20,
+      "user_added_per_file": {
+        "app/globals.css": 2
+      },
+      "user_removed_per_file": {
+        "app/globals.css": 5
+      }
+    },
+    {
+      "checkpoint_number": 7,
+      "user_lines_added": 0,
+      "user_lines_removed": 7,
+      "agent_lines_added": 133,
+      "agent_lines_removed": 21,
+      "user_removed_per_file": {
+        "app/globals.css": 7
+      }
+    },
+    {
+      "checkpoint_number": 8,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 130,
+      "agent_lines_removed": 25
+    },
+    {
+      "checkpoint_number": 9,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 130,
+      "agent_lines_removed": 25
+    },
+    {
+      "checkpoint_number": 10,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 144,
+      "agent_lines_removed": 27
+    },
+    {
+      "checkpoint_number": 11,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 144,
+      "agent_lines_removed": 27
+    }
+  ]
+}

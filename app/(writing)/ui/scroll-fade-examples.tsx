@@ -1,112 +1,92 @@
 "use client";
 
 import { ScrollArea } from "@base-ui/react/scroll-area";
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useCallback, useRef } from "react";
 import { scrollFadeExamples } from "../lib/scroll-fade-examples";
 
-const previewItems = [
-	"Sidebar grows quietly.",
-	"Writing list keeps expanding.",
-	"Project links still matter.",
-	"Footer controls should stay reachable.",
-	"Overflow needs its own boundary.",
-	"Fade hints at hidden content.",
-	"Top fade should disappear at the start.",
-	"Bottom fade should disappear at the end.",
-	"Scroll state can be a design input.",
-	"Base UI exposes that state.",
-	"Small UI details become easier to maintain.",
-	"Done carefully, the edge feels less abrupt.",
+const writingItems = [
+	"Updates",
+	"Start",
+	"Install",
+	"Config",
+	"Nav",
+	"Scroll",
+	"A11y",
+	"Keys",
+	"Theme",
+	"Release",
+	"Migrate",
+	"Archive",
 ];
 
-type ContentMode = "preview" | "code" | "both";
-type LayoutMode = "row" | "stack";
-type CodeStyleMode = "trace" | "file" | "panel";
+const projectItems = ["UI", "Demos", "Kits", "Changes", "Roadmap", "Help"];
 
-const contentModes: { label: string; value: ContentMode }[] = [
-	{ label: "Preview", value: "preview" },
-	{ label: "Code", value: "code" },
-	{ label: "Both", value: "both" },
-];
+type ExampleId = (typeof scrollFadeExamples)[number]["id"];
+type RegisterScroller = (id: ExampleId, element: HTMLElement | null) => void;
+type SyncScroll = (sourceId: ExampleId, source: HTMLElement) => void;
 
-const layoutModes: { label: string; value: LayoutMode }[] = [
-	{ label: "Row", value: "row" },
-	{ label: "Stack", value: "stack" },
-];
+function syncScrollerElements(
+	scrollers: Map<ExampleId, HTMLElement>,
+	sourceId: ExampleId,
+	source: HTMLElement,
+) {
+	const sourceMaxScrollTop = source.scrollHeight - source.clientHeight;
+	const scrollRatio =
+		sourceMaxScrollTop > 0 ? source.scrollTop / sourceMaxScrollTop : 0;
 
-const codeStyleModes: { label: string; value: CodeStyleMode }[] = [
-	{ label: "Trace", value: "trace" },
-	{ label: "File", value: "file" },
-	{ label: "Panel", value: "panel" },
-];
+	for (const [targetId, target] of scrollers) {
+		if (targetId === sourceId) {
+			continue;
+		}
+
+		const targetMaxScrollTop = target.scrollHeight - target.clientHeight;
+		target.scrollTop = scrollRatio * targetMaxScrollTop;
+	}
+}
 
 export function ScrollFadeExamples() {
-	const [contentMode, setContentMode] = useState<ContentMode>("both");
-	const [layoutMode, setLayoutMode] = useState<LayoutMode>("row");
-	const [codeStyleMode, setCodeStyleMode] = useState<CodeStyleMode>("trace");
-	const gridClassName =
-		layoutMode === "row" ? "lg:grid-cols-3" : "lg:grid-cols-1";
+	const scrollersRef = useRef(new Map<ExampleId, HTMLElement>());
+	const isSyncingRef = useRef(false);
+	const registerScroller = useCallback<RegisterScroller>((id, element) => {
+		if (element) {
+			scrollersRef.current.set(id, element);
+			return;
+		}
+
+		scrollersRef.current.delete(id);
+	}, []);
+	const syncScroll: SyncScroll = (sourceId, source) => {
+		if (isSyncingRef.current) {
+			return;
+		}
+
+		isSyncingRef.current = true;
+		syncScrollerElements(scrollersRef.current, sourceId, source);
+		requestAnimationFrame(() => {
+			isSyncingRef.current = false;
+		});
+	};
 
 	return (
-		<div className="my-8 grid gap-5 md:-mx-8 lg:-mx-24 xl:-mx-40">
-			<div className="flex flex-wrap items-center justify-between gap-3 border-highlight-med border-b pb-3">
-				<SegmentedControl
-					label="Display"
-					onChange={setContentMode}
-					options={contentModes}
-					value={contentMode}
-				/>
-				<SegmentedControl
-					label="Layout"
-					onChange={setLayoutMode}
-					options={layoutModes}
-					value={layoutMode}
-				/>
-				<SegmentedControl
-					label="Code"
-					onChange={setCodeStyleMode}
-					options={codeStyleModes}
-					value={codeStyleMode}
-				/>
-			</div>
-			<div className={`grid gap-5 ${gridClassName}`}>
+		<div className="my-8 grid gap-5 md:-mx-8 lg:-mx-28 xl:-mx-52">
+			<div className="grid gap-5 lg:grid-cols-3">
 				{scrollFadeExamples.map((example) => (
 					<section
-						className="grid min-w-0 gap-3 border-highlight-med border-t pt-5"
+						className="grid min-w-0 gap-3 border-highlight-med border-t pt-5 lg:border-t-0 lg:pt-0"
 						key={example.id}
 					>
-						<h3 className="text-lg">{example.title}</h3>
-						{contentMode === "preview" || contentMode === "both" ? (
-							<ExamplePreview exampleId={example.id} />
-						) : null}
-						{contentMode === "code" || contentMode === "both" ? (
-							<CodeBlock
-								code={example.code}
-								styleMode={codeStyleMode}
-								title={`${example.id}.tsx`}
-							/>
-						) : null}
+						<h3 className="text-center text-muted text-sm">{example.title}</h3>
+						<ExamplePreview
+							exampleId={example.id}
+							onRegisterScroller={registerScroller}
+							onSyncScroll={syncScroll}
+						/>
+						<TraceCodeBlock code={example.code} title={`${example.id}.tsx`} />
 					</section>
 				))}
 			</div>
 		</div>
 	);
-}
-
-function CodeBlock(props: {
-	code: string;
-	styleMode: CodeStyleMode;
-	title: string;
-}) {
-	if (props.styleMode === "file") {
-		return <FileCodeBlock code={props.code} title={props.title} />;
-	}
-
-	if (props.styleMode === "panel") {
-		return <PanelCodeBlock code={props.code} title={props.title} />;
-	}
-
-	return <TraceCodeBlock code={props.code} title={props.title} />;
 }
 
 function TraceCodeBlock(props: { code: string; title: string }) {
@@ -138,71 +118,10 @@ function TraceCodeBlock(props: { code: string; title: string }) {
 	);
 }
 
-function FileCodeBlock(props: { code: string; title: string }) {
-	return (
-		<div className="h-72 min-w-0 overflow-hidden border border-highlight-med bg-surface">
-			<div className="flex items-center gap-2 border-highlight-med border-b px-3 py-2 text-subtle text-xs">
-				<span className="size-2 bg-love" />
-				<span className="size-2 bg-gold" />
-				<span className="size-2 bg-rose" />
-				<span className="ml-2 truncate">{props.title}</span>
-			</div>
-			<pre className="h-60 min-w-0 overflow-auto p-4 text-xs leading-relaxed">
-				<code className="font-mono">{props.code}</code>
-			</pre>
-		</div>
-	);
-}
-
-function PanelCodeBlock(props: { code: string; title: string }) {
-	return (
-		<div className="h-72 min-w-0 border border-highlight-med bg-overlay p-3">
-			<div className="mb-3 flex items-center justify-between text-muted text-xs">
-				<span>{props.title}</span>
-				<span>example</span>
-			</div>
-			<pre className="h-58 min-w-0 overflow-auto bg-highlight-low p-3 text-xs leading-relaxed">
-				<code className="font-mono">{props.code}</code>
-			</pre>
-		</div>
-	);
-}
-
-function SegmentedControl<T extends string>(props: {
-	label: string;
-	onChange: (value: T) => void;
-	options: { label: string; value: T }[];
-	value: T;
-}) {
-	return (
-		<div className="flex items-center gap-2 text-sm">
-			<span className="text-muted">{props.label}</span>
-			<div className="flex overflow-hidden border border-highlight-med">
-				{props.options.map((option) => {
-					const isSelected = option.value === props.value;
-					return (
-						<button
-							aria-pressed={isSelected}
-							className={`px-3 py-1.5 transition-colors ${
-								isSelected
-									? "bg-highlight-med text-text"
-									: "text-subtle hover:bg-highlight-low hover:text-text"
-							}`}
-							key={option.value}
-							onClick={() => props.onChange(option.value)}
-							type="button"
-						>
-							{option.label}
-						</button>
-					);
-				})}
-			</div>
-		</div>
-	);
-}
-
 function ExamplePreview(props: {
-	exampleId: (typeof scrollFadeExamples)[number]["id"];
+	exampleId: ExampleId;
+	onRegisterScroller: RegisterScroller;
+	onSyncScroll: SyncScroll;
 }) {
 	const example = scrollFadeExamples.find(
 		(item) => item.id === props.exampleId,
@@ -210,51 +129,108 @@ function ExamplePreview(props: {
 
 	if (props.exampleId === "base-ui") {
 		return (
-			<BaseUiPreview path={example?.previewPath ?? "/base-ui-scroll-area"} />
+			<BaseUiPreview
+				exampleId={props.exampleId}
+				onRegisterScroller={props.onRegisterScroller}
+				onSyncScroll={props.onSyncScroll}
+				path={example?.previewPath ?? "/state-aware-scroll-area"}
+			/>
 		);
 	}
 
+	return (
+		<NativePreview
+			exampleId={props.exampleId}
+			onRegisterScroller={props.onRegisterScroller}
+			onSyncScroll={props.onSyncScroll}
+			path={example?.previewPath ?? "/plain-overflow"}
+		/>
+	);
+}
+
+function NativePreview(props: {
+	exampleId: Exclude<ExampleId, "base-ui">;
+	onRegisterScroller: RegisterScroller;
+	onSyncScroll: SyncScroll;
+	path: string;
+}) {
+	const { exampleId, onRegisterScroller, onSyncScroll, path } = props;
+	const registerScroller = useCallback(
+		(element: HTMLDivElement | null) => {
+			onRegisterScroller(exampleId, element);
+		},
+		[exampleId, onRegisterScroller],
+	);
 	const fadeClassName =
-		props.exampleId === "react-mask"
-			? "mask-linear-[to_bottom,transparent_0,black_1.5rem,black_calc(100%-1.5rem),transparent_100%] mask-no-repeat"
+		exampleId === "react-mask"
+			? "mask-linear-[to_bottom,transparent_0,black_2.75rem,black_calc(100%-2.75rem),transparent_100%] mask-no-repeat"
 			: "";
 
 	return (
-		<BrowserPreviewFrame path={example?.previewPath ?? "/plain-overflow"}>
-			<div className={`h-44 overflow-y-auto bg-surface p-4 ${fadeClassName}`}>
-				<PreviewItems />
-			</div>
+		<BrowserPreviewFrame path={path}>
+			<PreviewSidebarShell>
+				<div
+					className={`min-h-0 flex-1 overflow-y-auto px-3 py-3 ${fadeClassName}`}
+					onScroll={(event) => {
+						onSyncScroll(exampleId, event.currentTarget);
+					}}
+					ref={registerScroller}
+				>
+					<PreviewSidebarLinks />
+				</div>
+			</PreviewSidebarShell>
 		</BrowserPreviewFrame>
 	);
 }
 
-function BaseUiPreview(props: { path: string }) {
+function BaseUiPreview(props: {
+	exampleId: Extract<ExampleId, "base-ui">;
+	onRegisterScroller: RegisterScroller;
+	onSyncScroll: SyncScroll;
+	path: string;
+}) {
+	const { exampleId, onRegisterScroller, onSyncScroll, path } = props;
+	const registerScroller = useCallback(
+		(element: HTMLDivElement | null) => {
+			onRegisterScroller(exampleId, element);
+		},
+		[exampleId, onRegisterScroller],
+	);
+
 	return (
-		<BrowserPreviewFrame path={props.path}>
-			<ScrollArea.Root className="relative h-44 overflow-hidden bg-surface">
-				<ScrollArea.Viewport className="h-full outline-none mask-linear-[to_bottom,transparent_0,black_min(1.5rem,var(--scroll-area-overflow-y-start)),black_calc(100%-min(1.5rem,var(--scroll-area-overflow-y-end,1.5rem))),transparent_100%] mask-no-repeat">
-					<ScrollArea.Content className="p-4">
-						<PreviewItems />
-					</ScrollArea.Content>
-				</ScrollArea.Viewport>
-				<ScrollArea.Scrollbar className="flex w-2 justify-center py-2 opacity-0 transition-opacity data-hovering:opacity-100 data-scrolling:opacity-100">
-					<ScrollArea.Thumb className="w-1 rounded-full bg-highlight-high" />
-				</ScrollArea.Scrollbar>
-			</ScrollArea.Root>
+		<BrowserPreviewFrame path={path}>
+			<PreviewSidebarShell>
+				<ScrollArea.Root className="relative min-h-0 flex-1 overflow-hidden">
+					<ScrollArea.Viewport
+						className="h-full outline-none mask-linear-[to_bottom,transparent_0,black_min(2.75rem,var(--scroll-area-overflow-y-start)),black_calc(100%-min(2.75rem,var(--scroll-area-overflow-y-end,2.75rem))),transparent_100%] mask-no-repeat"
+						onScroll={(event) => {
+							onSyncScroll(exampleId, event.currentTarget);
+						}}
+						ref={registerScroller}
+					>
+						<ScrollArea.Content className="px-3 py-3">
+							<PreviewSidebarLinks />
+						</ScrollArea.Content>
+					</ScrollArea.Viewport>
+					<ScrollArea.Scrollbar className="flex w-2 justify-center py-2 opacity-0 transition-opacity data-hovering:opacity-100 data-scrolling:opacity-100">
+						<ScrollArea.Thumb className="w-1 rounded-full bg-highlight-high" />
+					</ScrollArea.Scrollbar>
+				</ScrollArea.Root>
+			</PreviewSidebarShell>
 		</BrowserPreviewFrame>
 	);
 }
 
 function BrowserPreviewFrame(props: { children: ReactNode; path: string }) {
 	return (
-		<div className="h-52 min-w-0 overflow-hidden rounded-md border border-highlight-med bg-overlay">
-			<div className="flex h-8 items-center gap-2 border-highlight-med border-b px-3">
-				<span className="size-2 rounded-full bg-love" />
-				<span className="size-2 rounded-full bg-gold" />
-				<span className="size-2 rounded-full bg-green-500" />
+		<div className="h-72 min-w-0 overflow-hidden rounded-md border border-highlight-med bg-overlay">
+			<div className="flex h-8 items-center gap-1.5 border-highlight-med border-b px-3">
+				<span className="size-2 rounded-full bg-muted" />
+				<span className="size-2 rounded-full bg-muted" />
+				<span className="size-2 rounded-full bg-muted" />
 				<div
 					aria-label="Preview path"
-					className="ml-1 min-w-0 flex-1 rounded-sm border border-highlight-med bg-base px-2 py-0.5 text-muted text-xs"
+					className="ml-1.5 min-w-0 flex-1 rounded-sm border border-highlight-med bg-base px-2 py-0.5 text-muted text-xs"
 				>
 					{props.path}
 				</div>
@@ -264,14 +240,59 @@ function BrowserPreviewFrame(props: { children: ReactNode; path: string }) {
 	);
 }
 
-function PreviewItems() {
+function PreviewSidebarShell(props: { children: ReactNode }) {
 	return (
-		<div className="grid gap-3 text-sm">
-			{previewItems.map((item) => (
-				<p className="m-0" key={item}>
-					{item}
-				</p>
-			))}
+		<div className="flex h-64 bg-surface">
+			<div className="flex w-28 shrink-0 flex-col border-highlight-med border-r">
+				<div className="shrink-0 border-highlight-med border-b px-3 py-2">
+					<div className="grid gap-0.5 text-sm">
+						<span>App</span>
+						<span className="text-muted">Guide</span>
+					</div>
+				</div>
+				{props.children}
+				<div className="shrink-0 border-highlight-med border-t px-3 py-2 text-muted text-sm">
+					Account
+				</div>
+			</div>
+			<div className="min-w-0 flex-1 bg-highlight-low p-3">
+				<div className="grid gap-3">
+					<div className="h-4 w-28 rounded-sm bg-highlight-med" />
+					<div className="grid gap-2">
+						<div className="h-2 rounded-sm bg-highlight-low" />
+						<div className="h-2 w-5/6 rounded-sm bg-highlight-low" />
+						<div className="h-2 w-2/3 rounded-sm bg-highlight-low" />
+					</div>
+					<div className="mt-2 grid grid-cols-2 gap-2">
+						<div className="h-14 rounded-sm border border-highlight-med bg-surface" />
+						<div className="h-14 rounded-sm border border-highlight-med bg-surface" />
+					</div>
+					<div className="mt-1 h-16 rounded-sm border border-highlight-med bg-surface" />
+				</div>
+			</div>
+		</div>
+	);
+}
+
+function PreviewSidebarLinks() {
+	return (
+		<div className="grid gap-4 text-sm">
+			<div className="grid gap-1.5">
+				<p className="m-0 text-muted text-xs">Menu</p>
+				{writingItems.map((item) => (
+					<p className="m-0 truncate" key={item}>
+						{item}
+					</p>
+				))}
+			</div>
+			<div className="grid gap-1.5">
+				<p className="m-0 text-muted text-xs">More</p>
+				{projectItems.map((item) => (
+					<p className="m-0 truncate" key={item}>
+						{item}
+					</p>
+				))}
+			</div>
 		</div>
 	);
 }

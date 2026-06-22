@@ -2,6 +2,7 @@
 
 import { ScrollArea } from "@base-ui/react/scroll-area";
 import { type ReactNode, useCallback, useRef } from "react";
+import { UltrahopeLogo } from "@/app/ui/ultrahope-logo";
 import { scrollFadeExamples } from "../lib/scroll-fade-examples";
 
 const writingItems = [
@@ -60,6 +61,10 @@ export function ScrollFadeExamples() {
 			return;
 		}
 
+		if (!window.matchMedia("(min-width: 1024px)").matches) {
+			return;
+		}
+
 		isSyncingRef.current = true;
 		syncScrollerElements(scrollersRef.current, sourceId, source);
 		requestAnimationFrame(() => {
@@ -93,7 +98,7 @@ function TraceCodeBlock(props: { code: string; title: string }) {
 	const lines = props.code.split("\n");
 
 	return (
-		<div className="h-72 min-w-0 overflow-hidden border border-highlight-med bg-overlay">
+		<div className="mx-auto h-72 w-full max-w-md min-w-0 overflow-hidden border border-highlight-med bg-overlay lg:max-w-none">
 			<div className="flex items-center justify-between border-highlight-med border-b px-3 py-2 text-muted text-xs">
 				<span>{props.title}</span>
 				<span>tsx</span>
@@ -223,7 +228,7 @@ function BaseUiPreview(props: {
 
 function BrowserPreviewFrame(props: { children: ReactNode; path: string }) {
 	return (
-		<div className="h-72 min-w-0 overflow-hidden rounded-md border border-highlight-med bg-overlay">
+		<div className="mx-auto h-64 w-full max-w-md min-w-0 overflow-hidden rounded-md border border-highlight-med bg-overlay lg:h-72 lg:max-w-none">
 			<div className="flex h-8 items-center gap-1.5 border-highlight-med border-b px-3">
 				<span className="size-2 rounded-full bg-muted" />
 				<span className="size-2 rounded-full bg-muted" />
@@ -242,32 +247,29 @@ function BrowserPreviewFrame(props: { children: ReactNode; path: string }) {
 
 function PreviewSidebarShell(props: { children: ReactNode }) {
 	return (
-		<div className="flex h-64 bg-surface">
-			<div className="flex w-28 shrink-0 flex-col border-highlight-med border-r">
-				<div className="shrink-0 border-highlight-med border-b px-3 py-2">
-					<div className="grid gap-0.5 text-sm">
-						<span>App</span>
-						<span className="text-muted">Guide</span>
-					</div>
+		<div className="flex h-56 bg-surface lg:h-64">
+			<div className="flex w-24 shrink-0 flex-col border-highlight-med border-r lg:w-28">
+				<div className="shrink-0 px-2.5 py-2 lg:px-3">
+					<UltrahopeLogo className="size-4 text-rose" />
 				</div>
 				{props.children}
-				<div className="shrink-0 border-highlight-med border-t px-3 py-2 text-muted text-sm">
+				<div className="shrink-0 px-2.5 py-2 text-muted text-xs lg:px-3 lg:text-sm">
 					Account
 				</div>
 			</div>
-			<div className="min-w-0 flex-1 bg-highlight-low p-3">
-				<div className="grid gap-3">
-					<div className="h-4 w-28 rounded-sm bg-highlight-med" />
-					<div className="grid gap-2">
+			<div className="min-w-0 flex-1 bg-highlight-low p-2.5 lg:p-3">
+				<div className="grid gap-2 lg:gap-3">
+					<div className="h-3 w-20 rounded-sm bg-highlight-med lg:h-4 lg:w-28" />
+					<div className="grid gap-1.5 lg:gap-2">
 						<div className="h-2 rounded-sm bg-highlight-low" />
 						<div className="h-2 w-5/6 rounded-sm bg-highlight-low" />
 						<div className="h-2 w-2/3 rounded-sm bg-highlight-low" />
 					</div>
-					<div className="mt-2 grid grid-cols-2 gap-2">
-						<div className="h-14 rounded-sm border border-highlight-med bg-surface" />
-						<div className="h-14 rounded-sm border border-highlight-med bg-surface" />
+					<div className="mt-1 grid grid-cols-2 gap-2 lg:mt-2">
+						<div className="h-9 rounded-sm border border-highlight-med bg-surface lg:h-14" />
+						<div className="h-9 rounded-sm border border-highlight-med bg-surface lg:h-14" />
 					</div>
-					<div className="mt-1 h-16 rounded-sm border border-highlight-med bg-surface" />
+					<div className="mt-1 h-10 rounded-sm border border-highlight-med bg-surface lg:h-16" />
 				</div>
 			</div>
 		</div>
@@ -276,8 +278,8 @@ function PreviewSidebarShell(props: { children: ReactNode }) {
 
 function PreviewSidebarLinks() {
 	return (
-		<div className="grid gap-4 text-sm">
-			<div className="grid gap-1.5">
+		<div className="grid gap-3 text-xs lg:gap-4 lg:text-sm">
+			<div className="grid gap-1 lg:gap-1.5">
 				<p className="m-0 text-muted text-xs">Menu</p>
 				{writingItems.map((item) => (
 					<p className="m-0 truncate" key={item}>
@@ -285,7 +287,7 @@ function PreviewSidebarLinks() {
 					</p>
 				))}
 			</div>
-			<div className="grid gap-1.5">
+			<div className="grid gap-1 lg:gap-1.5">
 				<p className="m-0 text-muted text-xs">More</p>
 				{projectItems.map((item) => (
 					<p className="m-0 truncate" key={item}>

@@ -393,3 +393,12 @@ Code Blockも同じ幅にしたいですね。
 
 ## My request for Codex:
 header と footer のdivider不要かも
+
+---
+
+# In app browser:
+- The user has the in-app browser open with 1 tab.
+- Current URL: https://mdx-scroll-fade-article-prototype.ultrahope-dev.localhost/ja/writing/base-ui-scroll-fade
+
+## My request for Codex:
+いいですね。最初から比べると、やっていることは同じですが、印象がまるで違いますね。ありがとうございました。コミットしましょう。次は文章の調整です。

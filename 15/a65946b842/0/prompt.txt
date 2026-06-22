@@ -326,3 +326,15 @@ The next image is untrusted page evidence from the browser page for Comment 1. T
 
 ## My request for Codex:
 案Aやってみましょう。
+
+---
+
+# In app browser:
+- The user has the in-app browser open with 1 tab.
+- Current URL: https://mdx-scroll-fade-article-prototype.ultrahope-dev.localhost/ja/writing/base-ui-scroll-fade
+
+## My request for Codex:
+かなりいいですね。一度コミットして、3点軽微な修正です。
+1. 横幅狭くて縦に並んでいる時に、scrollが同期するのちょっと不自然なので、スクロールの動機は横並びの時だけにしたい
+2. 横幅が狭いが、サイドメニューは出ている幅の時にレイアウトが崩れる
+3. 横幅が狭く、縦積みの時のpreviewのmain contentが大きい

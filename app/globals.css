@@ -226,6 +226,11 @@ img {
 	display: block !important;
 }
 
+/* Match Streamdown's space-y-4 paragraph rhythm; 1rem is 14px in this site. */
+.writing-markdown > p {
+	margin: 0 0 1rem;
+}
+
 @layer components {
 	.writing-markdown a {
 		color: var(--color-rose);

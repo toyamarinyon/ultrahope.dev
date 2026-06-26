@@ -1,0 +1,71 @@
+---
+title: Scroll Fades That Know Where They Are
+publishedAt: "2026-06-26"
+---
+
+For lists, navigation, and other areas where content keeps growing, it is common to give the area a fixed height and make the overflowing content scroll.
+
+On the web, CSS `overflow` covers much of this behavior. But `overflow` decides how overflowing content is handled. It does not decide how the edge of that area should look.
+
+If the content simply cuts off at the edge, `overflow` is enough. But if you want to add a fade effect at the edge to gently show that more content continues, the problem changes a little. A static fade is always visible, so the top can still fade while you are already at the top, and the bottom can still fade while you are already at the bottom.
+
+This is where Scroll Area components from Base UI and Radix UI fit nicely.
+
+First, here is the comparison. The demo below shows three implementations of a similar side navigation. The Menu area is scrollable. When the examples are side by side, scrolling one of them scrolls the other two to the same relative position, which makes the edge behavior easier to compare. On narrow screens, the examples stack vertically and scroll independently.
+
+<ScrollFadeExamples />
+
+`No fade` is the simplest implementation. The middle area uses `overflow-y-auto`, and it works. The edge behavior is left to the scrollbar and to the way the content cuts off.
+
+`CSS mask` looks much better. For many small UIs, CSS alone is enough. But the same fade is always applied, so it cannot express whether you are at the top or at the bottom. Even when there is no content above, the top edge still fades.
+
+With `Base UI` Scroll Area, you can receive scroll state as CSS custom properties. By using `--scroll-area-overflow-y-start` and `--scroll-area-overflow-y-end` in the mask, you can remove the top fade at the top edge and remove the bottom fade at the bottom edge.
+
+These two values represent the distance from the viewport's top edge and bottom edge, in pixels. If `maxScroll` is `scrollHeight - clientHeight`, the relationship is roughly this:
+
+<div className="my-5 overflow-x-auto rounded-md border border-highlight-high">
+	<table className="w-full min-w-120 border-collapse text-left text-sm">
+		<thead className="bg-highlight-low text-subtle">
+			<tr>
+				<th className="border-highlight-high border-b px-3 py-2 font-mono font-medium">
+					Variable
+				</th>
+				<th className="border-highlight-high border-b px-3 py-2 font-medium">
+					Top
+				</th>
+				<th className="border-highlight-high border-b px-3 py-2 font-medium">
+					Middle
+				</th>
+				<th className="border-highlight-high border-b px-3 py-2 font-medium">
+					Bottom
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td className="border-highlight-med border-b px-3 py-2 font-mono">
+					--scroll-area-overflow-y-start
+				</td>
+				<td className="border-highlight-med border-b px-3 py-2 font-mono">0px</td>
+				<td className="border-highlight-med border-b px-3 py-2 font-mono">
+					scrollTop
+				</td>
+				<td className="border-highlight-med border-b px-3 py-2 font-mono">
+					maxScroll
+				</td>
+			</tr>
+			<tr>
+				<td className="px-3 py-2 font-mono">--scroll-area-overflow-y-end</td>
+				<td className="px-3 py-2 font-mono">maxScroll</td>
+				<td className="px-3 py-2 font-mono">maxScroll - scrollTop</td>
+				<td className="px-3 py-2 font-mono">0px</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+For example, when you are at the top edge, `--scroll-area-overflow-y-start` is `0px`, so the top fade can also be `0px`. As you scroll down, that value increases. When you reach the bottom edge, `--scroll-area-overflow-y-end` becomes `0px`.
+
+In this demo, the fade has a maximum width and uses an expression like `min(2.75rem, var(--scroll-area-overflow-y-start))`, so the fade width changes with the scroll position.
+
+Scroll Area components are a useful option when you want to pass scroll area state back into CSS.

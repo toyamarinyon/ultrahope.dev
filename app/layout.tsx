@@ -43,13 +43,17 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
+		// Keep pages statically rendered: the server cannot read the persisted
+		// localStorage theme, so this one html attribute is updated by the
+		// pre-hydration script below before React attaches.
 		<html
 			className="text-text bg-base subpixel-antialiased"
 			data-scroll-behavior="smooth"
 			data-theme="system"
+			suppressHydrationWarning
 		>
 			<head>
-				{/* Apply the persisted theme before hydration so static pages keep their first paint aligned with the user's preference. */}
+				{/* Align the first paint with the user's persisted theme. */}
 				<script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
 			</head>
 			<body className={`${satoshi.variable} ${GeistMono.variable} font-sans `}>

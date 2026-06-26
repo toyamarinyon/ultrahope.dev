@@ -145,11 +145,6 @@ img {
 	max-width: 100%;
 }
 
-code,
-pre {
-	font-family: var(--font-mono);
-}
-
 [data-streamdown="inline-code"] {
 	border-radius: var(--radius-md) !important;
 	background: var(--color-highlight-low) !important;
@@ -229,6 +224,42 @@ pre {
 
 [data-streamdown="code-block-body"] code > span {
 	display: block !important;
+}
+
+/* Match Streamdown's space-y-4 paragraph rhythm; 1rem is 14px in this site. */
+.writing-markdown > p {
+	margin: 0 0 1rem;
+}
+
+.writing-markdown :not(pre) > code {
+	border-radius: var(--radius-md);
+	background: color-mix(in srgb, var(--foreground) 9%, transparent);
+	padding: 0.125rem 0.375rem;
+	color: var(--color-text);
+	font-family:
+		var(--font-geist-mono), "SFMono-Regular", "JetBrains Mono", "Menlo",
+		monospace;
+	font-size: 1rem;
+	font-weight: 500;
+	line-height: 1.5rem;
+}
+
+.writing-markdown > pre {
+	margin: 1rem 0;
+	overflow-x: auto;
+	border: 1px solid var(--color-highlight-high);
+	border-radius: 0.5rem;
+	background: color-mix(in srgb, var(--color-overlay) 86%, white 12%);
+	padding: 0.85rem 1rem;
+}
+
+.writing-markdown > pre > code {
+	font-family:
+		var(--font-geist-mono), "SFMono-Regular", "JetBrains Mono", "Menlo",
+		monospace;
+	font-size: 0.92rem;
+	line-height: 1.55;
+	white-space: pre;
 }
 
 @layer components {

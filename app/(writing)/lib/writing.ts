@@ -7,8 +7,11 @@ import type { Locale } from "@/lib/i18n";
 
 const WRITING_DIR = path.join(process.cwd(), "writing");
 const MARKDOWN_SUFFIX = ".md";
+const MDX_SUFFIX = ".mdx";
 const ENGLISH_FILE = "en.md";
+const ENGLISH_MDX_FILE = "en.mdx";
 const JAPANESE_FILE = "ja.md";
+const JAPANESE_MDX_FILE = "ja.mdx";
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 function isValidUtcCalendarDate(value: string) {
@@ -42,6 +45,7 @@ export interface WritingArticle extends WritingFrontmatter {
 	slug: string;
 	locale: WritingLocale;
 	content: string;
+	format: "markdown" | "mdx";
 }
 
 export interface WritingSidebarArticle {
@@ -69,17 +73,21 @@ function parseDirectoryLocaleFileName(
 	fileName: string,
 	directoryName: string,
 ): WritingLocale {
-	if (fileName === ENGLISH_FILE) {
+	if (fileName === ENGLISH_FILE || fileName === ENGLISH_MDX_FILE) {
 		return "en" as const;
 	}
 
-	if (fileName === JAPANESE_FILE) {
+	if (fileName === JAPANESE_FILE || fileName === JAPANESE_MDX_FILE) {
 		return "ja" as const;
 	}
 
 	throw new Error(
-		`Unsupported locale file "${directoryName}/${fileName}". Use "${ENGLISH_FILE}" or "${JAPANESE_FILE}".`,
+		`Unsupported locale file "${directoryName}/${fileName}". Use "${ENGLISH_FILE}", "${ENGLISH_MDX_FILE}", "${JAPANESE_FILE}", or "${JAPANESE_MDX_FILE}".`,
 	);
+}
+
+function getArticleFormat(fileName: string): WritingArticle["format"] {
+	return fileName.endsWith(MDX_SUFFIX) ? "mdx" : "markdown";
 }
 
 function collectDirectoryArticleSources(entry: Dirent): ArticleSource[] {
@@ -90,7 +98,10 @@ function collectDirectoryArticleSources(entry: Dirent): ArticleSource[] {
 	ensureValidSlug(entry.name, entry.name);
 	const directoryPath = path.join(WRITING_DIR, entry.name);
 	const markdownFiles = readdirSync(directoryPath)
-		.filter((fileName) => fileName.endsWith(MARKDOWN_SUFFIX))
+		.filter(
+			(fileName) =>
+				fileName.endsWith(MARKDOWN_SUFFIX) || fileName.endsWith(MDX_SUFFIX),
+		)
 		.sort((a, b) => a.localeCompare(b));
 
 	return markdownFiles.map((fileName) => ({
@@ -149,6 +160,7 @@ function loadAllWritingArticles(): WritingArticle[] {
 
 		return {
 			...frontmatterResult.data,
+			format: getArticleFormat(fileName),
 			slug,
 			locale,
 			content,
@@ -160,6 +172,12 @@ export function getWritingSlugs() {
 	const articles = loadAllWritingArticles().filter((article) => !article.draft);
 	const uniqueSlugs = new Set(articles.map((article) => article.slug));
 	return [...uniqueSlugs].sort((a, b) => a.localeCompare(b));
+}
+
+export function getWritingStaticParams(locale: WritingLocale) {
+	return getWritingSlugs()
+		.filter((slug) => hasWritingLocale(slug, locale))
+		.map((slug) => ({ slug }));
 }
 
 export function getWritingSidebarArticlesByLocale(): Record<

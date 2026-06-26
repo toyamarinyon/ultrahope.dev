@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "c61100fe3297",
+  "strategy": "manual-commit",
+  "branch": "codex/mdx-scroll-fade-article-prototype",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "app/(writing)/lib/writing-mdx.ts",
+    "writing/base-ui-scroll-fade/en.mdx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/c6/1100fe3297/0/metadata.json",
+      "transcript": "/c6/1100fe3297/0/full.jsonl",
+      "content_hash": "/c6/1100fe3297/0/content_hash.txt",
+      "prompt": "/c6/1100fe3297/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 3742436,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 83635328,
+    "output_tokens": 194843,
+    "api_call_count": 624
+  }
+}

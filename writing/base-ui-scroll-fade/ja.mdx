@@ -1,24 +1,71 @@
 ---
-title: Scroll Areaの端を丁寧に扱う
-publishedAt: "2026-06-21"
+title: スクロールエリアの端にも状態がある
+publishedAt: "2026-06-26"
 ---
 
-Sidebarの記事一覧が増えてきたときに、下のPreferencesが押し下げられてしまう問題がありました。
+リストやナビゲーションのように、内容が増えていく領域は、あらかじめ高さを決めてスクロールさせることがあります。
 
-最初にやるべきことは、レイアウトの責務を分けることでした。上のリンク、中央のリスト、下の操作領域を分けて、伸びる部分だけをスクロールさせます。これはそれだけでかなり現実的な落とし所です。
+ウェブでは、こうした挙動の多くをCSSの`overflow`プロパティで表現できます。ただし、`overflow`が決めてくれるのは、はみ出した内容の扱い方です。その領域の端をどう見せるかまでは決めてくれません。
 
-ただ、スクロール領域を作ると、今度は端の見え方が気になってきます。内容がそこで急に切れるより、上下に少しfadeがあったほうが「まだ続きがある」「ここが端である」ということを穏やかに伝えられます。
+内容が端で切れるだけなら、`overflow`を指定するだけで十分です。けれど、端にfade effectをかけて「まだ続きがある」ことを丁寧に見せようとすると、話が少し変わります。常に同じfadeを表示するだけでは、上端にいるときにも上側が薄くなり、下端まで来ているときにも下側が薄くなってしまいます。
 
-比較のために、同じ内容を3つの実装で並べてみます。
+こういう時に、Base UIやRadix UIが提供しているScroll Areaコンポーネントを使うと自然に実装できます。
+
+まずは、実際に見てみましょう。下のデモでは、同じようなサイドナビゲーションを3つの実装で並べています。Menuがスクロールできるようになっています。横に並んでいる時は、どれかひとつをスクロールすると他の2つも同じ位置までスクロールするので、端の見え方の違いを比べやすいと思います。スマホなど幅の狭い環境の場合は縦積みになり、その場合は別々にスクロールします。
 
 <ScrollFadeExamples />
 
-fadeなしの実装は、一番素朴です。`overflow-y-auto`を指定すれば動きます。ただ、端の情報はスクロールバーや内容の切れ方に任せることになります。
+`No fade` は、一番素朴な実装です。中央の領域に `overflow-y-auto` を指定すれば動きます。ただ、端の情報はスクロールバーや内容の切れ方に任せることになります。
 
-普通のReactでmaskを当てる実装は、見た目としてはかなり良くなります。CSSだけで済むので、小さなUIならこれで十分なことも多いです。ただし、常に上下にfadeが出るため、いま上端にいるのか、下端にいるのかまでは表現できません。
+`CSS mask` は、見た目としてはかなり良くなります。CSSだけで済むので、小さなUIならこれで十分なことも多いです。ただし、常に同じfadeがかかるため、いま上端にいるのか、下端にいるのかまでは表現できません。まだ上に内容がないときにも、上側が薄くなってしまいます。
 
-Base UIのScroll Areaを使うと、スクロール位置に応じた状態をCSS custom propertyとして受け取れます。`--scroll-area-overflow-y-start`と`--scroll-area-overflow-y-end`をmaskに使うことで、上端にいるときは上のfadeを消し、下端にいるときは下のfadeを消せます。
+`Base UI` のScroll Areaを使うと、スクロール位置に応じた状態をCSS custom propertyとして受け取れます。`--scroll-area-overflow-y-start` と `--scroll-area-overflow-y-end` をmaskに使うことで、上端にいるときは上のfadeを消し、下端にいるときは下のfadeを消せます。
 
-この差は小さいですが、UIの端をどれくらい丁寧に扱えるかに効いてきます。
+この2つの値は、それぞれ「viewportの上端からどれくらい離れているか」と「viewportの下端からどれくらい離れているか」をpxで表します。`maxScroll` を `scrollHeight - clientHeight` とすると、だいたい次のような関係になります。
 
-今回の学びは、Scroll Area componentを「独自スクロールバーを出すためのもの」とだけ見ないほうがよさそうだ、ということでした。スクロールできる領域の状態をUIに返してくれる primitive として見ると、端のfadeのような細部も素直に実装できます。
+<div className="my-5 overflow-x-auto rounded-md border border-highlight-high">
+	<table className="w-full min-w-120 border-collapse text-left text-sm">
+		<thead className="bg-highlight-low text-subtle">
+			<tr>
+				<th className="border-highlight-high border-b px-3 py-2 font-mono font-medium">
+					変数
+				</th>
+				<th className="border-highlight-high border-b px-3 py-2 font-medium">
+					上端
+				</th>
+				<th className="border-highlight-high border-b px-3 py-2 font-medium">
+					途中
+				</th>
+				<th className="border-highlight-high border-b px-3 py-2 font-medium">
+					下端
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td className="border-highlight-med border-b px-3 py-2 font-mono">
+					--scroll-area-overflow-y-start
+				</td>
+				<td className="border-highlight-med border-b px-3 py-2 font-mono">0px</td>
+				<td className="border-highlight-med border-b px-3 py-2 font-mono">
+					scrollTop
+				</td>
+				<td className="border-highlight-med border-b px-3 py-2 font-mono">
+					maxScroll
+				</td>
+			</tr>
+			<tr>
+				<td className="px-3 py-2 font-mono">--scroll-area-overflow-y-end</td>
+				<td className="px-3 py-2 font-mono">maxScroll</td>
+				<td className="px-3 py-2 font-mono">maxScroll - scrollTop</td>
+				<td className="px-3 py-2 font-mono">0px</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+たとえば上端にいるときは `--scroll-area-overflow-y-start` が `0px` になるので、上側のfade幅も `0px` にできます。少し下にスクロールするとこの値が増え、下端まで来ると `--scroll-area-overflow-y-end` が `0px` になります。
+
+今回のデモでは、`min(2.75rem, var(--scroll-area-overflow-y-start))` のように最大幅を決めつつ、スクロール位置に応じてfade幅が変わるようにしています。
+
+Scroll Area componentを、スクロール領域の状態をCSSに渡したいときに便利な選択肢でした。
